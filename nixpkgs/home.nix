@@ -164,6 +164,10 @@
       if [ -z "''${TMUX}" ]; then
         t
       fi
+
+      if [ -f "''${HOME}/.secrets.zsh" ]; then
+        source "''${HOME}/.secrets.zsh"
+      fi
     '';
     shellAliases = {
       cat = "bat";
