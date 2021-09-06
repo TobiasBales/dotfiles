@@ -11,4 +11,3 @@ require("dotfiles.lualine")
 require("dotfiles.neogit")
 require("dotfiles.telescope")
 require("dotfiles.treesitter")
-
