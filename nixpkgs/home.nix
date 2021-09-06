@@ -143,6 +143,8 @@
       set-window-option -g monitor-activity off
       set-option -g bell-action none
       set-option -g renumber-windows on
+
+      bind-key C-a send-prefix
     ";
   };
 
