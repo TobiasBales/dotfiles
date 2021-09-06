@@ -10,17 +10,28 @@
   home.homeDirectory = "/home/nixos";
 
   home.file.".config/awesome/rc.lua".source = ./awesome/rc.lua;
-  home.file.".config/nvim/lua/dotfiles/compe.lua".source = ./nvim/lua/dotfiles/compe.lua;
-  home.file.".config/nvim/lua/dotfiles/format.lua".source = ./nvim/lua/dotfiles/format.lua;
-  home.file.".config/nvim/lua/dotfiles/gitsigns.lua".source = ./nvim/lua/dotfiles/gitsigns.lua;
-  home.file.".config/nvim/lua/dotfiles/gps.lua".source = ./nvim/lua/dotfiles/gps.lua;
-  home.file.".config/nvim/lua/dotfiles/init.lua".source = ./nvim/lua/dotfiles/init.lua;
-  home.file.".config/nvim/lua/dotfiles/keybindings.lua".source = ./nvim/lua/dotfiles/keybindings.lua;
-  home.file.".config/nvim/lua/dotfiles/lsp.lua".source = ./nvim/lua/dotfiles/lsp.lua;
-  home.file.".config/nvim/lua/dotfiles/lualine.lua".source = ./nvim/lua/dotfiles/lualine.lua;
-  home.file.".config/nvim/lua/dotfiles/neogit.lua".source = ./nvim/lua/dotfiles/neogit.lua;
-  home.file.".config/nvim/lua/dotfiles/telescope.lua".source = ./nvim/lua/dotfiles/telescope.lua;
-  home.file.".config/nvim/lua/dotfiles/treesitter.lua".source = ./nvim/lua/dotfiles/treesitter.lua;
+  home.file.".config/nvim/lua/dotfiles/compe.lua".source =
+    ./nvim/lua/dotfiles/compe.lua;
+  home.file.".config/nvim/lua/dotfiles/format.lua".source =
+    ./nvim/lua/dotfiles/format.lua;
+  home.file.".config/nvim/lua/dotfiles/gitsigns.lua".source =
+    ./nvim/lua/dotfiles/gitsigns.lua;
+  home.file.".config/nvim/lua/dotfiles/gps.lua".source =
+    ./nvim/lua/dotfiles/gps.lua;
+  home.file.".config/nvim/lua/dotfiles/init.lua".source =
+    ./nvim/lua/dotfiles/init.lua;
+  home.file.".config/nvim/lua/dotfiles/keybindings.lua".source =
+    ./nvim/lua/dotfiles/keybindings.lua;
+  home.file.".config/nvim/lua/dotfiles/lsp.lua".source =
+    ./nvim/lua/dotfiles/lsp.lua;
+  home.file.".config/nvim/lua/dotfiles/lualine.lua".source =
+    ./nvim/lua/dotfiles/lualine.lua;
+  home.file.".config/nvim/lua/dotfiles/neogit.lua".source =
+    ./nvim/lua/dotfiles/neogit.lua;
+  home.file.".config/nvim/lua/dotfiles/telescope.lua".source =
+    ./nvim/lua/dotfiles/telescope.lua;
+  home.file.".config/nvim/lua/dotfiles/treesitter.lua".source =
+    ./nvim/lua/dotfiles/treesitter.lua;
 
   home.packages = with pkgs; [
     bat
@@ -75,50 +86,33 @@
     enable = true;
     userName = "Tobias Bales";
     userEmail = "hi@tobiasbales.dev";
-    aliases = {
-    };
+    aliases = { };
     extraConfig = {
       color = {
         branch = "auto";
-	diff = "auto";
-	interactive = "auto";
-	status = "auto";
-	ui = "auto";
+        diff = "auto";
+        interactive = "auto";
+        status = "auto";
+        ui = "auto";
       };
-      branch = {
-        autosetupmerge = "true";
-      };
+      branch = { autosetupmerge = "true"; };
       core = {
         editor = "nvim";
-	exludesfile = "~/.gitignore";
-	autocrlf = "input";
-	pager = "diff-so-fancy | less --tabs=4 -RFX";
+        exludesfile = "~/.gitignore";
+        autocrlf = "input";
+        pager = "diff-so-fancy | less --tabs=4 -RFX";
       };
-      init = {
-        defaultBranch = "main";
-      };
-      pull = {
-        rebase = "true";
-      };
+      init = { defaultBranch = "main"; };
+      pull = { rebase = "true"; };
       push = {
         default = "simple";
-	followTags = "true";
+        followTags = "true";
       };
-      rebase = {
-        autosquash = "true";
-      };
-      rerere = {
-        enabled = "true";
-      };
-      sequence = {
-        editor = "interactive-rebase-tool";
-      };
-      submodule = {
-        recurse = "true";
-      };
-      status = {
-        showUntrackedFiles = "all";
-      };
+      rebase = { autosquash = "true"; };
+      rerere = { enabled = "true"; };
+      sequence = { editor = "interactive-rebase-tool"; };
+      submodule = { recurse = "true"; };
+      status = { showUntrackedFiles = "all"; };
     };
   };
 
@@ -126,61 +120,61 @@
     enable = true;
     vimAlias = true;
     extraConfig = ''
-    set background=dark
-    colorscheme gruvbox
-    lua require("dotfiles")
+      set background=dark
+      colorscheme gruvbox
+      lua require("dotfiles")
 
-    augroup highlight_yank
-      autocmd!
-      autocmd TextYankPost * silent! lua require('vim.highlight').on_yank({timeout = 40})
-    augroup END
+      augroup highlight_yank
+        autocmd!
+        autocmd TextYankPost * silent! lua require('vim.highlight').on_yank({timeout = 40})
+      augroup END
 
-    set nofoldenable
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
-    set nocompatible
-    set synmaxcol=300
-    set ttyfast
-    set lazyredraw
-    silent !mkdir ~/.config/nvim/backup > /dev/null 2>&1
-    set backupdir=~/.config/nvim/backup
-    silent !mkdir ~/.config/nvim/swaps > /dev/null 2>&1
-    set directory=~/.config/nvim/swaps
-    silent !mkdir ~/.config/nvim/undo > /dev/null 2>&1
-    set undodir=~/.config/nvim/undo
-    set undofile
-    set clipboard=unnamed
-    set noerrorbells visualbell t_vb=
-    set encoding=utf-8
-    set nowrap
-    set tabstop=2
-    set shiftwidth=2
-    set softtabstop=2
-    set expandtab
-    set hlsearch
-    set incsearch
-    set ignorecase
-    set smartcase
-    set rnu
-    set nu
-    set numberwidth=1
-    set mouse=a
-    set notimeout
-    set ttimeout
-    set timeoutlen=20
-    set backspace=indent,eol,start
-    " set fillchars+=vert:|
-    set scrolloff=3
-    set autoindent
-    set autoread
-    set showmode
-    set showcmd
-    set hidden
-    set nocursorline
-    set ruler
-    set laststatus=2
-    set concealcursor=""
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+      set nofoldenable
+      set foldmethod=expr
+      set foldexpr=nvim_treesitter#foldexpr()
+      set nocompatible
+      set synmaxcol=300
+      set ttyfast
+      set lazyredraw
+      silent !mkdir ~/.config/nvim/backup > /dev/null 2>&1
+      set backupdir=~/.config/nvim/backup
+      silent !mkdir ~/.config/nvim/swaps > /dev/null 2>&1
+      set directory=~/.config/nvim/swaps
+      silent !mkdir ~/.config/nvim/undo > /dev/null 2>&1
+      set undodir=~/.config/nvim/undo
+      set undofile
+      set clipboard=unnamed
+      set noerrorbells visualbell t_vb=
+      set encoding=utf-8
+      set nowrap
+      set tabstop=2
+      set shiftwidth=2
+      set softtabstop=2
+      set expandtab
+      set hlsearch
+      set incsearch
+      set ignorecase
+      set smartcase
+      set rnu
+      set nu
+      set numberwidth=1
+      set mouse=a
+      set notimeout
+      set ttimeout
+      set timeoutlen=20
+      set backspace=indent,eol,start
+      " set fillchars+=vert:|
+      set scrolloff=3
+      set autoindent
+      set autoread
+      set showmode
+      set showcmd
+      set hidden
+      set nocursorline
+      set ruler
+      set laststatus=2
+      set concealcursor=""
+      let $NVIM_TUI_ENABLE_TRUE_COLOR=1
     '';
     extraPackages = with pkgs; [
       gcc
@@ -241,7 +235,7 @@
       tmuxPlugins.pain-control
       tmuxPlugins.gruvbox
     ];
-    extraConfig = "
+    extraConfig = ''
       set-option -g mouse on
       set-option -g allow-rename off
       set-option -g visual-activity off
@@ -252,7 +246,7 @@
       set-option -g renumber-windows on
 
       bind-key C-a send-prefix
-    ";
+    '';
   };
 
   programs.zsh = {
@@ -262,11 +256,11 @@
     initExtra = ''
       function t {
         PROJECT=$(basename $(pwd))
-	SESSION=$(tmux ls | grep "^''${PROJECT}:")
-	if [[ -z "''${SESSION}" ]]; then
-	  tmux new -s "''${PROJECT}"
-	else
-	  tmux attach -t "''${PROJECT}"
+        SESSION=$(tmux ls | grep "^''${PROJECT}:")
+        if [[ -z "''${SESSION}" ]]; then
+          tmux new -s "''${PROJECT}"
+        else
+          tmux attach -t "''${PROJECT}"
         fi
       }
 
@@ -291,13 +285,7 @@
     oh-my-zsh = {
       enable = true;
       theme = "robbyrussell";
-      plugins = [
-        "asdf"
-        "git"
-	"ripgrep"
-        "sudo"
-	"z"
-      ];
+      plugins = [ "asdf" "git" "ripgrep" "sudo" "z" ];
     };
   };
 
