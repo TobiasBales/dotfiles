@@ -129,6 +129,8 @@
         autocmd TextYankPost * silent! lua require('vim.highlight').on_yank({timeout = 40})
       augroup END
 
+      autocmd BufNewFile,BufRead *.nix set ft=nix
+
       set nofoldenable
       set foldmethod=expr
       set foldexpr=nvim_treesitter#foldexpr()
