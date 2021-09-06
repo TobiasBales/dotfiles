@@ -150,6 +150,21 @@
     enable = true;
     enableAutosuggestions = true;
     enableSyntaxHighlighting = true;
+    initExtra = ''
+      function t {
+        PROJECT=$(basename $(pwd))
+	SESSION=$(tmux ls | grep "^''${PROJECT}:")
+	if [[ -z "''${SESSION}" ]]; then
+	  tmux new -s "''${PROJECT}"
+	else
+	  tmux attach -t "''${PROJECT}"
+        fi
+      }
+
+      if [ -z "''${TMUX}" ]; then
+        t
+      fi
+    '';
     shellAliases = {
       cat = "bat";
       la = "exa --all --long";
