@@ -31,6 +31,12 @@ require("formatter").setup(
         function()
           return {exe = "mix", args = {"format", vim.api.nvim_buf_get_name(0)}, stdin = false}
         end
+      },
+      nix = {
+        -- nixfmt
+        function()
+          return {exe = "nixfmt", stdin = true}
+        end
       }
     }
   }

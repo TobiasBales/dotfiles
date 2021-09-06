@@ -184,9 +184,10 @@
     '';
     extraPackages = with pkgs; [
       gcc
+      lua
+      nixfmt
       nodejs
       nodePackages.npm
-      lua
       tree-sitter
     ];
     plugins = with pkgs.vimPlugins; [
