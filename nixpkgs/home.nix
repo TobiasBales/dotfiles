@@ -10,6 +10,7 @@
   home.homeDirectory = "/home/nixos";
 
   home.packages = with pkgs; [
+    bat
     diff-so-fancy
     git-interactive-rebase-tool
     exa
