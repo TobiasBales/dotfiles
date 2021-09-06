@@ -9,6 +9,8 @@
   home.username = "nixos";
   home.homeDirectory = "/home/nixos";
 
+  home.file.".config/awesome/rc.lua".source = ./awesome/rc.lua;
+
   home.packages = with pkgs; [
     bat
     diff-so-fancy
