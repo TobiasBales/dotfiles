@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
-
+let
+  luafmt = import ./luafmt/default.nix {};
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -185,6 +187,7 @@
       nodejs
       nodePackages.npm
       tree-sitter
+      luafmt.lua-fmt
     ];
     plugins = with pkgs.vimPlugins; [
       delimitMate
