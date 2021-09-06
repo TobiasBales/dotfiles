@@ -116,6 +116,11 @@
     vimAlias = true;
   };
 
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.tmux = {
     enable = true;
     terminal = "screen-256color";
