@@ -40,6 +40,7 @@ in
     bat
     diff-so-fancy
     exa
+    gh
     git-interactive-rebase-tool
     killall
     pango
