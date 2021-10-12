@@ -11,7 +11,7 @@ in
   home.username = "nixos";
   home.homeDirectory = "/home/nixos";
 
-  home.file.".config/awesome/rc.lua".source = ./awesome/rc.lua;
+  home.file.".config/i3/config".source = ./i3/config;
   home.file.".config/nvim/lua/dotfiles/compe.lua".source =
     ./nvim/lua/dotfiles/compe.lua;
   home.file.".config/nvim/lua/dotfiles/format.lua".source =
