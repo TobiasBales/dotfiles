@@ -12,6 +12,7 @@ in
   home.homeDirectory = "/home/nixos";
 
   home.file.".config/i3/config".source = ./i3/config;
+  home.file.".config/py3status/config".source = ./py3status/config;
   home.file.".config/nvim/lua/dotfiles/compe.lua".source =
     ./nvim/lua/dotfiles/compe.lua;
   home.file.".config/nvim/lua/dotfiles/format.lua".source =
@@ -38,10 +39,13 @@ in
   home.packages = with pkgs; [
     bat
     diff-so-fancy
-    git-interactive-rebase-tool
     exa
+    git-interactive-rebase-tool
+    killall
+    pango
     ripgrep
     tldr
+    yubikey-touch-detector
   ];
 
   programs.kitty = {
@@ -301,6 +305,37 @@ in
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+  };
+
+  systemd.user.sockets = {
+    yubikey-touch-detector = {
+      Unit = {
+        Description = "Unit socket activation for YubiKey touch detector service";
+      };
+      Socket = {
+        ListenStream = "%t/yubikey-touch-detector.socket";
+        RemoveOnStop = "yes";
+      };
+      Install = {
+        WantedBy = ["sockets.target"];
+      };
+    };
+  };
+  systemd.user.services = {
+    yubikey-touch-detector = {
+      Unit = {
+        Description = "Detects when your YubiKey is wating for a touch"; 
+        Requires = ["yubikey-touch-detector.socket"];
+      };
+      Service = {
+        ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector";
+        Environment = "PATH=/usr/bin:$PATH";
+      };
+      Install = {
+        Also = ["yubikey-touch-detector.socket"];
+        WantedBy = ["default.target"];
+      };
+    };
   };
 
   # This value determines the Home Manager release that your
