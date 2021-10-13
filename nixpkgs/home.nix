@@ -39,6 +39,7 @@ in
   home.packages = with pkgs; [
     bat
     diff-so-fancy
+    direnv
     exa
     gh
     git-interactive-rebase-tool
@@ -285,6 +286,8 @@ in
       if [ -f "''${HOME}/.secrets.zsh" ]; then
         source "''${HOME}/.secrets.zsh"
       fi
+
+      eval "$(direnv hook zsh)"
     '';
     shellAliases = {
       cat = "bat";
