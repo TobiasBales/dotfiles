@@ -43,10 +43,12 @@ in
     exa
     gh
     git-interactive-rebase-tool
+    gnumake
     killall
     pango
     ripgrep
     tldr
+    usbutils
     yubikey-touch-detector
   ];
 
