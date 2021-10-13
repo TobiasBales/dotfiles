@@ -34,7 +34,6 @@ M.search_files = function()
   require("telescope.builtin").find_files(
     {
       prompt_title = ">",
-      cwd = "$HOME/.dotfiles/nixpkgs/nvim",
       hidden = true
     }
   )
