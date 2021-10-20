@@ -8,8 +8,8 @@ in
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "tobias";
+  /* home.homeDirectory = "/home/tobias"; */
 
   home.file.".config/i3/config".source = ./i3/config;
   home.file.".config/py3status/config".source = ./py3status/config;
@@ -45,6 +45,7 @@ in
     git-interactive-rebase-tool
     gnumake
     killall
+    firefox
     pango
     ripgrep
     tldr
@@ -268,8 +269,8 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
-    enableSyntaxHighlighting = true;
+    /* enableAutosuggestions = true; */
+    /* enableSyntaxHighlighting = true; */
     initExtra = ''
       function t {
         PROJECT=$(basename $(pwd))

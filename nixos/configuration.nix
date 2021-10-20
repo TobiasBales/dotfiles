@@ -5,10 +5,15 @@
 { config, pkgs, ... }:
 
 {
+
+  nixpkgs.config.allowUnsupportedSystem = true;
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  virtualisation.vmware.guest.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -24,7 +29,7 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp0s5.useDHCP = true;
+  networking.interfaces.ens160.useDHCP = true;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -44,11 +49,14 @@
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
-    windowManager.awesome = {
+    windowManager.i3 = {
       enable = true;
-      luaModules = with pkgs.luaPackages; [
-        luarocks
-        luadbi-mysql
+      extraPackages = with pkgs; [
+        dmenu        
+        i3blocks        
+        i3lock        
+        i3status        
+        python39Packages.py3status        
       ];
     };
   };
@@ -71,7 +79,7 @@
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.nixos = {
+  users.users.tobias = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
@@ -80,9 +88,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
     curl
-    firefox
+    git
+    open-vm-tools
+    vim
     zsh
   ];
 
@@ -112,6 +121,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "21.11"; # Did you read the comment?
-
 }
 
