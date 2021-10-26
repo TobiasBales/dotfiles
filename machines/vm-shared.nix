@@ -103,6 +103,7 @@
     killall
     niv
     rxvt_unicode
+    plymouth
     vim
     xclip
     zsh
