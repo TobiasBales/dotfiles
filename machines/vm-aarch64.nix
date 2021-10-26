@@ -39,7 +39,7 @@
   nixpkgs.config.allowUnsupportedSystem = true;
 
   # This works through our custom module imported above
-  virtualisation.vmware.guest.enable = true;
+  /* virtualisation.vmware.guest.enable = true; */
 
   # Share our host filesystem
   fileSystems."/host" = {

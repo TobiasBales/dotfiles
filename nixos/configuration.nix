@@ -90,7 +90,7 @@
   environment.systemPackages = with pkgs; [
     curl
     git
-    open-vm-tools
+    /* open-vm-tools */
     vim
     zsh
   ];
