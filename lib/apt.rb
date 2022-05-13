@@ -22,6 +22,7 @@ class Apt < Base
       "fzf",
       "neovim",
       "ripgrep",
+      "shellcheck",
       "tmux",
       "zsh",
     ]
