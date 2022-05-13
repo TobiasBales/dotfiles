@@ -11,7 +11,7 @@ class LuaPackage < Base
       return
     end
 
-    `luarocks install luacheck`
+    `luarocks install #{@name}`
   end
 
   private
