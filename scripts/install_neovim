@@ -13,6 +13,7 @@ sudo wget "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nv
 sudo chmod u+x nvim.appimage
 sudo ./nvim.appimage --appimage-extract
 sudo rm -f /usr/local/bin/nvim
+sudo rm -f /usr/bin/nvim
 sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/local/bin/nvim
 
 pip3 install neovim
