@@ -14,9 +14,9 @@ class Dotfiles
     Homebrew.new.run
 
     Link.new(source: "kitty", target: "~/.config/kitty").run
-    Link.new(source: "nvim", target: "~/.config/nvim").run
     Tmux.new.run
     Zsh.new.run
+    NeoVim.new.run
 
     LastRun.instance.update
   end
