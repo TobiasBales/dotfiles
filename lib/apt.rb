@@ -11,8 +11,8 @@ class Apt < Base
       return
     end
 
-    @last_run.run_if_needed("sudo apt update -y")
-    @last_run.run_if_needed("sudo apt install -y #{packages.join(' ')}")
+    @last_run.run_if_needed("sudo apt-get update -y")
+    @last_run.run_if_needed("sudo apt-get install -y #{packages.join(' ')}")
   end
 
   private
