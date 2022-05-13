@@ -1,5 +1,6 @@
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
@@ -26,7 +27,7 @@ return require('packer').startup(function(use)
   use("tpope/vim-commentary")
 
   use("folke/trouble.nvim")
-  
+
   -- dependencies for telescope
   use("nvim-lua/plenary.nvim")
   use("nvim-lua/popup.nvim")
@@ -34,6 +35,9 @@ return require('packer').startup(function(use)
   -- fuzzy finding
   use({'nvim-telescope/telescope-fzf-native.nvim', run = 'make' })
   use("nvim-telescope/telescope.nvim")
+
+  -- linting
+  use('mfussenegger/nvim-lint')
 
   -- lsp for autocompletion/diagnostic
   use("neovim/nvim-lspconfig")
