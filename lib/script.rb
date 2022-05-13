@@ -3,18 +3,17 @@ require 'fileutils'
 class Script < Base
   def initialize(file:)
     @file = file
-    @executable = executable
   end
 
   def run
-    debug("Running script #{@script}")
+    debug("Running script #{@file}")
 
     if File.exists?(manifest)
-      debug("Manifest for #{@script} already exists, skippping")
+      debug("Manifest for #{@file} already exists, skippping")
       return
     end
 
-    `#{File.join(directory, 'scripts', @script)}`
+    `#{File.join(directory, 'scripts', @file)}`
 
     FileUtils.touch(manifest)
   end
@@ -22,6 +21,6 @@ class Script < Base
   private
 
   def manifest
-    File.join(directory, '.manifests', @script)
+    File.join(directory, '.manifests', @file)
   end
 end
