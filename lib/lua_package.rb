@@ -11,7 +11,7 @@ class LuaPackage < Base
       return
     end
 
-    `luarocks install #{@name}`
+    `luarocks install --local #{@name}`
   end
 
   private
