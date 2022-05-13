@@ -21,7 +21,6 @@ class Apt < Base
     [
       "fzf",
       "luarocks",
-      "neovim",
       "ripgrep",
       "shellcheck",
       "tmux",
