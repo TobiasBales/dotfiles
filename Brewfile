@@ -1,5 +1,6 @@
 brew "fzf"
 brew "lua-language-server"
+brew "luarocks"
 brew "neovim"
 brew "ripgrep"
 brew "shellcheck"

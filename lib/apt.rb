@@ -20,6 +20,7 @@ class Apt < Base
   def packages
     [
       "fzf",
+      "luarocks",
       "neovim",
       "ripgrep",
       "shellcheck",
