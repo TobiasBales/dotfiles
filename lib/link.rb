@@ -12,6 +12,11 @@ class Link < Base
             return
         end
 
+        if File.exists?(@target)
+          debug("File exists but is no symlink, moving it")
+          File.rename(@target, "#{@target}.old")
+        end
+
         File.symlink("#{@dir}/#{@source}", @target)
     end
 end
