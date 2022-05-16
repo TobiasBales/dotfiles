@@ -33,7 +33,7 @@ if [ -f ~/.zsh.secrets ]; then
 fi
 
 
-if [ -z "${TMUX}" ]; then
+if [ -z "${TMUX}" ] && [ -z "${SSH_CLIENT}" ]; then
   t
 fi
 
