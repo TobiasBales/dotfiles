@@ -3,7 +3,6 @@ vim.g.maplocalleader = " "
 
 require('packages')
 require('gitsigns-config')
-require('gps-config')
 require('keybindings')
 require("linters")
 require('lsp-config')
@@ -11,4 +10,5 @@ require('lualine-config')
 require('settings')
 require('telescope-config')
 require('treesitter-config')
+require('gps-config') -- gps depends on treesitter so we run it after treesitter is initalized
 require('trouble-config')
