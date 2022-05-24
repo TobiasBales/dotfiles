@@ -6,19 +6,11 @@ class LuaPackage < Base
   def run
     debug("Installing lua package #{@name}")
 
-    if exists?(@name)
+    if executable_exists?(@name)
       debug("Already in path, skipping")
       return
     end
 
     `luarocks install --local #{@name}`
-  end
-
-  private
-
-  def exists?(executable)
-    ENV['PATH'].split(File::PATH_SEPARATOR).any? do |directory|
-      File.executable?(File.join(directory, executable.to_s))
-    end
   end
 end

@@ -21,6 +21,12 @@ class Base
       os == "Linux"
     end
 
+    def executable_exists?(executable)
+      ENV['PATH'].split(File::PATH_SEPARATOR).any? do |directory|
+        File.executable?(File.join(directory, executable.to_s))
+      end
+    end
+
     private
 
     def os
