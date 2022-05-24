@@ -49,3 +49,5 @@ fi
 if [ -f /usr/share/doc/fzf/examples/completion.zsh ]; then
   source /usr/share/doc/fzf/examples/completion.zsh
 fi
+
+eval "$(starship init zsh)"
