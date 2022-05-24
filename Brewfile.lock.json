@@ -12,6 +12,12 @@
         "options": {
           "full_name": "kitty"
         }
+      },
+      "font-fira-code-nerd-font": {
+        "version": "2.1.0",
+        "options": {
+          "full_name": "font-fira-code-nerd-font"
+        }
       }
     },
     "brew": {
@@ -292,6 +298,11 @@
             }
           }
         }
+      }
+    },
+    "tap": {
+      "homebrew/cask-fonts": {
+        "revision": "9f4ad8f24ecba25e3134a7ef32a877efab3a69c5"
       }
     }
   },
