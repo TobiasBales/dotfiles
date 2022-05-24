@@ -37,3 +37,5 @@ fi
 if [ -f ~/dotfiles/setup ]; then
   ~/dotfiles/setup
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
