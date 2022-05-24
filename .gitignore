@@ -3,3 +3,4 @@
 /nvim/undo
 /.last_run
 /.manifests
+nvim/plugin/packer_compiled.lua
