@@ -83,6 +83,12 @@
         "options": {
           "full_name": "prusaslicer"
         }
+      },
+      "calibre": {
+        "version": "5.43.0",
+        "options": {
+          "full_name": "calibre"
+        }
       }
     }
   },

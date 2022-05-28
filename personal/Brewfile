@@ -1,5 +1,6 @@
 brew "lazygit"
 
+cask "calibre"
 cask "enpass"
 cask "firefox"
 cask "ilok-license-manager"
