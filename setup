@@ -13,7 +13,7 @@ class Dotfiles
     Apt.new.run
     Homebrew.new.run
 
-    Link.new(source: "kitty", target: "~/.config/kitty").run
+    Kitty.new.run
     Tmux.new.run
     Zsh.new.run
     NeoVim.new.run
