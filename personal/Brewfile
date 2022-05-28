@@ -1,3 +1,4 @@
+brew "ansible"
 brew "lazygit"
 brew "rbenv"
 brew "ruby-build"
