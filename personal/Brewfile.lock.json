@@ -59,6 +59,12 @@
         "options": {
           "full_name": "raycast"
         }
+      },
+      "reaper": {
+        "version": "6.58",
+        "options": {
+          "full_name": "reaper"
+        }
       }
     }
   },
