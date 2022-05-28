@@ -1,7 +1,9 @@
 brew "ansible"
+brew "consul"
 brew "lazygit"
 brew "lefthook"
 brew "nodenv"
+brew "nomad"
 brew "rbenv"
 brew "ruby-build"
 
