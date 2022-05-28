@@ -8,13 +8,12 @@ class Base
     end
 
     def debug(message)
-        return unless debug?
-
-        log(message)
+        log(message, level: :debug)
     end
 
-    def log(message)
-        puts(message)
+    def log(message, level: :info)
+        puts(message) if level != :debug || debug?
+        File.write(File.join(directory, '.log'), "#{message}\n", mode: 'a+')
     end
 
     def macos?
