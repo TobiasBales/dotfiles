@@ -2,8 +2,10 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export EDITOR=nvim
 
-source ~/.antigen.zsh
-antigen init ~/.antigenrc
+if [ -f ~/.angigent.zsh ]; then
+  source ~/.antigen.zsh
+  antigen init ~/.antigenrc
+fi
 
 function t {
   PROJECT=$(basename $(pwd))
