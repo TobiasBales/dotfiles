@@ -1,6 +1,7 @@
 brew "ansible"
 brew "lazygit"
 brew "lefthook"
+brew "nodenv"
 brew "rbenv"
 brew "ruby-build"
 
