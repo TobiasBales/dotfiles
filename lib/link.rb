@@ -17,6 +17,17 @@ class Link < Base
           File.rename(@target, "#{@target}.old")
         end
 
+        if (!File.exists?(parent_dir(@target)))
+          debug("Parent directory does not exist, creatking")
+          Dir.mkdir(parent_dir(@target))
+        end
+
         File.symlink("#{@dir}/#{@source}", @target)
+    end
+
+    private
+
+    def parent_dir(file_or_dir)
+      File.expand_path(File.join(@target, '..'))
     end
 end
