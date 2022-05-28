@@ -4,6 +4,7 @@ class Homebrew < Base
     end
 
     def run
+        debug("")
         debug("Running brew")
         if !macos?
           debug("Not running on MacOS, skipping") 

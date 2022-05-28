@@ -4,6 +4,7 @@ class Apt < Base
   end
 
   def run
+    debug("")
     debug("Running apt")
 
     if !linux?
