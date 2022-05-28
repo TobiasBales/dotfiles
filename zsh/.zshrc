@@ -21,6 +21,10 @@ function tc {
   tmux new-session -s "${1}-2" -t "${1}"
 }
 
+if [ -d /snap/bin ]; then
+  export PATH=$PATH:/snap/bin
+fi
+
 alias vim=nvim
 
 if [ -f /opt/homebrew/bin/brew ]; then
