@@ -1,5 +1,6 @@
 brew "ansible"
 brew "consul"
+brew "go"
 brew "lazygit"
 brew "lefthook"
 brew "nodenv"
