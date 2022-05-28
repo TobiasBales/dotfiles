@@ -38,6 +38,10 @@ if [ -f ~/dotfiles/setup ]; then
   ~/dotfiles/setup
 fi
 
+if command -v rbenv &> /dev/null; then
+  eval "$(rbenv init - zsh)"
+fi
+
 if [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]; then
   source /opt/homebrew/opt/fzf/shell/completion.zsh
 fi

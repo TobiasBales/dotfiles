@@ -1,4 +1,6 @@
 brew "lazygit"
+brew "rbenv"
+brew "ruby-build"
 
 cask "calibre"
 cask "enpass"
