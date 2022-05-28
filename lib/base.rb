@@ -1,6 +1,10 @@
 class Base
-    def directory
-      File.expand_path(File.join(__dir__, ".."))
+    def directory(sub_directory: nil)
+      base = File.expand_path(File.join(__dir__, ".."))
+
+      return base if sub_directory.nil?
+
+      File.join(base, sub_directory)
     end
 
     def debug(message)
