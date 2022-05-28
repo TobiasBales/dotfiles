@@ -2,7 +2,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 export EDITOR=nvim
 
-if [ -f ~/.angigent.zsh ]; then
+if [ -f ~/.antigen.zsh ]; then
   source ~/.antigen.zsh
   antigen init ~/.antigenrc
 fi
