@@ -38,8 +38,12 @@ if [ -f ~/dotfiles/setup ]; then
   ~/dotfiles/setup
 fi
 
-if [ -f ~/.fzf.zsh ]; then
-  source ~/.fzf.zsh
+if [ -f /opt/homebrew/opt/fzf/shell/completion.zsh ]; then
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+fi
+
+if [ -f /opt/homebrew/opt/fzf/shell/key-bindings.zsh ]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
 fi
 
 if [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]; then
