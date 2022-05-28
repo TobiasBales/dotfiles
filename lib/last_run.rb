@@ -5,15 +5,15 @@ class LastRun < Base
       @@instance ||= LastRun.new
     end
 
-    def run_if_needed(command, &blk)
+    def run_if_needed(command, sub_directory: nil, &blk)
         debug("Checking if #{command} needs to be run")
         if Time.now.to_i - get < TIME_BETWEEN_UPDATES
             debug("Was run recently, skipping")
-	    return
-	end
+          return
+        end
 
-        log("Running #{command}")
-        `cd #{directory} && #{command}` if command
+        log("Running #{command} #{"in #{sub_directory}" if sub_directory}")
+        `cd #{directory(sub_directory: sub_directory)} && #{command}` if command
 
         yield blk if block_given?
     end
