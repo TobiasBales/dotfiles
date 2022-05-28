@@ -5,16 +5,23 @@ set -euo pipefail
 sudo apt-get remove -y neovim
 sudo apt-get install -y python3-pip
 
-# Fetch App Image for NeoVim
 NVIM_VERSION="v0.7.0"
-cd /usr/local/src
-sudo rm -rf nvim.appimage squashfs-root
-sudo wget "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim.appimage"
-sudo chmod u+x nvim.appimage
-sudo ./nvim.appimage --appimage-extract
-sudo rm -f /usr/local/bin/nvim
-sudo rm -f /usr/bin/nvim
-sudo ln -s $PWD/squashfs-root/usr/bin/nvim /usr/local/bin/nvim
+set +u
+if [ -z "${SPIN}" ]; then
+  sudo apt-get install -y snapd
+  sudo snap install --classic nvim
+else
+  # Fetch App Image for NeoVim
+  cd /usr/local/src
+  sudo rm -rf nvim.appimage squashfs-root
+  sudo wget "https://github.com/neovim/neovim/releases/download/${NVIM_VERSION}/nvim.appimage"
+  sudo chmod u+x nvim.appimage
+  sudo ./nvim.appimage --appimage-extract
+  sudo rm -f /usr/local/bin/nvim
+  sudo rm -f /usr/bin/nvim
+  sudo ln -s "${PWD}/squashfs-root/usr/bin/nvim /usr/local/bin/nvim"
+fi
+set -u
 
 pip3 install neovim
 sudo gem install neovim
