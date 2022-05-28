@@ -7,7 +7,7 @@ class LastRun < Base
 
   def run_if_needed(command, sub_directory: nil, &blk)
     debug("Checking if #{command} needs to be run")
-    if Time.now.to_i - get < TIME_BETWEEN_UPDATES
+    if was_run_recently?
       debug("Was run recently, skipping")
       return
     end
@@ -24,7 +24,13 @@ class LastRun < Base
 
   private
 
-  def get
+  def was_run_recently?
+    time_since_last_run = Time.now.to_i - last_run_time
+
+    time_since_last_run < TIME_BETWEEN_UPDATES
+  end
+
+  def last_run_time
     File.read(last_run_file).to_i
     rescue Errno::ENOENT
     0
