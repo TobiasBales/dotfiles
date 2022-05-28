@@ -18,6 +18,12 @@
         "options": {
           "full_name": "font-fira-code-nerd-font"
         }
+      },
+      "raycast": {
+        "version": "1.35.2",
+        "options": {
+          "full_name": "raycast"
+        }
       }
     },
     "brew": {
