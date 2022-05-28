@@ -1,0 +1,4 @@
+brew "lazygit"
+
+cask "enpass"
+cask "firefox"
