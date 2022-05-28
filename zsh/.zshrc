@@ -68,4 +68,8 @@ if [ -f /usr/share/doc/fzf/examples/completion.zsh ]; then
   source /usr/share/doc/fzf/examples/completion.zsh
 fi
 
+if [ -f ~/.additional.zsh ]; then
+  source ~/.additional.zsh
+fi
+
 eval "$(starship init zsh)"
