@@ -39,11 +39,11 @@ class Base
       !work?
     end
 
-    private
-
     def spin?
       ENV['SPIN']
     end
+
+    private
 
     def os
       `uname -s`.strip.gsub("Darwin", "MacOS")
