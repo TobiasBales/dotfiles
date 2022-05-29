@@ -1,2 +1,3 @@
-export CONSUL_ADDR=http://node01.local:8500
-export NOMAD_ADDR=http://node01.local:4646
+export CONSUL_HTTP_ADDR=http://node01:8500
+export NOMAD_ADDR=http://node01:4646
+export VAULT_ADDR=http://node01:8200
