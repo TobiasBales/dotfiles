@@ -8,6 +8,7 @@ brew "nodenv"
 brew "nomad"
 brew "rbenv"
 brew "ruby-build"
+brew "vault"
 
 cask "calibre"
 cask "enpass"
