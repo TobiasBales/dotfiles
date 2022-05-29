@@ -430,6 +430,12 @@
         "options": {
           "full_name": "calibre"
         }
+      },
+      "raspberry-pi-imager": {
+        "version": "1.7.2",
+        "options": {
+          "full_name": "raspberry-pi-imager"
+        }
       }
     }
   },
@@ -438,7 +444,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "d1a0c56dba874a3bae389ca5ea2c089d73acabb9",
+        "Homebrew/homebrew-core": "5e04cffec7464335af26eedc64eebd205b779bad",
         "CLT": "13.0.0.0.1.1627064638",
         "Xcode": "13.2.1",
         "macOS": "12.4"
