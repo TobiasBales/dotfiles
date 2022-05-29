@@ -19,6 +19,9 @@ return require('packer').startup(function(use)
   -- show git status in the gutter
   use("lewis6991/gitsigns.nvim")
 
+  -- git integration
+  use("kdheepak/lazygit.nvim")
+
   -- color theme
   use("morhetz/gruvbox")
   use("kyazdani42/nvim-web-devicons")
