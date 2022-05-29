@@ -514,6 +514,12 @@
         "options": {
           "full_name": "raspberry-pi-imager"
         }
+      },
+      "guitar-pro": {
+        "version": "8",
+        "options": {
+          "full_name": "guitar-pro"
+        }
       }
     }
   },
@@ -522,7 +528,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "5f0a0762d3575916ccb0ed65877e62a4d7d53308",
+        "Homebrew/homebrew-core": "de36ce73aea1a31744066dbdbe338237d18470ae",
         "CLT": "13.0.0.0.1.1627064638",
         "Xcode": "13.2.1",
         "macOS": "12.4"
