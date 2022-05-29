@@ -30,6 +30,12 @@
         "options": {
           "full_name": "obs"
         }
+      },
+      "blackhole-2ch": {
+        "version": "0.2.10",
+        "options": {
+          "full_name": "blackhole-2ch"
+        }
       }
     },
     "brew": {
@@ -314,7 +320,7 @@
     },
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "43e1a1a4f2702fe4283131a1a154b728d637ef55"
+        "revision": "45e82ce6036eb32b86a1318081c5c94cc0c7f706"
       }
     }
   },
@@ -323,7 +329,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "d1a0c56dba874a3bae389ca5ea2c089d73acabb9",
+        "Homebrew/homebrew-core": "7f6d6573bc48b41c3b796496a375d04da2a1c54c",
         "CLT": "13.0.0.0.1.1627064638",
         "Xcode": "13.2.1",
         "macOS": "12.4"
