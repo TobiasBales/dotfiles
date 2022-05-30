@@ -25,6 +25,10 @@ if [ -d /snap/bin ]; then
   export PATH=$PATH:/snap/bin
 fi
 
+if [ -d ~/go/bin ]; then
+  export PATH=$PATH:~/go/bin
+fi
+
 alias vim=nvim
 
 if [ -f /opt/homebrew/bin/brew ]; then
