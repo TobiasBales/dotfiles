@@ -1,3 +1,4 @@
+tap 'homebrew/cask-drivers'
 tap 'homebrew/cask-fonts'
 
 brew "fzf"
@@ -15,3 +16,4 @@ cask "logseq"
 cask "lunar"
 cask "obs"
 cask "raycast"
+cask "zsa-wally"

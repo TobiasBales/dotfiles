@@ -42,6 +42,12 @@
         "options": {
           "full_name": "lunar"
         }
+      },
+      "zsa-wally": {
+        "version": "2.1.0",
+        "options": {
+          "full_name": "zsa-wally"
+        }
       }
     },
     "brew": {
@@ -327,6 +333,9 @@
     "tap": {
       "homebrew/cask-fonts": {
         "revision": "794498ceb61a0974b99fcf3e8cf3586e7aaf8d06"
+      },
+      "homebrew/cask-drivers": {
+        "revision": "d1cab9b805f392176bc05f0f0540329ce90d398c"
       }
     }
   },
