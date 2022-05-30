@@ -6,7 +6,7 @@ class LastRun < Base
   end
 
   def run_if_needed(command, manifest: nil, sub_directory: nil, &blk)
-    debug("Checking if #{command} needs to be run")
+    debug("Checking if #{command} needs to be run #{"in #{sub_directory}" if sub_directory}")
     if was_run_recently? && !manifest_changed?(sub_directory, manifest)
       debug("Was run recently, skipping")
       return
