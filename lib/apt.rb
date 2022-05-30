@@ -14,6 +14,8 @@ class Apt < Base
 
     @last_run.run_if_needed("sudo apt-get update -y")
     @last_run.run_if_needed("sudo apt-get install -y #{packages.join(' ')}")
+
+    GoPackage.new(package: "github.com/jesseduffield/lazygit@latest", executable: "lazygit").run
   end
 
   private
