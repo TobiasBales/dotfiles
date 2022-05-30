@@ -1,3 +1,5 @@
+require 'socket'
+
 class Base
     def directory(sub_directory: nil)
       base = File.expand_path(File.join(__dir__, ".."))
@@ -31,7 +33,7 @@ class Base
     end
 
     def work?
-      spin?
+      spin? || hostname =~ /shopify/i
     end
 
     def personal?
@@ -43,6 +45,10 @@ class Base
     end
 
     private
+
+    def hostname
+      @hostname ||= Socket.gethostname
+    end
 
     def os
       `uname -s`.strip.gsub("Darwin", "MacOS")
