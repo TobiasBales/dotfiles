@@ -19,6 +19,8 @@ class LastRun < Base
   end
 
   def update
+    return if was_run_recently?
+
     File.write(last_run_file, Time.now.to_i)
   end
 
