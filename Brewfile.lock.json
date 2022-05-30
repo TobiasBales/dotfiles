@@ -320,7 +320,7 @@
     },
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "45e82ce6036eb32b86a1318081c5c94cc0c7f706"
+        "revision": "794498ceb61a0974b99fcf3e8cf3586e7aaf8d06"
       }
     }
   },
@@ -329,9 +329,9 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "7f6d6573bc48b41c3b796496a375d04da2a1c54c",
-        "CLT": "13.0.0.0.1.1627064638",
-        "Xcode": "13.2.1",
+        "Homebrew/homebrew-core": "033d5c89cc32ff4b452bdf87b1f2408588c82525",
+        "CLT": "13.4.0.0.1.1651278267",
+        "Xcode": "13.3.1",
         "macOS": "12.4"
       }
     }
