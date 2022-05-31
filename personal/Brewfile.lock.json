@@ -468,7 +468,7 @@
         }
       },
       "firefox": {
-        "version": "100.0.2",
+        "version": "101.0",
         "options": {
           "full_name": "firefox"
         }
@@ -480,7 +480,7 @@
         }
       },
       "reaper": {
-        "version": "6.58",
+        "version": "6.59",
         "options": {
           "full_name": "reaper"
         }
@@ -528,7 +528,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "de36ce73aea1a31744066dbdbe338237d18470ae",
+        "Homebrew/homebrew-core": "74b109dcf054d0afec0d11beb9ca6e5ceeef889f",
         "CLT": "13.0.0.0.1.1627064638",
         "Xcode": "13.2.1",
         "macOS": "12.4"
