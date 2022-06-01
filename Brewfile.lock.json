@@ -48,6 +48,12 @@
         "options": {
           "full_name": "zsa-wally"
         }
+      },
+      "focusrite-control": {
+        "version": "3.10.0.1981",
+        "options": {
+          "full_name": "focusrite-control"
+        }
       }
     },
     "brew": {
@@ -332,10 +338,10 @@
     },
     "tap": {
       "homebrew/cask-fonts": {
-        "revision": "d80c7059620433e7d3230fbb6f513b8382aa6144"
+        "revision": "97f107179dd6e6914ca0eefd704bc86a9dfa61a7"
       },
       "homebrew/cask-drivers": {
-        "revision": "065cf5599dfc1e237296564321a2bfb73789c3ac"
+        "revision": "b28ab89a68140c2ead64e410c8e69c19d1c2a7d3"
       }
     }
   },
@@ -344,9 +350,9 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.4.11",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "74b109dcf054d0afec0d11beb9ca6e5ceeef889f",
-        "CLT": "13.0.0.0.1.1627064638",
-        "Xcode": "13.2.1",
+        "Homebrew/homebrew-core": "e2d2c4cd258df36616f104072e981be7f2977eb7",
+        "CLT": "13.4.0.0.1.1651278267",
+        "Xcode": "13.3.1",
         "macOS": "12.4"
       }
     }
