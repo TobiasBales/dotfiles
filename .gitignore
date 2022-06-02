@@ -1,4 +1,5 @@
 /.last_run
+.last_run_*
 /.log
 /.manifests
 /nvim/backup
