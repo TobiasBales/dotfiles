@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class ExecuteFile < Base
   def initialize(url:, executable:)
+    super()
+
     @url = url
     @executable = executable
   end

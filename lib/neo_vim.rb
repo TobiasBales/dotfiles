@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class NeoVim < Base
   def initialize(last_run: LastRun.instance)
+    super()
+
     @last_run = last_run
   end
 

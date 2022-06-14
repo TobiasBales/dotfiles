@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tmux < Base
   def run
     debug("")

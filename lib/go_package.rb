@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class GoPackage < Base
   def initialize(package:, executable:)
+    super()
+
     @package = package
     @executable = executable
   end

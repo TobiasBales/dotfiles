@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class LastRun < Base
   TIME_BETWEEN_UPDATES = 60 * 60 * 24
 
@@ -35,7 +37,8 @@ class LastRun < Base
   def manifest_changed?(sub_directory:, manifest:)
     return false if manifest.nil?
 
-    File.mtime(File.join(directory(sub_directory: sub_directory), manifest)).to_i > last_run_time(sub_directory: sub_directory, manifest: manifest)
+    File.mtime(File.join(directory(sub_directory: sub_directory),
+                         manifest)).to_i > last_run_time(sub_directory: sub_directory, manifest: manifest)
   end
 
   def was_run_recently?
@@ -46,7 +49,7 @@ class LastRun < Base
 
   def last_run_time(sub_directory: nil, manifest: nil)
     File.read(last_run_file(sub_directory: sub_directory, manifest: manifest)).to_i
-    rescue Errno::ENOENT
+  rescue Errno::ENOENT
     0
   end
 

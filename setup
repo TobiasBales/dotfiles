@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
 require "find"
-require_relative "lib/base" # find seems to walk files sorted alphabetically so we might need to load base before e.g. apt)
+# find seems to walk files sorted alphabetically so we might need to load base before e.g. apt)
+require_relative "lib/base"
 
 Find.find(File.join(File.expand_path(__dir__), "lib")) do |file|
   next if File.extname(file) != ".rb"
+
   load(file)
 end
 
@@ -21,5 +24,5 @@ class Dotfiles
     LastRun.instance.update
   end
 end
-  
+
 Dotfiles.new.run

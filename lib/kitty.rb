@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Kitty < Base
   def run
     debug("")
