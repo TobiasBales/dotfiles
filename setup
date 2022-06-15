@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# typed: strict
 # frozen_string_literal: true
 
 require "find"
@@ -8,10 +9,15 @@ require_relative "lib/base"
 Find.find(File.join(File.expand_path(__dir__), "lib")) do |file|
   next if File.extname(file) != ".rb"
 
+  next if file =~ %r{lib/base.rb$}
+
   load(file)
 end
 
 class Dotfiles
+  extend T::Sig
+
+  sig { void }
   def run
     Apt.new.run
     Homebrew.new.run

@@ -1,14 +1,19 @@
+# typed: strict
 # frozen_string_literal: true
 
 class Link < Base
+  extend T::Sig
+
+  sig { params(source: String, target: String, dir: T.nilable(String)).void }
   def initialize(source:, target:, dir: nil)
     super()
 
-    @dir = dir || directory
-    @source = source
-    @target = target.gsub("~", Dir.home)
+    @dir = T.let(dir || directory, String)
+    @source = T.let(source, String)
+    @target = T.let(target.gsub("~", Dir.home), String)
   end
 
+  sig { override.void }
   def run
     debug("Linking #{@source} -> #{@target}")
     if File.symlink?(@target)
@@ -31,7 +36,8 @@ class Link < Base
 
   private
 
-  def parent_dir(_file_or_dir)
-    File.expand_path(File.join(@target, ".."))
+  sig { params(file_or_dir: String).returns(String) }
+  def parent_dir(file_or_dir)
+    File.expand_path(File.join(file_or_dir, ".."))
   end
 end

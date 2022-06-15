@@ -1,6 +1,10 @@
+# typed: strict
 # frozen_string_literal: true
 
 class GoPackage < Base
+  extend T::Sig
+
+  sig { params(package: String, executable: String).void }
   def initialize(package:, executable:)
     super()
 
@@ -8,6 +12,7 @@ class GoPackage < Base
     @executable = executable
   end
 
+  sig { override.void }
   def run
     debug("Installing go package #{@package} for #{@executable}")
 

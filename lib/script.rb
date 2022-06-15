@@ -1,14 +1,19 @@
+# typed: strict
 # frozen_string_literal: true
 
 require "fileutils"
 
 class Script < Base
+  extend T::Sig
+
+  sig { params(file: String).void }
   def initialize(file:)
     super()
 
     @file = file
   end
 
+  sig { override.void }
   def run
     debug("Running script #{@file}")
 
@@ -24,6 +29,7 @@ class Script < Base
 
   private
 
+  sig { returns(String) }
   def manifest
     File.join(directory, ".manifests", @file)
   end

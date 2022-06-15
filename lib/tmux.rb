@@ -1,6 +1,10 @@
+# typed: strict
 # frozen_string_literal: true
 
 class Tmux < Base
+  extend T::Sig
+
+  sig { override.void }
   def run
     debug("")
     Link.new(source: "tmux/tmux.conf", target: "~/.tmux.conf").run
