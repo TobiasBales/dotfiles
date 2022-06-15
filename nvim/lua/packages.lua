@@ -22,6 +22,9 @@ return require('packer').startup(function(use)
   -- git integration
   use("kdheepak/lazygit.nvim")
 
+  -- handle filename:line:colum
+  use("wsdjeg/vim-fetch")
+
   -- color theme
   use("morhetz/gruvbox")
   use("kyazdani42/nvim-web-devicons")
