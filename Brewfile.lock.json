@@ -347,7 +347,7 @@
         "revision": "cb6495716b70b0f89b730121c98491f02352266e"
       },
       "homebrew/cask-drivers": {
-        "revision": "02d7a056fd7e9976c46ab5f333dc2192c740aabc"
+        "revision": "047eb3576a745908156523dcc3e96e100c34007c"
       }
     }
   },
@@ -356,7 +356,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.5.2",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "043074e4d3b3bae77f31fc90874bb678ca20de1f",
+        "Homebrew/homebrew-core": "82842863acbdb251650941dd9f304867df189ec0",
         "CLT": "13.4.0.0.1.1651278267",
         "Xcode": "13.3.1",
         "macOS": "12.4"
