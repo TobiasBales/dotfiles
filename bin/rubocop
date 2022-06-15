@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-exec rubocop setup lib $@
+exec rubocop setup lib Gemfile $@
