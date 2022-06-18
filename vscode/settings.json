@@ -1,0 +1,17 @@
+{
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp"
+    },
+    "rubyLsp.enabledFeatures": {
+        "documentHighlights": true,
+        "documentSymbols": true,
+        "foldingRanges": true,
+        "selectionRanges": true,
+        "semanticHighlighting": true,
+        "formatting": true,
+        "diagnostics": true,
+        "codeActions": true
+    },
+    "sorbet.enabled": true,
+    "byesig.opacity": 0.3
+}
