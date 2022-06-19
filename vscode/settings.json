@@ -13,5 +13,5 @@
         "codeActions": true
     },
     "sorbet.enabled": true,
-    "byesig.opacity": 0.3
+    "byesig.opacity": 0.3,
 }
