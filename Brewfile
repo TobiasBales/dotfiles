@@ -8,6 +8,7 @@ brew "neovim"
 brew "ripgrep"
 brew "shellcheck"
 brew "tmux"
+brew "watchman"
 
 cask "blackhole-2ch"
 cask "droidcam-obs"
