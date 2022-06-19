@@ -1,5 +1,5 @@
-tap 'homebrew/cask-drivers'
-tap 'homebrew/cask-fonts'
+tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
 
 brew "fzf"
 brew "lua-language-server"
