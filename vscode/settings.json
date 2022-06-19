@@ -67,7 +67,7 @@
             "commands": [
                 "magit.status"
             ]
-        },
+        }
     ],
     "vim.useSystemClipboard": true
 }
