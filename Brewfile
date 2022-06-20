@@ -1,11 +1,13 @@
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 
+brew "chruby"
 brew "fzf"
 brew "lua-language-server"
 brew "luarocks"
 brew "neovim"
 brew "ripgrep"
+brew "ruby-install"
 brew "shellcheck"
 brew "tmux"
 brew "watchman"
