@@ -1,7 +1,21 @@
 {
-    "[ruby]": {
-        "editor.defaultFormatter": "Shopify.ruby-lsp"
+    "ruby.useLanguageServer": false,
+    "ruby.lint": {
+        "rubocop": false
     },
+    "ruby.codeCompletion": false,
+    "ruby.intellisense": false,
+    "ruby.format": false,
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.formatOnSave": true
+    },
+    "byesig.fold": false,
+    "byesig.enabled": true,
+    "byesig.opacity": 0.5,
+    "byesig.showIcon": false,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
     "rubyLsp.enabledFeatures": {
         "documentHighlights": true,
         "documentSymbols": true,
@@ -13,7 +27,6 @@
         "codeActions": true
     },
     "sorbet.enabled": true,
-    "byesig.opacity": 0.3,
     "vim.incsearch": true,
     "vim.insertModeKeyBindings": [
         {
@@ -69,5 +82,6 @@
             ]
         }
     ],
+    "window.title": "${activeEditorMedium}${separator}${folderName}",
     "vim.useSystemClipboard": true
 }
