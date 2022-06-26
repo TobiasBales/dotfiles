@@ -6,3 +6,4 @@
 /nvim/swaps
 /nvim/undo
 nvim/plugin/packer_compiled.lua
+/.vscode
