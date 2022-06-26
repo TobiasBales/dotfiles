@@ -92,4 +92,14 @@ class Base
   def debug?
     ENV.fetch("DEBUG", nil) == "true"
   end
+
+  sig { params(name: String).void }
+  def create_manifest(name)
+    FileUtils.touch(File.join(directory, ".manifests", name))
+  end
+
+  sig { params(name: String).returns(T::Boolean) }
+  def manifest_exists?(name)
+    File.exist?(File.join(directory, ".manifests", name))
+  end
 end
