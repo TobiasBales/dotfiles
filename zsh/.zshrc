@@ -44,12 +44,12 @@ if [ -z "${TMUX}" ] && [ -z "${SSH_CLIENT}" ]; then
   t
 fi
 
-if [ -f ~/dotfiles/setup ]; then
-  ~/dotfiles/setup
-fi
-
 if command -v rbenv &> /dev/null; then
   eval "$(rbenv init - zsh)"
+fi
+
+if [ -f ~/dotfiles/setup ]; then
+  ~/dotfiles/setup
 fi
 
 if command -v nodenv &> /dev/null; then
