@@ -18,13 +18,12 @@ class Apt < Base
 
     return debug("Not running on Linux, skipping") unless linux?
 
+    return debug("No packages need to be installed, skipping") if packages_to_install.empty?
+
     @last_run.run_if_needed("sudo apt-get update -y")
-    @last_run.run_if_needed("sudo apt-get install -y #{packages.join(' ')}")
+    @last_run.run_if_needed("sudo apt-get install -y #{packages_to_install.join(' ')}")
 
-    return if personal? && linux?
-
-    GoPackage.new(package: "github.com/jesseduffield/lazygit@latest",
-                  executable: "lazygit").run
+    packages_to_install.each { |package| mark_package_as_installed(package) }
   end
 
   private
@@ -39,5 +38,20 @@ class Apt < Base
       tmux
       zsh
     ]
+  end
+
+  sig { returns(T::Array[String]) }
+  def packages_to_install
+    packages.filter { |package| !package_installed?(package) }
+  end
+
+  sig { params(name: String).returns(T::Boolean) }
+  def package_installed?(name)
+    manifest_exists?(name)
+  end
+
+  sig { params(name: String).void }
+  def mark_package_as_installed(name)
+    create_manifest(name)
   end
 end
