@@ -15,8 +15,13 @@ class NeoVim < Base
   def run
     debug("")
     debug("Setting up neovim config")
+
+    return debug("Running on spin,skipping") if spin?
+
     Link.new(source: "nvim", target: "~/.config/nvim").run
+
     Script.new(file: "install_neovim").run if linux?
+
     LuaPackage.new(name: "luacheck").run
   end
 end
