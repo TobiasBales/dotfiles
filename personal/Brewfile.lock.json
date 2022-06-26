@@ -515,6 +515,12 @@
         "options": {
           "full_name": "guitar-pro"
         }
+      },
+      "visual-studio-code": {
+        "version": "1.68.1",
+        "options": {
+          "full_name": "visual-studio-code"
+        }
       }
     }
   },
@@ -523,7 +529,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.5.2",
         "HOMEBREW_PREFIX": "/opt/homebrew",
-        "Homebrew/homebrew-core": "5776ce57754861f86e03c0e31590173041a88a15",
+        "Homebrew/homebrew-core": "4ccc9053bba1c65bd6e5d891e40c34cab2751d29",
         "CLT": "13.4.0.0.1.1651278267",
         "Xcode": "13.4",
         "macOS": "12.4"
