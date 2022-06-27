@@ -8,7 +8,9 @@
     "ruby.format": false,
     "[ruby]": {
         "editor.defaultFormatter": "Shopify.ruby-lsp",
-        "editor.formatOnSave": true
+        "editor.formatOnSave": true,
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true
     },
     "byesig.fold": false,
     "byesig.enabled": true,
