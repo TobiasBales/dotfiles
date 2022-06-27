@@ -4,13 +4,14 @@
 class VSCode < Base
   sig { override.void }
   def run
+    return unless macos?
     Link.new(source: "vscode/settings.json",
-             target: "~/Library/Application Support/Code/User/settings.json").run if macos?
+             target: "~/Library/Application Support/Code/User/settings.json").run
     Link.new(source: "vscode/keybindings.json",
-             target: "~/Library/Application Support/Code/User/keybindings.json").run if macos?
+             target: "~/Library/Application Support/Code/User/keybindings.json").run
 
-    install_extensions(general_extensions) if macos? || spin?
-    install_extensions(personal_extensions) if personal? && macos?
+    install_extensions(general_extensions)
+    install_extensions(personal_extensions) if personal?
   end
 
   private
