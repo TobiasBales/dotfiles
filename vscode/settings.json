@@ -97,5 +97,11 @@
     }
   ],
   "peacock.surpriseMeFromFavoritesOnly": true,
-  "peacock.surpriseMeOnStartup": true
+  "peacock.surpriseMeOnStartup": true,
+  "remote.SSH.defaultExtensions": [
+    "wwm.better-align",
+    "orepor.color-tabs-vscode-ext",
+    "kahole.magit",
+    "oderwat.indent-rainbow"
+  ]
 }
