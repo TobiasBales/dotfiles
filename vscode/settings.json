@@ -103,5 +103,13 @@
     "orepor.color-tabs-vscode-ext",
     "kahole.magit",
     "oderwat.indent-rainbow"
+  ],
+  "colorTabs.config": [
+    {
+      "regex": ".*/web/.*"
+    },
+    {
+      "regex": ".*/mobile/.*"
+    }
   ]
 }
