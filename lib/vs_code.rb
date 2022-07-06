@@ -28,7 +28,7 @@ class VSCode < Base
     [
       "itarato.byesig", "kahole.magit", "Shopify.ruby-lsp", "sorbet.sorbet-vscode-extension",
       "vscodevim.vim", "wwm.better-align", "orepor.color-tabs-vscode-ext", "usernamehw.errorlens",
-      "oderwat.indent-rainbow", "johnpapa.vscode-peacock", "Gruntfuggly.todo-tree"
+      "oderwat.indent-rainbow", "johnpapa.vscode-peacock", "Gruntfuggly.todo-tree", "redhat.vscode-yaml"
     ]
   end
 
