@@ -110,5 +110,6 @@
     {
       "regex": ".*/mobile/.*"
     }
-  ]
+  ],
+  "redhat.telemetry.enabled": false
 }
