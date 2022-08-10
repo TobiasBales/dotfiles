@@ -10,6 +10,7 @@ brew "neovim"
 brew "ripgrep"
 brew "ruby-install"
 brew "shellcheck"
+brew "tmate"
 brew "tmux"
 brew "watchman"
 
