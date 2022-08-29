@@ -1,0 +1,13 @@
+[init]
+	defaultBranch = main
+[push]
+	autoSetupRemote = true
+	autoSetupRemote = true
+[alias]
+  ; Generic aliases
+  trailer-add = "!f(){ GIT_EDITOR=\"git interpret-trailers --trailer='$1: $2' --in-place\" git commit --amend; }; f"
+  trailer-add-me = "!f() { git trailer-add \"$1\" \"$(git config user.name) <$(git config user.email)>\"; }; f"
+
+  ; Specific aliases to avoid mistyping the token part (the part before ':')
+  co-authored-by = "!git trailer-add Co-authored-by"
+  co-authored-by-me = "!git trailer-add-me Co-authored-by"
