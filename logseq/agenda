@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+DATE=$(date +'%Y_%m_%d')
+FILE="${HOME}/.logseq/journals/${DATE}.md"
+AGENDA=$(/opt/homebrew/bin/icalBuddy -npn -nc -eed -ps '/: /' -iep 'datetime,title' -po 'datetime, title' -b '\n  - ' --tf '%I.%M%p' eventsToday)
+echo "agenda:${AGENDA}" >> ~/dotfiles/tmp/logseq-agenda-logs
+TEXT="**Agenda**${AGENDA}"
+echo -e "${TEXT}\n$(cat ${FILE})" > ${FILE}

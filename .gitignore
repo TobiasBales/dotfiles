@@ -7,3 +7,4 @@
 /nvim/undo
 nvim/plugin/packer_compiled.lua
 /.vscode
+.DS_Store
