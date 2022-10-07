@@ -49,7 +49,45 @@ return require('packer').startup(function(use)
   use('mfussenegger/nvim-lint')
 
   -- lsp for autocompletion/diagnostic
-  use("neovim/nvim-lspconfig")
+  use 'williamboman/mason.nvim'
+  use 'williamboman/mason-lspconfig.nvim'
+  use {
+    'neovim/nvim-lspconfig',
+    config = [[
+      require('plugins.lspconfig')
+      ]]
+  }
+  use {
+    'hrsh7th/nvim-cmp',
+    config = [[
+        require('plugins.nvim-cmp')
+      ]],
+    requires = {
+      { 'kyazdani42/nvim-web-devicons', opt = true }
+    },
+  }
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-emoji'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-nvim-lua'
+  use 'hrsh7th/cmp-path'
+  use 'hrsh7th/cmp-vsnip'
+
+  -- colorize hex colors etc
+  use {
+    'norcalli/nvim-colorizer.lua',
+    config = function()
+      require("colorizer").setup {}
+    end
+  }
+
+  -- auto add pairs
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup {}
+    end
+  }
 
   -- package manager, listed again here so it does not remove itself
   use("wbthomason/packer.nvim")
@@ -73,6 +111,14 @@ return require('packer').startup(function(use)
 
   -- syntax highlighting for all the languages
   use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use 'nvim-treesitter/playground'
+  use 'nvim-treesitter/nvim-treesitter-refactor'
+  use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'nvim-treesitter/nvim-treesitter-context'
+
+  -- Debugging
+  use 'mfussenegger/nvim-dap'
+  use 'rcarriga/nvim-dap-ui'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
