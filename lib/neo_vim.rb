@@ -18,9 +18,13 @@ class NeoVim < Base
 
     return debug("Running on spin,skipping") if spin?
 
-    Link.new(source: "nvim", target: "~/.config/nvim").run
+    GitRepository.new(
+      repository: "https://github.com/AstroNvim/AstroNvim",
+      directory: "~/.config/nvim"
+    ).run
+    Link.new(source: "nvim/lua/user", target: "~/.config/nvim/lua/user").run
 
-    Script.new(file: "install_neovim").run if linux?
+    Script.new(file: "intall_neovim").run if linux?
 
     LuaPackage.new(name: "luacheck").run
   end
