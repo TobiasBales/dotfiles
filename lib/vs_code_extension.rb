@@ -18,5 +18,7 @@ class VSCodeExtension < Base
     return debug("Already installed, skipping") if manifest_exists?(@name)
 
     `code --install-extension #{@name}`
+
+    create_manifest(@name)
   end
 end
