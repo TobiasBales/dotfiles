@@ -1,5 +1,4 @@
 {
-  "editor.experimental.stickyScroll.enabled": true,
   "ruby.useLanguageServer": false,
   "ruby.lint": {
     "rubocop": false
@@ -11,7 +10,9 @@
     "editor.defaultFormatter": "Shopify.ruby-lsp",
     "editor.formatOnSave": true,
     "editor.tabSize": 2,
-    "editor.insertSpaces": true
+    "editor.insertSpaces": true,
+    "editor.formatOnType": true,
+    "editor.semanticHighlighting.enabled": true
   },
   "byesig.fold": false,
   "byesig.enabled": true,
@@ -33,27 +34,56 @@
   "vim.incsearch": true,
   "vim.insertModeKeyBindings": [
     {
-      "before": ["j", "k"],
-      "after": ["<Esc>"]
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
     }
   ],
   "vim.leader": "<space>",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["<leader>", "f", "c"],
-      "commands": ["workbench.action.showCommands"]
+      "before": [
+        "<leader>",
+        "f",
+        "c"
+      ],
+      "commands": [
+        "workbench.action.showCommands"
+      ]
     },
     {
-      "before": ["<leader>", "f", "f"],
-      "commands": ["workbench.action.quickOpen"]
+      "before": [
+        "<leader>",
+        "f",
+        "f"
+      ],
+      "commands": [
+        "workbench.action.quickOpen"
+      ]
     },
     {
-      "before": ["<leader>", "f", "s"],
-      "commands": ["workbench.action.files.save"]
+      "before": [
+        "<leader>",
+        "f",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.files.save"
+      ]
     },
     {
-      "before": ["<leader>", "g", "s"],
-      "commands": ["magit.status"]
+      "before": [
+        "<leader>",
+        "g",
+        "s"
+      ],
+      "commands": [
+        "magit.status"
+      ]
     }
   ],
   "window.title": "${activeEditorMedium}${separator}${folderName}",
@@ -113,5 +143,29 @@
     }
   ],
   "redhat.telemetry.enabled": false,
-  "editor.lineNumbers": "relative"
+  "editor.lineNumbers": "relative",
+  "editor.rulers": [
+    120
+  ],
+  "workbench.startupEditor": "none",
+  "editor.stickyScroll.enabled": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "go.toolsManagement.autoUpdate": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.inlineSuggest.enabled": true,
+  "editor.semanticTokenColorCustomizations": {
+    "[Default Dark+]": {
+      "rules": {
+        "type": {
+          "foreground": "#efec08",
+          "fontStyle": "italic"
+        }
+      }
+    }
+  },
+  "window.zoomLevel": 1
 }
