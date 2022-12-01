@@ -27,6 +27,7 @@ class Dotfiles
     Tmux.new.run
     Zsh.new.run
     NeoVim.new.run
+    LazyGit.new.run
     VSCode.new.run
 
     LastRun.instance.update
