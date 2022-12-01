@@ -24,8 +24,6 @@ class NeoVim < Base
     ).run
     Link.new(source: "nvim/lua/user", target: "~/.config/nvim/lua/user").run
 
-    Script.new(file: "intall_neovim").run if linux?
-
     LuaPackage.new(name: "luacheck").run
   end
 end
