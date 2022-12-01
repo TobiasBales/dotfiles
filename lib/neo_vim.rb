@@ -16,8 +16,6 @@ class NeoVim < Base
     debug("")
     debug("Setting up neovim config")
 
-    return debug("Running on spin,skipping") if spin?
-
     GitRepository.new(
       repository: "https://github.com/AstroNvim/AstroNvim",
       directory: "~/.config/nvim"
