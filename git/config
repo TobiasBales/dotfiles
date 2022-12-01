@@ -3,6 +3,8 @@
 [include]
 	path = ~/.config/dev/gitconfig
 	path = ~/.gitconfig.shopify
+	path = ~/.gitconfig.linux
+	path = ~/.gitconfig.macos
 [push]
 	autoSetupRemote = true
 	autoSetupRemote = true
@@ -15,5 +17,4 @@
   co-authored-by = "!git trailer-add Co-authored-by"
   co-authored-by-me = "!git trailer-add-me Co-authored-by"
 [core]
-	fsmonitor = ~/.fsmonitor-watchman
 	untrackedcache = true
