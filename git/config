@@ -1,5 +1,8 @@
 [init]
 	defaultBranch = main
+[include]
+	path = ~/.config/dev/gitconfig
+	path = ~/.gitconfig.shopify
 [push]
 	autoSetupRemote = true
 	autoSetupRemote = true
@@ -11,3 +14,6 @@
   ; Specific aliases to avoid mistyping the token part (the part before ':')
   co-authored-by = "!git trailer-add Co-authored-by"
   co-authored-by-me = "!git trailer-add-me Co-authored-by"
+[core]
+	fsmonitor = ~/.fsmonitor-watchman
+	untrackedcache = true

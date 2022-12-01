@@ -23,6 +23,7 @@ class Dotfiles
     Homebrew.new.run
 
     Kitty.new.run
+    Git.new.run
     Tmux.new.run
     Zsh.new.run
     NeoVim.new.run
