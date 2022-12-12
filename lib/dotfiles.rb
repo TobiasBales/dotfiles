@@ -29,6 +29,7 @@ class Dotfiles
     NeoVim.new.run
     LazyGit.new.run
     VSCode.new.run
+    Pry.new.run
 
     LastRun.instance.update
   end
