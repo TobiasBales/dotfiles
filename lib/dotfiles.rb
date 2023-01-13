@@ -30,6 +30,7 @@ class Dotfiles
     LazyGit.new.run
     VSCode.new.run
     Pry.new.run
+    Hammerspoon.new.run
 
     LastRun.instance.update
   end
