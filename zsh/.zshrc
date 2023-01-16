@@ -29,6 +29,7 @@ if [ -d ~/go/bin ]; then
 fi
 
 alias vim=nvim
+alias gg=lazygit
 
 if [ -f ~/.zsh.secrets ]; then
   source ~/.zsh.secrets
