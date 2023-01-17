@@ -18,21 +18,48 @@ class Dotfiles
   extend T::Sig
 
   sig { void }
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def run
-    Apt.new.run
-    Homebrew.new.run
+    ensure_running_only_once do
+      Apt.new.run
+      Homebrew.new.run
 
-    Kitty.new.run
-    Git.new.run
-    Tmux.new.run
-    Zsh.new.run
-    NeoVim.new.run
-    LazyGit.new.run
-    VSCode.new.run
-    Pry.new.run
-    Hammerspoon.new.run
+      Kitty.new.run
+      Git.new.run
+      Tmux.new.run
+      Zsh.new.run
+      NeoVim.new.run
+      LazyGit.new.run
+      VSCode.new.run
+      Pry.new.run
+      Hammerspoon.new.run
 
-    LastRun.instance.update
+      LastRun.instance.update
+    end
+  end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
+
+  private
+
+  sig { params(blk: T.proc.void).void }
+  def ensure_running_only_once(&blk)
+    called = false
+    if File.exist?(run_file)
+      puts("Aborting since it is already running")
+      return
+    end
+
+    File.write(run_file, "")
+
+    blk.call
+    called = true
+  ensure
+    File.delete(run_file) if called
+  end
+
+  sig { returns(String) }
+  def run_file
+    File.join(__dir__, ".running")
   end
 end
 
