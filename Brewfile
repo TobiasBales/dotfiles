@@ -15,7 +15,6 @@ brew "tmate"
 brew "tmux"
 brew "watchman"
 
-cask "blackhole-2ch"
 cask "dozer"
 cask "droidcam-obs"
 cask "focusrite-control"
