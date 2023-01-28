@@ -19,3 +19,5 @@
   co-authored-by-me = "!git trailer-add-me Co-authored-by"
 [core]
 	untrackedcache = true
+[trim]
+	bases = main,master
