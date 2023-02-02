@@ -1,6 +1,5 @@
 format = """
 $custom\
-$hostname\
 $username\
 $localip\
 $shlvl\
@@ -82,10 +81,12 @@ $character"""
 [username]
 format = '[$user]($style) > '
 
-[hostname]
+[custom.hostname]
+command = 'hostname'
+when = ''' test -z $SPIN '''
 format = '[$hostname]($style) > '
 
 [custom.spin]
 command = 'hostname -A'
 when = ''' test ! -z $SPIN '''
-format = '[$output]($style)@'
+format = '[$output]($style) > '
