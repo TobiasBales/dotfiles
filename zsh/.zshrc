@@ -1,5 +1,6 @@
 
 export EDITOR=nvim
+export HOMEBREW_NO_GOOGLE_ANALYTICS=true
 
 if [ -f ~/.antigen.zsh ]; then
   source ~/.antigen.zsh
