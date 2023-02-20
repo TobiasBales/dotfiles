@@ -16,11 +16,7 @@ class NeoVim < Base
     debug("")
     debug("Setting up neovim config")
 
-    GitRepository.new(
-      repository: "https://github.com/AstroNvim/AstroNvim",
-      directory: "~/.config/nvim"
-    ).run
-    Link.new(source: "nvim/lua/user", target: "~/.config/nvim/lua/user").run
+    Link.new(source: "nvim/", target: "~/.config/nvim").run
 
     LuaPackage.new(name: "luacheck").run
   end
