@@ -1,4 +1,6 @@
 brew "ansible"
+brew "elixir-build"
+brew "exenv"
 brew "gnu-tar"
 brew "go"
 brew "imagemagick"
