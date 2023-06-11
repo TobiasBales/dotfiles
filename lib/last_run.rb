@@ -4,7 +4,7 @@
 class LastRun < Base
   extend T::Sig
 
-  TIME_BETWEEN_UPDATES = T.let(60 * 60 * 24, Integer)
+  TIME_BETWEEN_UPDATES = T.let(60 * 60 * 24 * 7, Integer)
 
   @instance = T.let(nil, T.nilable(LastRun))
 
@@ -31,7 +31,7 @@ class LastRun < Base
     log("Running #{command} #{"in #{sub_directory}" if sub_directory}")
     `cd #{directory(sub_directory: sub_directory)} && #{command}` if command
 
-    blk.call() if block_given?
+    blk.call if block_given?
 
     update_manifest(sub_directory: sub_directory, manifest: manifest) if manifest
   end
