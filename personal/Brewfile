@@ -8,6 +8,7 @@ brew "qmk/qmk/qmk"
 brew "rbenv"
 brew "ruby-build"
 
+cask "bambu-studio"
 cask "calibre"
 cask "docker"
 cask "enpass"
