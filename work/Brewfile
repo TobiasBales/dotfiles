@@ -1,5 +1,3 @@
-cask "elgato-control-center"
-cask "elgato-stream-deck"
 cask "fellow"
 cask "logseq"
 cask "topnotch"
