@@ -7,6 +7,18 @@ spoon.SpoonInstall.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
 -- spoon.SpoonInstall:andUse("Cherry")
 
+spoon.SpoonInstall:andUse("TextClipboardHistory",
+  {
+    disable = false,
+    config = {
+      show_in_menubar = false,
+    },
+    hotkeys = {
+      toggle_clipboard = { { "cmd", "shift" }, "b" } },
+    start = true,
+  }
+)
+
 spoon.SpoonInstall:andUse("KSheet",
                {
                  hotkeys = {
