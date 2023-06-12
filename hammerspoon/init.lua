@@ -1,16 +1,22 @@
 hs.loadSpoon("SpoonInstall")
 
+local hyper = { "cmd", "alt", "ctrl", "shift" }
+local half_hyper = { "alt", "ctrl", "shift" }
+
 spoon.SpoonInstall.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
 -- spoon.SpoonInstall:andUse("Cherry")
+
+spoon.SpoonInstall:andUse("KSheet",
+               {
+                 hotkeys = {
+                   toggle = { half_hyper, "n" }
+}})
 
 spoon.ReloadConfiguration:start()
 
 local wm = require('window-management')
 local caffeine = require('caffeine')
-
-local hyper = { "cmd", "alt", "ctrl", "shift" }
-local half_hyper = { "alt", "ctrl", "shift" }
 
 local applicationHotkeys = {
   b = 'Google Chrome',
@@ -67,3 +73,12 @@ end)
 hs.hotkey.bind(half_hyper, "y", function()
   wm.windowMaximize(0)
 end)
+
+spoon.SpoonInstall:andUse("FadeLogo",
+               {
+                 config = {
+                   default_run = 1.0,
+                 },
+                 start = true
+               }
+)
