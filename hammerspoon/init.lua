@@ -20,10 +20,11 @@ spoon.SpoonInstall:andUse("ClipboardTool",
 )
 
 spoon.SpoonInstall:andUse("KSheet",
-               {
-                 hotkeys = {
-                   toggle = { half_hyper, "n" }
-}})
+  {
+    hotkeys = {
+      toggle = { half_hyper, "n" }
+    }
+  })
 
 spoon.SpoonInstall:andUse("AppLauncher", {
   modifiers = hyper,
@@ -36,6 +37,22 @@ spoon.SpoonInstall:andUse("AppLauncher", {
     m = 'Google Meet',
   }
 })
+
+spoon.SpoonInstall:andUse("Seal",
+  {
+    hotkeys = { show = { { "cmd" }, "space" } },
+    fn = function(s)
+      s:loadPlugins({ "apps", "calc",
+        "screencapture", "useractions" })
+      s.plugins.useractions.actions =
+      {
+        --        <<useraction-definitions>>
+      }
+      s:refreshAllCommands()
+    end,
+    start = true,
+  }
+)
 
 spoon.ReloadConfiguration:start()
 
@@ -81,10 +98,10 @@ hs.hotkey.bind(half_hyper, "y", function()
 end)
 
 spoon.SpoonInstall:andUse("FadeLogo",
-               {
-                 config = {
-                   default_run = 1.0,
-                 },
-                 start = true
-               }
+  {
+    config = {
+      default_run = 1.0,
+    },
+    start = true
+  }
 )
