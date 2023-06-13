@@ -7,7 +7,7 @@ spoon.SpoonInstall.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
 -- spoon.SpoonInstall:andUse("Cherry")
 
-spoon.SpoonInstall:andUse("TextClipboardHistory",
+spoon.SpoonInstall:andUse("ClipboardTool",
   {
     disable = false,
     config = {
