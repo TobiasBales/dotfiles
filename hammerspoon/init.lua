@@ -25,28 +25,22 @@ spoon.SpoonInstall:andUse("KSheet",
                    toggle = { half_hyper, "n" }
 }})
 
+spoon.SpoonInstall:andUse("AppLauncher", {
+  modifiers = hyper,
+  hotkeys = {
+    b = 'Google Chrome',
+    t = 'Kitty',
+    s = 'Slack',
+    g = 'Logseq',
+    c = 'Visual Studio Code',
+    m = 'Google Meet',
+  }
+})
+
 spoon.ReloadConfiguration:start()
 
 local wm = require('window-management')
 local caffeine = require('caffeine')
-
-local applicationHotkeys = {
-  b = 'Google Chrome',
-  t = 'kitty',
-  s = 'Slack',
-  g = 'Logseq',
-  c = 'Visual Studio Code',
-  m = 'Google Meet',
-}
-
-for key, app in pairs(applicationHotkeys) do
-  hs.hotkey.bind(hyper, key, function()
-    hs.application.launchOrFocus(app)
-  end)
-  hs.hotkey.bind(half_hyper, key, function()
-    hs.application.launchOrFocus(app)
-  end)
-end
 
 
 hs.hotkey.bind(half_hyper, "h", function()
