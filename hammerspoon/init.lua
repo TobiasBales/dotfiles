@@ -5,7 +5,7 @@ local half_hyper = { "alt", "ctrl", "shift" }
 
 spoon.SpoonInstall.use_syncinstall = true
 spoon.SpoonInstall:andUse("ReloadConfiguration")
--- spoon.SpoonInstall:andUse("Cherry")
+spoon.SpoonInstall:andUse("Cherry")
 
 spoon.SpoonInstall:andUse("ClipboardTool",
   {
@@ -56,8 +56,9 @@ spoon.SpoonInstall:andUse("Seal",
 
 spoon.ReloadConfiguration:start()
 
+require("camera-notifications")
 local wm = require('window-management')
-local caffeine = require('caffeine')
+require('caffeine')
 
 
 hs.hotkey.bind(half_hyper, "h", function()
