@@ -14,7 +14,7 @@ spoon.SpoonInstall:andUse("ClipboardTool",
       show_in_menubar = false,
     },
     hotkeys = {
-      toggle_clipboard = { { "cmd", "shift" }, "b" } },
+      toggle_clipboard = { { "cmd", "shift" }, "v" } },
     start = true,
   }
 )
