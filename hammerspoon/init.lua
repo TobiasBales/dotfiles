@@ -20,6 +20,9 @@ spoon.SpoonInstall:andUse("ClipboardTool",
     paste_on_select = true,
   }
 )
+-- somehow setting this in the config above does not work, everything else does
+local clipboard_tool = hs.loadSpoon("ClipboardTool")
+clipboard_tool.show_copied_alert = false
 
 spoon.SpoonInstall:andUse("KSheet",
   {
