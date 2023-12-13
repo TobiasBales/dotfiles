@@ -58,6 +58,7 @@ spoon.SpoonInstall:andUse("Seal",
     start = true,
   }
 )
+spoon.SpoonInstall:asyncUpdateAllRepos()
 
 spoon.ReloadConfiguration:start()
 
