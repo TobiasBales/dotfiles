@@ -65,6 +65,7 @@ spoon.ReloadConfiguration:start()
 require("camera-notifications")
 local wm = require('window-management')
 require('caffeine')
+local util = require('util')
 
 
 hs.hotkey.bind(half_hyper, "h", function()
@@ -103,6 +104,20 @@ end)
 hs.hotkey.bind(half_hyper, "y", function()
   wm.windowMaximize(0)
 end)
+hs.hotkey.bind(half_hyper, "q", function()
+  wm.moveWindowToPreviousScreen()
+end)
+hs.hotkey.bind(half_hyper, "e", function()
+  wm.moveWindowToNextScreen()
+end)
+hs.hotkey.bind(half_hyper, "w", function()
+  wm.moveWindowToFocusedScreen()
+end)
+
+
+hs.window.layout.applyLayout({
+  {{'kitty'}, "move 1 [0,0,100,100] 0,0"}
+})
 
 spoon.SpoonInstall:andUse("FadeLogo",
   {

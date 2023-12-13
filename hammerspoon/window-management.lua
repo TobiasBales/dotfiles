@@ -82,4 +82,44 @@ function m.windowMaximize(factor, window)
    end
 end
 
+function m.moveWindowToFocusedScreen(window)
+  if window == nil then
+    window = hs.window.focusedWindow()
+  end
+
+  if not window then
+    return
+  end
+
+  local screen = hs.mouse.getCurrentScreen()
+  window:moveToScreen(screen, false, true, 0)
+  m.windowMaximize(window)
+end
+
+function m.moveWindowToNextScreen(window)
+  if window == nil then
+    window = hs.window.focusedWindow()
+  end
+
+  if not window then
+    return
+  end
+
+  local screen = window:screen()
+  window:moveToScreen(screen:next(), false, true, 0)
+  m.windowMaximize(window)
+end
+
+function m.moveWindowToPreviousScreen(window)
+  if window == nil then
+    window = hs.window.focusedWindow()
+  end
+
+  if not window then
+    return
+  end
+  local screen = window:screen()
+  window:moveToScreen(screen:previous(), false, true, 0)
+  m.windowMaximize(window)
+end
 return m
