@@ -21,3 +21,5 @@
 	bases = main,master
 [init]
 	defaultBranch = main
+[rebase]
+	autosquash = true
