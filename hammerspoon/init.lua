@@ -10,6 +10,7 @@ spoon.SpoonInstall:andUse("Cherry")
 spoon.SpoonInstall:andUse("ClipboardTool",
   {
     disable = false,
+    deduplicate = false,
     config = {
       show_in_menubar = false,
     },
