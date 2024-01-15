@@ -12,7 +12,13 @@
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
     "editor.formatOnType": true,
-    "editor.semanticHighlighting.enabled": true
+    "editor.semanticHighlighting.enabled": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "editor.rulers": [
+      120
+    ]
   },
   "byesig.fold": false,
   "byesig.enabled": true,
@@ -45,6 +51,16 @@
   ],
   "vim.leader": "<space>",
   "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "g",
+        "g"
+      ],
+      "commands":[
+        { "command": "workbench.action.tasks.runTask", "args": "lazygit" }
+      ]
+    },
     {
       "before": [
         "<leader>",
@@ -167,5 +183,19 @@
       }
     }
   },
-  "window.zoomLevel": 1
+  "editor.fontSize": 14,
+  "rubyTestExplorer.logpanel": true,
+  "rubyTestExplorer.minitestCommand": "bundle exec rake test",
+  "git.openRepositoryInParentFolders": "never",
+  "workbench.colorTheme": "Spinel",
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "remote.SSH.connectTimeout": 150
 }
