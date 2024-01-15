@@ -27,6 +27,7 @@ class Dotfiles
       Kitty.new.run
       Git.new.run
       Tmux.new.run
+      Atuin.new.run
       Zsh.new.run
       NeoVim.new.run
       LazyGit.new.run
