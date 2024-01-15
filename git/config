@@ -23,3 +23,6 @@
 	defaultBranch = main
 [rebase]
 	autosquash = true
+[diff]
+	colorMoved = dimmed-zebra
+	color-moved-ws = ignore-all-space
