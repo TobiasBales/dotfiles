@@ -64,3 +64,7 @@ eval "$(starship init zsh)"
 
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 eval "$(atuin init zsh)"
+
+if command -v atuin &> /dev/null; then
+  atuin sync
+fi
