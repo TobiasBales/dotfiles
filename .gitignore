@@ -9,3 +9,4 @@ nvim/plugin/packer_compiled.lua
 /.vscode
 .DS_Store
 Brewfile.lock.json
+nvim/lazy-lock.json
