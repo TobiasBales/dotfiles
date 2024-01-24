@@ -17,8 +17,8 @@ end
 class Dotfiles
   extend T::Sig
 
-  sig { void }
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  sig { void }
   def run
     ensure_running_only_once do
       Apt.new.run

@@ -15,5 +15,7 @@ class Zsh < Base
     ExecuteFile.new(url: "https://starship.rs/install.sh", executable: "starship").run
     Link.new(source: "zsh/personal.zsh", target: "~/.additional.zsh").run if personal?
     Link.new(source: "zsh/zsh", target: "~/.zsh").run
+    RunCommand.new(command: "atuin gen-completions --shell zsh --out-dir ~/.zsh/completions",
+                   file: "~/.zsh/completions")
   end
 end
