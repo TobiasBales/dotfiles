@@ -11,3 +11,4 @@ nvim/plugin/packer_compiled.lua
 Brewfile.lock.json
 nvim/lazy-lock.json
 .running
+zsh/zsh/completions

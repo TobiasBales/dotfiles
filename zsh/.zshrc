@@ -2,6 +2,8 @@
 export EDITOR=nvim
 export HOMEBREW_NO_GOOGLE_ANALYTICS=true
 
+fpath=("${HOME}/.zsh/completions" $fpath)
+
 if [ -f ~/.antigen.zsh ]; then
   source ~/.antigen.zsh
   antigen init ~/.antigenrc
