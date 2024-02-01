@@ -2,6 +2,10 @@
 export EDITOR=nvim
 export HOMEBREW_NO_GOOGLE_ANALYTICS=true
 
+setopt    appendhistory     #Append history to the history file (no overwriting)
+setopt    sharehistory      #Share history across terminals
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+
 fpath=("${HOME}/.zsh/completions" $fpath)
 
 if [ -f ~/.antigen.zsh ]; then
