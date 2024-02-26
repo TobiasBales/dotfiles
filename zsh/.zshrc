@@ -35,6 +35,8 @@ if [ -d ~/go/bin ]; then
   export PATH=$PATH:~/go/bin
 fi
 
+PATH=$HOME/dotfiles/binaries:$PATH
+
 alias vim=nvim
 alias gg=lazygit
 
