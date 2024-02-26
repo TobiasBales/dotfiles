@@ -1,0 +1,1 @@
+/usr/bin/env ruby ~/dotfiles/git-stacked-prs/lib/git-stacked-prs/cli.rb $@
