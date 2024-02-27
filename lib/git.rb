@@ -23,9 +23,9 @@ class Git < Base
 
     Link.new(source: "git/config.shopify", target: "~/.gitconfig.shopify").run if work?
 
-    return unless personal?
+    Link.new(source: "git/config.personal", target: "~/.gitconfig.personal").run if personal?
 
-    Link.new(source: "git/config.personal", target: "~/.gitconfig.personal").run
+    Link.new(source: "git/ignore", target: "~/.gitignore").run
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

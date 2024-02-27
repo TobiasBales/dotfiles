@@ -17,6 +17,7 @@
   co-authored-by-me = "!git trailer-add-me Co-authored-by"
 [core]
 	untrackedcache = true
+	excludesfile = ~/.gitignore
 [trim]
 	bases = main,master
 [init]
