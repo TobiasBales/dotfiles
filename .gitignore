@@ -12,3 +12,4 @@ Brewfile.lock.json
 nvim/lazy-lock.json
 .running
 zsh/zsh/completions
+.ruby-version
