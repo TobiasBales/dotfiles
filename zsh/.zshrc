@@ -76,3 +76,5 @@ eval "$(atuin init zsh)"
 if command -v atuin &> /dev/null; then
   atuin sync
 fi
+
+[ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
