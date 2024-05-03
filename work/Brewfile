@@ -2,4 +2,5 @@ brew "go"
 
 cask "fellow"
 cask "logseq"
+cask "meetingbar"
 cask "topnotch"
