@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-RUBY_VERSION=$(ruby -v | grep --only-matching '\d\+\.\d\+\.\d\+')
-MAJOR_RUBY_VERSION=$(echo "${RUBY_VERSION}" | grep --only-matching '\d\+' | head -n 1)
+if [[ $(uname -s) =~ "Darwin" ]]; then
+	RUBY_VERSION=$(ruby -v | grep --only-matching '\d\+\.\d\+\.\d\+')
+	MAJOR_RUBY_VERSION=$(echo "${RUBY_VERSION}" | grep --only-matching '\d\+' | head -n 1)
+else
+	RUBY_VERSION=$(ruby -v | grep --perl-regexp --only-matching '\d+\.\d+\.\d+')
+	MAJOR_RUBY_VERSION=$(echo "${RUBY_VERSION}" | grep --perl-regexp --only-matching '\d+' | head -n 1)
+fi
 WANTED_RUBY_VERSION=3
 
 if [ "${MAJOR_RUBY_VERSION}" != "${WANTED_RUBY_VERSION}" ]; then
