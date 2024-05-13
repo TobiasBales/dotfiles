@@ -11,7 +11,13 @@ class Atuin < Base
     debug("Installing atuin")
 
     `curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | bash`
-    `atuin login`
+    if spin?
+      password = File.read("/etc/spin/secrets/atuin-password")
+      key = File.read("/etc/spin/secrets/atuin-key")
+      `atuin login --username TobiasBales --password "#{password}" --key "#{key}"`
+    else
+      `atuin login`
+    end
     `atuin sync`
   end
 end
