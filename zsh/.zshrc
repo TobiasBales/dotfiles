@@ -8,6 +8,11 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 
 fpath=("${HOME}/.zsh/completions" $fpath)
 
+if [ -d "${HOME}/.atuin/bin" ]; then
+  export PATH=$PATH:"${HOME}/.atuin/bin"
+  source "$HOME/.atuin/bin/env"
+fi
+
 if [ -f ~/.antigen.zsh ]; then
   source ~/.antigen.zsh
   antigen init ~/.antigenrc

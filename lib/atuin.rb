@@ -4,6 +4,7 @@
 class Atuin < Base
   extend T::Sig
 
+  # rubocop:disable Metrics/MethodLength
   sig { override.void }
   def run
     return if executable_exists?("atuin")
@@ -11,13 +12,17 @@ class Atuin < Base
     debug("Installing atuin")
 
     `curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | bash`
+
+    binary = linux? ? "~/.atuin/bin/atuin" : "atuin"
+
     if spin?
       password = File.read("/etc/spin/secrets/atuin-password")
       key = File.read("/etc/spin/secrets/atuin-key")
-      `atuin login --username TobiasBales --password "#{password}" --key "#{key}"`
+      `#{binary} login --username TobiasBales --password "#{password}" --key "#{key}"`
     else
-      `atuin login`
+      `#{binary} login`
     end
-    `atuin sync`
+    `#{binary} sync`
   end
+  # rubocop:enable Metrics/MethodLength
 end
