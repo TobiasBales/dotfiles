@@ -9,7 +9,7 @@ gem "sorbet-runtime"
 group :development do
   gem "rubocop", require: false
   gem "rubocop-sorbet", require: false
-  gem "ruby-lsp", "~> 0.1.0", require: false
+  gem "ruby-lsp", "~> 0.20.1", require: false
   gem "sorbet"
   gem "tapioca", require: false
   gem "unparser", require: false
