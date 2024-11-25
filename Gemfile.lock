@@ -35,7 +35,7 @@ GEM
       parser (>= 3.3.1.0)
     rubocop-sorbet (0.8.7)
       rubocop (>= 1)
-    ruby-lsp (0.21.3)
+    ruby-lsp (0.22.1)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -80,7 +80,7 @@ PLATFORMS
 DEPENDENCIES
   rubocop
   rubocop-sorbet
-  ruby-lsp (~> 0.21.3)
+  ruby-lsp (~> 0.22.1)
   sorbet
   sorbet-runtime
   tapioca
