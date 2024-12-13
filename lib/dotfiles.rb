@@ -27,11 +27,11 @@ class Dotfiles
       Kitty.new.run
       Git.new.run
       Tmux.new.run
-      Atuin.new.run
+      # Atuin.new.run
       Zsh.new.run
-      NeoVim.new.run
+      # NeoVim.new.run
       LazyGit.new.run
-      VSCode.new.run
+      # VSCode.new.run
       Pry.new.run
       Hammerspoon.new.run
 
