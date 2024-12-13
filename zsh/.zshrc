@@ -75,6 +75,10 @@ eval "$(starship init zsh)"
 
 [[ -f /opt/dev/sh/chruby/chruby.sh ]] && { type chruby >/dev/null 2>&1 || chruby () { source /opt/dev/sh/chruby/chruby.sh; chruby "$@"; } }
 
+if [ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]; then
+  source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+fi
+
 [[ -x /opt/homebrew/bin/brew ]] && eval $(/opt/homebrew/bin/brew shellenv)
 eval "$(atuin init zsh)"
 
