@@ -20,6 +20,6 @@ class RunCommand
       return
     end
 
-    `#{@command}`
+    %x(#{@command})
   end
 end

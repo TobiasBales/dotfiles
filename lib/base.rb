@@ -59,7 +59,7 @@ class Base
 
   sig { returns(String) }
   def os
-    `uname -s`.strip.gsub("Darwin", "MacOS")
+    %x(uname -s).strip.gsub("Darwin", "MacOS")
   end
 
   sig { params(name: String).void }

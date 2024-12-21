@@ -5,7 +5,6 @@ class Git < Base
   extend T::Sig
 
   sig { override.void }
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def run
     debug("")
     debug("Setting up git config")
@@ -14,7 +13,7 @@ class Git < Base
     if linux?
       Link.new(
         source: "git/fsmonitor-watchman",
-        target: "~/.fsmonitor-watchman"
+        target: "~/.fsmonitor-watchman",
       ).run
       Link.new(source: "git/config.linux", target: "~/.gitconfig.linux").run
     end
@@ -27,5 +26,4 @@ class Git < Base
 
     Link.new(source: "git/ignore", target: "~/.gitignore").run
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 end

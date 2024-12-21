@@ -21,7 +21,7 @@ class Apt < Base
     return debug("No packages need to be installed, skipping") if packages_to_install.empty?
 
     @last_run.run_if_needed("sudo apt-get update -y")
-    @last_run.run_if_needed("sudo apt-get install -y #{packages_to_install.join(' ')}")
+    @last_run.run_if_needed("sudo apt-get install -y #{packages_to_install.join(" ")}")
 
     packages_to_install.each { |package| mark_package_as_installed(package) }
   end
@@ -30,13 +30,13 @@ class Apt < Base
 
   sig { returns(T::Array[String]) }
   def packages
-    %w[
-      fzf
-      luarocks
-      ripgrep
-      shellcheck
-      tmux
-      zsh
+    [
+      "fzf",
+      "luarocks",
+      "ripgrep",
+      "shellcheck",
+      "tmux",
+      "zsh",
     ]
   end
 

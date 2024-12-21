@@ -21,6 +21,6 @@ class ExecuteFile
       return
     end
 
-    `curl -fsSL #{@url} | sh -s -- -f`
+    %x(curl -fsSL #{@url} | sh -s -- -f)
   end
 end

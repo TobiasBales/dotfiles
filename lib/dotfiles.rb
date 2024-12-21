@@ -20,7 +20,6 @@ end
 class Dotfiles
   extend T::Sig
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   sig { void }
   def run
     ensure_running_only_once do
@@ -40,7 +39,6 @@ class Dotfiles
       LastRun.instance.update
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

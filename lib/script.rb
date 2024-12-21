@@ -22,7 +22,7 @@ class Script
       return
     end
 
-    `#{File.join(directory, "scripts", @file)}`
+    %x(#{File.join(directory, "scripts", @file)})
 
     FileUtils.touch(manifest)
   end

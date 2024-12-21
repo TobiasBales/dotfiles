@@ -21,6 +21,6 @@ class GitRepository
       return
     end
 
-    `git clone #{@repository} #{@directory}`
+    %x(git clone #{@repository} #{@directory})
   end
 end

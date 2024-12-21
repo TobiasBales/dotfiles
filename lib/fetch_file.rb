@@ -21,6 +21,6 @@ class FetchFile
       return
     end
 
-    `curl -L #{@url} --output #{@target}`
+    %x(curl -L #{@url} --output #{@target})
   end
 end
