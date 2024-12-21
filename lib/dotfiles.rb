@@ -29,7 +29,6 @@ class Dotfiles
       Tmux.new.run
       Atuin.new.run
       Zsh.new.run
-      # NeoVim.new.run
       LazyGit.new.run
       Cursor.new.run
       Pry.new.run
