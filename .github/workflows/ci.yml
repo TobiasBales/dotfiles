@@ -1,0 +1,39 @@
+---
+name: "CI"
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+jobs:
+  sorbet:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Ensure type sigils are correct
+        run: >
+          bin/spoom srb bump --dry --from false --to true &&
+          bin/spoom srb bump --dry --from true --to strict
+      - name: Ensure tapioca gem definitions are up-to-date
+        run: bin/tapioca gem --verify
+      - name: Type check
+        run: bin/srb tc
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Lint Ruby files
+        run: bin/rubocop --parallel
+      - name: Lint yaml files
+        run: yamllint . --strict

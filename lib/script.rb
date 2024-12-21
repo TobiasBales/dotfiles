@@ -3,9 +3,9 @@
 
 require "fileutils"
 
-class Script < Base
+class Script
   extend T::Sig
-
+  include Helpers
   sig { params(file: String).void }
   def initialize(file:)
     super()
@@ -13,7 +13,7 @@ class Script < Base
     @file = file
   end
 
-  sig { override.void }
+  sig { void }
   def run
     debug("Running script #{@file}")
 
@@ -22,7 +22,7 @@ class Script < Base
       return
     end
 
-    `#{File.join(directory, "scripts", @file)}`
+    %x(#{File.join(directory, "scripts", @file)})
 
     FileUtils.touch(manifest)
   end

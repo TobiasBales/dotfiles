@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module GitStackedPr
@@ -13,8 +14,10 @@ module GitStackedPr
       @branches = parse_branches
     end
 
-    def self.from_args(args)
-      new(directory: args.directory, count: args.count)
+    class << self
+      def from_args(args)
+        new(directory: args.directory, count: args.count)
+      end
     end
 
     private

@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
 brew "gnu-tar"
 brew "imagemagick"
 brew "lefthook"
+brew "yamllint"
 
 cask "bambu-studio"
 cask "calibre"

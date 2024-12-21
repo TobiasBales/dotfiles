@@ -8,9 +8,13 @@ class LastRun < Base
 
   @instance = T.let(nil, T.nilable(LastRun))
 
-  sig { returns(LastRun) }
-  def self.instance
-    @instance ||= LastRun.new
+  class << self
+    extend T::Sig
+
+    sig { returns(LastRun) }
+    def instance
+      @instance ||= LastRun.new
+    end
   end
 
   sig do
@@ -18,7 +22,7 @@ class LastRun < Base
       command: String,
       manifest: T.nilable(String),
       sub_directory: T.nilable(String),
-      blk: T.nilable(T.proc.void)
+      blk: T.nilable(T.proc.void),
     ).void
   end
   def run_if_needed(command, manifest: nil, sub_directory: nil, &blk)
@@ -29,7 +33,7 @@ class LastRun < Base
     end
 
     log("Running #{command} #{"in #{sub_directory}" if sub_directory}")
-    `cd #{directory(sub_directory: sub_directory)} && #{command}` if command
+    %x(cd #{directory(sub_directory: sub_directory)} && #{command}) if command
 
     blk.call if block_given?
 
@@ -57,8 +61,10 @@ class LastRun < Base
   def manifest_changed?(sub_directory:, manifest:)
     return false if manifest.nil?
 
-    File.mtime(File.join(directory(sub_directory: sub_directory),
-                         manifest)).to_i > last_run_time(sub_directory: sub_directory, manifest: manifest)
+    File.mtime(File.join(
+      directory(sub_directory: sub_directory),
+      manifest,
+    )).to_i > last_run_time(sub_directory: sub_directory, manifest: manifest)
   end
 
   sig { returns(T::Boolean) }

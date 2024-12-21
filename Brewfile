@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 

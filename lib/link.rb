@@ -1,8 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class Link < Base
+class Link
   extend T::Sig
+  include Helpers
 
   sig { params(source: String, target: String, dir: T.nilable(String)).void }
   def initialize(source:, target:, dir: nil)
@@ -13,7 +14,7 @@ class Link < Base
     @target = T.let(target.gsub("~", Dir.home), String)
   end
 
-  sig { override.void }
+  sig { void }
   def run
     debug("Linking #{@source} -> #{@target}")
     if File.symlink?(@target)

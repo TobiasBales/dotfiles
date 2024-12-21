@@ -1,3 +1,4 @@
+# typed: false
 # frozen_string_literal: true
 
 module GitStackedPr
@@ -9,8 +10,10 @@ module GitStackedPr
       @count = count
     end
 
-    def self.from_argv(argv)
-      new(directory: argv.first || Dir.pwd)
+    class << self
+      def from_argv(argv)
+        new(directory: argv.first || Dir.pwd)
+      end
     end
   end
 end
