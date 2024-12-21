@@ -1,6 +1,7 @@
 tap "homebrew/cask-drivers"
 tap "homebrew/cask-fonts"
 
+brew "atuin"
 brew "chruby"
 brew "fzf"
 brew "jq"

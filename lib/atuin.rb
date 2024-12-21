@@ -11,9 +11,9 @@ class Atuin < Base
 
     debug("Installing atuin")
 
-    `curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | bash`
+    `curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh | bash` if linux?
 
-    binary = linux? ? "~/.atuin/bin/atuin" : "atuin"
+    binary = "~/.atuin/bin/atuin"
 
     if spin?
       password = File.read("/etc/spin/secrets/atuin-password")
