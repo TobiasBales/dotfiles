@@ -49,18 +49,18 @@ class Dotfiles
       puts("Aborting since it is already running")
       return
     end
+    called = true
 
     File.write(run_file, "")
 
     blk.call
-    called = true
   ensure
     File.delete(run_file) if called
   end
 
   sig { returns(String) }
   def run_file
-    File.join(__dir__, ".running")
+    File.join(__dir__, "..", ".running")
   end
 end
 
