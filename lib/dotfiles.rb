@@ -49,11 +49,11 @@ class Dotfiles
       puts("Aborting since it is already running")
       return
     end
+    called = true
 
     File.write(run_file, "")
 
     blk.call
-    called = true
   ensure
     File.delete(run_file) if called
   end
