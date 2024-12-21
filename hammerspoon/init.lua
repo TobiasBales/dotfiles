@@ -35,7 +35,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
 		b = "Google Chrome",
 		t = "Kitty",
 		s = "Slack",
-		g = "Logseq",
+		g = "Obsidian",
 		c = "Visual Studio Code",
 		m = "Google Meet",
 	},
