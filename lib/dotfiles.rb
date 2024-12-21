@@ -60,7 +60,7 @@ class Dotfiles
 
   sig { returns(String) }
   def run_file
-    File.join(__dir__, ".running")
+    File.join(__dir__, "..", ".running")
   end
 end
 
