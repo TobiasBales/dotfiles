@@ -13,6 +13,7 @@ brew "shellcheck"
 brew "tmux"
 brew "watchman"
 
+cask "cursor"
 cask "font-fira-code-nerd-font"
 cask "hammerspoon"
 cask "kitty"

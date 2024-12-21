@@ -31,7 +31,7 @@ class Dotfiles
       Zsh.new.run
       # NeoVim.new.run
       LazyGit.new.run
-      # VSCode.new.run
+      Cursor.new.run
       Pry.new.run
       Hammerspoon.new.run
 
