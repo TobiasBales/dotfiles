@@ -87,6 +87,7 @@ DEPENDENCIES
   ruby-lsp (~> 0.21.3)
   sorbet
   sorbet-runtime
+  spoom
   tapioca
   unparser
 
