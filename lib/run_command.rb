@@ -1,9 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class RunCommand < Base
+class RunCommand
   extend T::Sig
-
+  include Helpers
   sig { params(command: String, file: String).void }
   def initialize(command:, file:)
     super()
@@ -12,7 +12,7 @@ class RunCommand < Base
     @file = file
   end
 
-  sig { override.void }
+  sig { void }
   def run
     debug("Executing #{@command} to generate #{@file}")
     if file_exists?(@file)

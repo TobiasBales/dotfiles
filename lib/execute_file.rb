@@ -1,8 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class ExecuteFile < Base
+class ExecuteFile
   extend T::Sig
+  include Helpers
 
   sig { params(url: String, executable: String).void }
   def initialize(url:, executable:)
@@ -12,7 +13,7 @@ class ExecuteFile < Base
     @executable = executable
   end
 
-  sig { override.void }
+  sig { void }
   def run
     debug("Fetching url #{@url} to execute")
     if executable_exists?(@executable)

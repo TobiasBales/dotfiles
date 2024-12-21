@@ -2,12 +2,13 @@
 # frozen_string_literal: true
 
 require "socket"
-require "sorbet-runtime"
 
 class Base
   extend T::Helpers
   extend T::Sig
   abstract!
+
+  include Helpers
 
   sig { void }
   def initialize
@@ -17,26 +18,6 @@ class Base
   sig { abstract.void }
   def run; end
 
-  sig { params(sub_directory: T.nilable(String)).returns(String) }
-  def directory(sub_directory: nil)
-    base = File.expand_path(File.join(__dir__, ".."))
-
-    return base if sub_directory.nil?
-
-    File.join(base, sub_directory)
-  end
-
-  sig { params(message: String).void }
-  def debug(message)
-    log(message, level: :debug)
-  end
-
-  sig { params(message: String, level: Symbol).void }
-  def log(message, level: :info)
-    puts(message) if level != :debug || debug?
-    File.write(File.join(directory, ".log"), "#{message}\n", mode: "a+")
-  end
-
   sig { returns(T::Boolean) }
   def macos?
     os == "MacOS"
@@ -45,13 +26,6 @@ class Base
   sig { returns(T::Boolean) }
   def linux?
     os == "Linux"
-  end
-
-  sig { params(executable: String).returns(T::Boolean) }
-  def executable_exists?(executable)
-    ENV.fetch("PATH", "").split(File::PATH_SEPARATOR).any? do |directory|
-      File.executable?(File.join(directory, executable.to_s))
-    end
   end
 
   sig { returns(T::Boolean) }
@@ -86,11 +60,6 @@ class Base
   sig { returns(String) }
   def os
     `uname -s`.strip.gsub("Darwin", "MacOS")
-  end
-
-  sig { returns(T::Boolean) }
-  def debug?
-    ENV.fetch("DEBUG", nil) == "true"
   end
 
   sig { params(name: String).void }

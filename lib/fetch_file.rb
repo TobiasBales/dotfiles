@@ -1,8 +1,9 @@
 # typed: strict
 # frozen_string_literal: true
 
-class FetchFile < Base
+class FetchFile
   extend T::Sig
+  include Helpers
 
   sig { params(url: String, target: String).void }
   def initialize(url:, target:)
@@ -12,7 +13,7 @@ class FetchFile < Base
     @target = T.let(target.gsub("~", Dir.home), String)
   end
 
-  sig { override.void }
+  sig { void }
   def run
     debug("Fetching url #{@url} to #{@target}")
     if File.exist?(@target)
