@@ -4,5 +4,6 @@ brew "cmake"
 brew "go"
 
 cask "fellow"
+cask "kitty"
 cask "meetingbar"
 cask "topnotch"
