@@ -8,6 +8,10 @@ setopt    incappendhistory  #Immediately append to the history file, not just wh
 
 fpath=("${HOME}/.zsh/completions" $fpath)
 
+if [ -f /opt/homebrew/bin/mise ]; then
+  eval "$(/opt/homebrew/bin/mise activate zsh)"
+fi
+
 if [ -d "${HOME}/.atuin/bin" ]; then
   export PATH=$PATH:"${HOME}/.atuin/bin"
   source "$HOME/.atuin/bin/env"
