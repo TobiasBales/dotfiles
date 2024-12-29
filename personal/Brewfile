@@ -3,6 +3,7 @@
 brew "gnu-tar"
 brew "imagemagick"
 brew "lefthook"
+brew "mise"
 brew "yamllint"
 
 cask "bambu-studio"
