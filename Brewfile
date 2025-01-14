@@ -15,5 +15,6 @@ brew "watchman"
 
 cask "cursor"
 cask "font-fira-code-nerd-font"
+cask "ghostty"
 cask "hammerspoon"
 cask "soundsource"
