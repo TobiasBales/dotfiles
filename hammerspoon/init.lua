@@ -30,13 +30,12 @@ spoon.SpoonInstall:andUse("KSheet", {
 })
 
 spoon.SpoonInstall:andUse("AppLauncher", {
-	modifiers = hyper,
 	hotkeys = {
 		b = "Google Chrome",
-		t = "Kitty",
+		t = "Ghostty",
 		s = "Slack",
 		g = "Obsidian",
-		c = "Visual Studio Code",
+		c = "Cursor",
 		m = "Google Meet",
 	},
 })
