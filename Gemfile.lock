@@ -38,7 +38,7 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.8.7)
       rubocop (>= 1)
-    ruby-lsp (0.23.5)
+    ruby-lsp (0.23.6)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -88,7 +88,7 @@ DEPENDENCIES
   rubocop
   rubocop-shopify
   rubocop-sorbet
-  ruby-lsp (~> 0.23.5)
+  ruby-lsp (~> 0.23.6)
   sorbet
   sorbet-runtime
   spoom
