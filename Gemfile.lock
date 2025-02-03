@@ -6,7 +6,7 @@ GEM
     diff-lcs (1.5.1)
     erubi (1.13.1)
     json (2.9.1)
-    language_server-protocol (3.17.0.3)
+    language_server-protocol (3.17.0.4)
     logger (1.6.5)
     netrc (0.11.0)
     parallel (1.26.3)
@@ -38,7 +38,7 @@ GEM
       rubocop (~> 1.51)
     rubocop-sorbet (0.8.7)
       rubocop (>= 1)
-    ruby-lsp (0.23.6)
+    ruby-lsp (0.23.8)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
@@ -89,7 +89,7 @@ DEPENDENCIES
   rubocop
   rubocop-shopify
   rubocop-sorbet
-  ruby-lsp (~> 0.23.6)
+  ruby-lsp (~> 0.23.8)
   sorbet
   sorbet-runtime
   spoom
