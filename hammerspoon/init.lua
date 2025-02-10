@@ -37,6 +37,7 @@ spoon.SpoonInstall:andUse("AppLauncher", {
 		g = "Obsidian",
 		c = "Cursor",
 		m = "Google Meet",
+		e = "Spotify",
 	},
 })
 
