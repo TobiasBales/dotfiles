@@ -6,6 +6,8 @@ class Atuin < Base
 
   sig { override.void }
   def run
+    Link.new(source: "atuin", target: "~/.config/atuin").run
+
     return if executable_exists?("atuin")
 
     debug("Installing atuin")
