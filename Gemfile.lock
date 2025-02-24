@@ -38,7 +38,7 @@ GEM
       parser (>= 3.3.1.0)
     rubocop-shopify (2.15.1)
       rubocop (~> 1.51)
-    rubocop-sorbet (0.8.7)
+    rubocop-sorbet (0.8.9)
       rubocop (>= 1)
     ruby-lsp (0.23.11)
       language_server-protocol (~> 3.17.0)
