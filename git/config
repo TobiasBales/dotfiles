@@ -4,26 +4,51 @@
 	path = ~/.gitconfig.personal
 	path = ~/.gitconfig.linux
 	path = ~/.gitconfig.macos
-[push]
-	autoSetupRemote = true
-	autoSetupRemote = true
 [alias]
-  ; Generic aliases
-  trailer-add = "!f(){ GIT_EDITOR=\"git interpret-trailers --trailer='$1: $2' --in-place\" git commit --amend; }; f"
-  trailer-add-me = "!f() { git trailer-add \"$1\" \"$(git config user.name) <$(git config user.email)>\"; }; f"
+	; Generic aliases
+	trailer-add = "!f(){ GIT_EDITOR=\"git interpret-trailers --trailer='$1: $2' --in-place\" git commit --amend; }; f"
+	trailer-add-me = "!f() { git trailer-add \"$1\" \"$(git config user.name) <$(git config user.email)>\"; }; f"
 
-  ; Specific aliases to avoid mistyping the token part (the part before ':')
-  co-authored-by = "!git trailer-add Co-authored-by"
-  co-authored-by-me = "!git trailer-add-me Co-authored-by"
+	; Specific aliases to avoid mistyping the token part (the part before ':')
+	co-authored-by = "!git trailer-add Co-authored-by"
+	co-authored-by-me = "!git trailer-add-me Co-authored-by"
+[branch]
+	sort = -committerdate
+[column]
+	ui = auto
+[commit]
+	verbose = true
 [core]
-	untrackedcache = true
 	excludesfile = ~/.gitignore
-[trim]
-	bases = main,master
+	untrackedcache = true
+[diff]
+	algorithm = histogram
+	color-moved-ws = ignore-all-space
+	colorMoved = dimmed-zebra
+	mnemonicPrefix = true
+	renames = true
+[fetch]
+	prune = true
+	pruneTags = true
+	all = true
+[help]
+	autocorrect = prompt
 [init]
 	defaultBranch = main
+[pull]
+	rebase = true
+[push]
+	autoSetupRemote = true
+	default = simple
+	followTags = true
 [rebase]
 	autosquash = true
-[diff]
-	colorMoved = dimmed-zebra
-	color-moved-ws = ignore-all-space
+	autoStash = true
+	updateRefs = true
+[rerere]
+	enabled = true
+	autoupdate = true
+[tag]
+	sort = version:refname
+[trim]
+	bases = main,master
