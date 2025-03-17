@@ -15,7 +15,7 @@ module Unparser
     # @param source [String]
     # @return [Parser::Source::Buffer]
     #
-    # source://unparser//lib/unparser.rb#147
+    # source://unparser//lib/unparser.rb#218
     def buffer(source, identification = T.unsafe(nil)); end
 
     # Parse string into AST
@@ -23,87 +23,139 @@ module Unparser
     # @param source [String]
     # @return [Parser::AST::Node, nil]
     #
-    # source://unparser//lib/unparser.rb#105
+    # source://unparser//lib/unparser.rb#166
     def parse(source); end
+
+    # Parse source with ast details
+    #
+    # mutant:disable
+    #
+    # @param source [String]
+    # @return [AST]
+    #
+    # source://unparser//lib/unparser.rb#188
+    def parse_ast(source, static_local_variables: T.unsafe(nil)); end
 
     # Parse string into either syntax error or AST
     #
     # @param source [String]
-    # @return [Either<Parser::SyntaxError, (Parser::ASTNode, nil)>]
+    # @return [Either<Exception, (Parser::ASTNode, nil)>]
     #
-    # source://unparser//lib/unparser.rb#114
-    def parse_either(source); end
-
-    # Parse string into AST, with comments
-    #
-    # @param source [String]
-    # @return [Parser::AST::Node]
-    #
-    # source://unparser//lib/unparser.rb#125
-    def parse_with_comments(source); end
+    # source://unparser//lib/unparser.rb#175
+    def parse_ast_either(source); end
 
     # Parser instance that produces AST unparser understands
     #
     # @api private
     # @return [Parser::Base]
     #
-    # source://unparser//lib/unparser.rb#134
+    # source://unparser//lib/unparser.rb#205
     def parser; end
 
     # Unparse an AST (and, optionally, comments) into a string
     #
+    # mutant:disable
+    #
     # @api public
     # @param node [Parser::AST::Node, nil]
-    # @param comment_array [Array]
+    # @param comments [Array]
+    # @param explicit_encoding [Encoding, nil]
+    # @param static_local_variables [Set<Symbol>]
     # @raise InvalidNodeError
     #   if the node passed is invalid
     # @return [String]
     #
-    # source://unparser//lib/unparser.rb#60
-    def unparse(node, comment_array = T.unsafe(nil)); end
+    # source://unparser//lib/unparser.rb#69
+    def unparse(node, comments: T.unsafe(nil), explicit_encoding: T.unsafe(nil), static_local_variables: T.unsafe(nil)); end
 
-    # Unparse capturing errors
+    # Unparse an AST
     #
-    # This is mostly useful for writing testing tools against unparser.
+    # @api public
+    # @param ast [AST]
+    # @raise InvalidNodeError
+    #   if the node passed is invalid
+    # @raise UnsupportedNodeError
+    #   if the node passed is valid but unparser cannot unparse it
+    # @return [String]
     #
-    # @param node [Parser::AST::Node, nil]
-    # @return [Either<Exception, String>]
+    # source://unparser//lib/unparser.rb#99
+    def unparse_ast(ast); end
+
+    # Unparse AST either
     #
-    # source://unparser//lib/unparser.rb#96
-    def unparse_either(node); end
+    # @param ast [AST]
+    # @return [Either<Exception,String>]
+    #
+    # source://unparser//lib/unparser.rb#123
+    def unparse_ast_either(ast); end
 
     # Unparse with validation
     #
     # @param node [Parser::AST::Node, nil]
-    # @param comment_array [Array]
+    # @param comments [Array]
     # @return [Either<Validation,String>]
     #
-    # source://unparser//lib/unparser.rb#78
-    def unparse_validate(node, comment_array = T.unsafe(nil)); end
+    # source://unparser//lib/unparser.rb#150
+    def unparse_validate(node, comments: T.unsafe(nil)); end
+
+    # Unparse AST either
+    #
+    # mutant:disable
+    #
+    # @param ast [AST]
+    # @return [Either<Exception,String>]
+    #
+    # source://unparser//lib/unparser.rb#134
+    def unparse_validate_ast_either(ast:); end
   end
 end
 
 # Namespace for AST processing tools
 #
 # source://unparser//lib/unparser/ast.rb#5
-module Unparser::AST
+class Unparser::AST
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def static_local_variables; end
+
   class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+
+    # mutant:disable
+    #
+    # source://unparser//lib/unparser/ast.rb#27
+    def from_node(node:); end
+
     # Return local variables that get assigned in scope
     #
     # @api private
     # @param node [Parser::AST::Node]
     # @return [Set<Symbol>]
     #
-    # source://unparser//lib/unparser/ast.rb#57
+    # source://unparser//lib/unparser/ast.rb#68
     def local_variable_assignments(node); end
 
     # Return local variables read
+    #
+    # mutant:disable
     #
     # @api private
     # @param node [Parser::AST::Node]
     # @return [Set<Symbol>]
     #
-    # source://unparser//lib/unparser/ast.rb#72
+    # source://unparser//lib/unparser/ast.rb#84
     def local_variable_reads(node); end
 
     # Test for local variable inherited scope reset
@@ -112,7 +164,7 @@ module Unparser::AST
     # @param node [Parser::AST::Node]
     # @return [Boolean]
     #
-    # source://unparser//lib/unparser/ast.rb#33
+    # source://unparser//lib/unparser/ast.rb#44
     def not_close_scope?(node); end
 
     # Test for local variable scope reset
@@ -121,22 +173,22 @@ module Unparser::AST
     # @param node [Parser::AST::Node]
     # @return [Boolean]
     #
-    # source://unparser//lib/unparser/ast.rb#45
+    # source://unparser//lib/unparser/ast.rb#56
     def not_reset_scope?(node); end
   end
 end
 
 # Nodes that assign a local variable
 #
-# source://unparser//lib/unparser/ast.rb#14
+# source://unparser//lib/unparser/ast.rb#15
 Unparser::AST::ASSIGN_NODES = T.let(T.unsafe(nil), Set)
 
-# source://unparser//lib/unparser/ast.rb#11
+# source://unparser//lib/unparser/ast.rb#12
 Unparser::AST::CLOSE_NODES = T.let(T.unsafe(nil), Array)
 
 # AST enumerator
 #
-# source://unparser//lib/unparser/ast.rb#80
+# source://unparser//lib/unparser/ast.rb#92
 class Unparser::AST::Enumerator
   include ::Enumerable
   include ::Unparser::Equalizer::Methods
@@ -151,8 +203,8 @@ class Unparser::AST::Enumerator
   # @return [Enumerator<Parser::AST::Node>] if no block given
   # @return [self] otherwise
   #
-  # source://unparser//lib/unparser/ast.rb#106
-  def each(&block); end
+  # source://unparser//lib/unparser/ast.rb#105
+  def each(&_arg0); end
 
   # Return nodes selected by type
   #
@@ -160,7 +212,7 @@ class Unparser::AST::Enumerator
   # @param type [Symbol]
   # @return [Enumerable<Parser::AST::Node>]
   #
-  # source://unparser//lib/unparser/ast.rb#130
+  # source://unparser//lib/unparser/ast.rb#129
   def type(type); end
 
   # Return nodes selected by types
@@ -169,20 +221,10 @@ class Unparser::AST::Enumerator
   # @param types [Enumerable<Symbol>]
   # @return [Enumerable<Parser::AST::Node>]
   #
-  # source://unparser//lib/unparser/ast.rb#118
+  # source://unparser//lib/unparser/ast.rb#117
   def types(types); end
 
   class << self
-    # Return new instance
-    #
-    # @api private
-    # @param node [Parser::AST::Node]
-    # @param controller [#call(node)]
-    # @return [Enumerator]
-    #
-    # source://unparser//lib/unparser/ast.rb#92
-    def new(node, controller = T.unsafe(nil)); end
-
     private
 
     # Return frozne set of objects
@@ -191,7 +233,7 @@ class Unparser::AST::Enumerator
     # @param enumerable [Enumerable]
     # @return [Set]
     #
-    # source://unparser//lib/unparser/ast.rb#142
+    # source://unparser//lib/unparser/ast.rb#141
     def set(enumerable); end
 
     # Return nodes of type
@@ -201,35 +243,37 @@ class Unparser::AST::Enumerator
     # @param type [Symbol]
     # @return [Enumerable<Parser::AST::Node]] Enumerable<Parser::AST::Node]
     #
-    # source://unparser//lib/unparser/ast.rb#156
+    # source://unparser//lib/unparser/ast.rb#155
     def type(node, type); end
   end
 end
 
-# source://unparser//lib/unparser/ast.rb#6
+# source://unparser//lib/unparser/ast.rb#8
 Unparser::AST::FIRST_CHILD = T.let(T.unsafe(nil), Proc)
 
-# source://unparser//lib/unparser/ast.rb#10
+# source://unparser//lib/unparser/ast.rb#11
 Unparser::AST::INHERIT_NODES = T.let(T.unsafe(nil), Array)
 
 # Calculated local variable scope for a given node
 #
-# source://unparser//lib/unparser/ast/local_variable_scope.rb#7
+# source://unparser//lib/unparser/ast/local_variable_scope.rb#6
 class Unparser::AST::LocalVariableScope
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
   include ::Unparser::Adamantium
   include ::Unparser::Adamantium::InstanceMethods
-  include ::Enumerable
   extend ::Unparser::Adamantium::ModuleMethods
   extend ::Unparser::Adamantium::ClassMethods
 
   # Initialize object
   #
-  # @api private
+  # mutant:disable
+  #
   # @param node [Parser::AST::Node]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#18
-  def initialize(node); end
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#16
+  def initialize(*arguments); end
 
   # Test if local variable was first at given assignment
   #
@@ -237,7 +281,7 @@ class Unparser::AST::LocalVariableScope
   # @param node [Parser::AST::Node]
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#34
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#37
   def first_assignment?(node); end
 
   # Test if local variables where first assigned in body and read by conditional
@@ -247,7 +291,7 @@ class Unparser::AST::LocalVariableScope
   # @param condition [Parser::AST::Node]
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#63
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#75
   def first_assignment_in?(left, right); end
 
   # Test if local variable is defined for given node
@@ -257,18 +301,34 @@ class Unparser::AST::LocalVariableScope
   # @param name [Symbol]
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#50
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#53
   def local_variable_defined_for_node?(node, name); end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#60
+  def local_variables_for_node(needle); end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def static_local_variables; end
 
   private
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#75
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#87
   def match(needle); end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
 end
 
 # Local variable scope enumerator
 #
-# source://unparser//lib/unparser/ast/local_variable_scope.rb#84
+# source://unparser//lib/unparser/ast/local_variable_scope.rb#96
 class Unparser::AST::LocalVariableScopeEnumerator
   include ::Enumerable
 
@@ -277,8 +337,8 @@ class Unparser::AST::LocalVariableScopeEnumerator
   # @api private
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#93
-  def initialize; end
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#105
+  def initialize(stack:); end
 
   # Enumerate local variable scope scope
   #
@@ -287,58 +347,51 @@ class Unparser::AST::LocalVariableScopeEnumerator
   # @return [Enumerator<Array<Symbol>>] ]
   #   otherwise
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#120
-  def each(node, &block); end
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#124
+  def each(node:, &block); end
 
   private
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#126
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#130
   def current; end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#155
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#159
   def define(name); end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#140
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#144
   def enter(node); end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#151
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#155
   def leave(node); end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#167
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#171
   def pop; end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#163
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#167
   def push_inherit; end
 
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#159
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#163
   def push_reset; end
 
   # @yield [node, current.dup, before]
   #
-  # source://unparser//lib/unparser/ast/local_variable_scope.rb#130
+  # source://unparser//lib/unparser/ast/local_variable_scope.rb#134
   def visit(node, &block); end
 
   class << self
     # Enumerate each node with its local variable scope
     #
-    # @api private
-    # @param node [Parser::AST::Node]
-    # @return [self]
-    #
-    # source://unparser//lib/unparser/ast/local_variable_scope.rb#105
-    def each(node, &block); end
+    # source://unparser//lib/unparser/ast/local_variable_scope.rb#110
+    def each(node:, stack:, &block); end
   end
 end
 
-# source://unparser//lib/unparser/ast.rb#9
+# source://unparser//lib/unparser/ast.rb#10
 Unparser::AST::RESET_NODES = T.let(T.unsafe(nil), Array)
-
-# source://unparser//lib/unparser/ast.rb#7
-Unparser::AST::TAUTOLOGY = T.let(T.unsafe(nil), Proc)
 
 # Controlled AST walker walking the AST in deeth first search with pre order
 #
-# source://unparser//lib/unparser/ast.rb#164
+# source://unparser//lib/unparser/ast.rb#163
 class Unparser::AST::Walker
   include ::Unparser::Equalizer::Methods
 
@@ -348,7 +401,7 @@ class Unparser::AST::Walker
   # @param node [Parser::AST::Node]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/ast.rb#188
+  # source://unparser//lib/unparser/ast.rb#184
   def call(node); end
 
   class << self
@@ -356,10 +409,9 @@ class Unparser::AST::Walker
     #
     # @api private
     # @param node [Parser::AST::Node]
-    # @return [self]
     #
-    # source://unparser//lib/unparser/ast.rb#175
-    def call(node, controller = T.unsafe(nil), &block); end
+    # source://unparser//lib/unparser/ast.rb#172
+    def call(node, controller, &block); end
   end
 end
 
@@ -725,15 +777,17 @@ class Unparser::Anima < ::Module
   # @raise [Error]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/anima.rb#164
+  # source://unparser//lib/unparser/anima.rb#175
   def assert_known_attributes(klass, attribute_hash); end
 
   # Infect the instance with anima
   #
+  # mutant:disable
+  #
   # @param scope [Class, Module]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/anima.rb#137
+  # source://unparser//lib/unparser/anima.rb#139
   def included(descendant); end
 
   # Return new instance
@@ -741,7 +795,7 @@ class Unparser::Anima < ::Module
   # @param attributes [Enumerable<Symbol>]
   # @return [Anima]
   #
-  # source://unparser//lib/unparser/anima.rb#180
+  # source://unparser//lib/unparser/anima.rb#191
   def new(attributes); end
 end
 
@@ -882,7 +936,7 @@ class Unparser::Buffer
   # @param string [String]
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#29
+  # source://unparser//lib/unparser/buffer.rb#31
   def append(string); end
 
   # Append a string without an indentation prefix
@@ -891,7 +945,7 @@ class Unparser::Buffer
   # @param string [String]
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#45
+  # source://unparser//lib/unparser/buffer.rb#54
   def append_without_prefix(string); end
 
   # Return content of buffer
@@ -899,15 +953,23 @@ class Unparser::Buffer
   # @api private
   # @return [String]
   #
-  # source://unparser//lib/unparser/buffer.rb#104
+  # source://unparser//lib/unparser/buffer.rb#137
   def content; end
+
+  # source://unparser//lib/unparser/buffer.rb#80
+  def ensure_nl; end
+
+  # Write final newline
+  #
+  # source://unparser//lib/unparser/buffer.rb#98
+  def final_newline; end
 
   # Test for a fresh line
   #
   # @api private
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/buffer.rb#94
+  # source://unparser//lib/unparser/buffer.rb#127
   def fresh_line?; end
 
   # Increase indent
@@ -915,7 +977,7 @@ class Unparser::Buffer
   # @api private
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#55
+  # source://unparser//lib/unparser/buffer.rb#64
   def indent; end
 
   # Write newline
@@ -923,10 +985,20 @@ class Unparser::Buffer
   # @api private
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#77
+  # source://unparser//lib/unparser/buffer.rb#90
   def nl; end
 
-  # source://unparser//lib/unparser/buffer.rb#81
+  # source://unparser//lib/unparser/buffer.rb#104
+  def nl_flush_heredocs; end
+
+  # Push to heredoc stack
+  #
+  # @param heredoc [String]
+  #
+  # source://unparser//lib/unparser/buffer.rb#42
+  def push_heredoc(heredoc); end
+
+  # source://unparser//lib/unparser/buffer.rb#114
   def root_indent; end
 
   # Decrease indent
@@ -934,7 +1006,7 @@ class Unparser::Buffer
   # @api private
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#66
+  # source://unparser//lib/unparser/buffer.rb#75
   def unindent; end
 
   # Write raw fragment to buffer
@@ -944,16 +1016,22 @@ class Unparser::Buffer
   # @param fragment [String]
   # @return [self]
   #
-  # source://unparser//lib/unparser/buffer.rb#115
+  # source://unparser//lib/unparser/buffer.rb#148
   def write(fragment); end
+
+  # source://unparser//lib/unparser/buffer.rb#153
+  def write_encoding(encoding); end
 
   private
 
-  # source://unparser//lib/unparser/buffer.rb#124
+  # source://unparser//lib/unparser/buffer.rb#165
+  def flush_heredocs; end
+
+  # source://unparser//lib/unparser/buffer.rb#161
   def prefix; end
 end
 
-# source://unparser//lib/unparser/buffer.rb#122
+# source://unparser//lib/unparser/buffer.rb#159
 Unparser::Buffer::INDENT_SPACE = T.let(T.unsafe(nil), String)
 
 # source://unparser//lib/unparser/buffer.rb#8
@@ -975,50 +1053,70 @@ end
 class Unparser::CLI
   # Initialize object
   #
+  # mutant:disable
+  #
   # @api private
   # @param arguments [Array<String>]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/cli.rb#74
+  # source://unparser//lib/unparser/cli.rb#76
   def initialize(arguments); end
 
   # Add options
   #
+  # mutant:disable
   #
   # @api private
   # @param builder [OptionParser]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/cli.rb#102
+  # source://unparser//lib/unparser/cli.rb#106
   def add_options(builder); end
 
   # Return exit status
   #
+  # mutant:disable
+  #
   # @api private
   # @return [Integer]
   #
-  # source://unparser//lib/unparser/cli.rb#132
+  # source://unparser//lib/unparser/cli.rb#140
   def exit_status; end
 
   private
 
-  # source://unparser//lib/unparser/cli.rb#155
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/cli.rb#175
   def effective_targets; end
 
-  # source://unparser//lib/unparser/cli.rb#143
+  # mutant:disable
+  #
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/cli.rb#168
+  def ignore_original_syntax_error?(validation); end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/cli.rb#152
   def process_target(target); end
 
-  # source://unparser//lib/unparser/cli.rb#170
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/cli.rb#191
   def targets(file_name); end
 
   class << self
     # Run CLI
     #
+    # mutant:disable
+    #
     # @api private
     # @param arguments [Array<String>]
     # @return [Integer] the exit status
     #
-    # source://unparser//lib/unparser/cli.rb#63
+    # source://unparser//lib/unparser/cli.rb#64
     def run(*arguments); end
   end
 end
@@ -1571,7 +1669,7 @@ class Unparser::Either::Left < ::Unparser::Either
   # @return [Either::Left<Object>]
   #
   # source://unparser//lib/unparser/either.rb#64
-  def bind(&block); end
+  def bind(&_arg0); end
 
   # Evaluate left side of branch
   #
@@ -1586,7 +1684,7 @@ class Unparser::Either::Left < ::Unparser::Either
   # @return [Either::Left<Object>]
   #
   # source://unparser//lib/unparser/either.rb#57
-  def fmap(&block); end
+  def fmap(&_arg0); end
 
   # Unwrap value from left
   #
@@ -1656,7 +1754,7 @@ class Unparser::Either::Right < ::Unparser::Either
   # @return [Either::Right<Object>]
   #
   # source://unparser//lib/unparser/either.rb#140
-  def lmap(&block); end
+  def lmap(&_arg0); end
 end
 
 # Emitter base class
@@ -1676,10 +1774,10 @@ class Unparser::Emitter
   extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
   # Dispatch node write as statement
@@ -1690,22 +1788,25 @@ class Unparser::Emitter
   # source://unparser//lib/unparser/abstract_type.rb#114
   def dispatch(*_arg0); end
 
-  # source://unparser//lib/unparser/emitter.rb#59
+  # source://unparser//lib/unparser/emitter.rb#58
   def emit_mlhs; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   # LocalVariableRoot
   #
-  # source://unparser//lib/unparser/emitter.rb#38
+  # source://unparser//lib/unparser/emitter.rb#37
   def node_type; end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
 
     # Return emitter
@@ -1714,8 +1815,8 @@ class Unparser::Emitter
     # @api private
     # @return [Emitter]
     #
-    # source://unparser//lib/unparser/emitter.rb#70
-    def emitter(buffer:, comments:, node:, local_variable_scope:); end
+    # source://unparser//lib/unparser/emitter.rb#69
+    def emitter(buffer:, explicit_encoding:, comments:, node:, local_variable_scope:); end
 
     # source://unparser//lib/unparser/abstract_type.rb#36
     def new(*args, &block); end
@@ -1728,7 +1829,7 @@ class Unparser::Emitter
     # @param types [Symbol]
     # @return [undefined]
     #
-    # source://unparser//lib/unparser/emitter.rb#50
+    # source://unparser//lib/unparser/emitter.rb#49
     def handle(*types); end
   end
 end
@@ -1797,12 +1898,9 @@ end
 #
 # source://unparser//lib/unparser/emitter/array.rb#6
 class Unparser::Emitter::Array < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/array.rb#9
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/array.rb#15
+  # source://unparser//lib/unparser/emitter/array.rb#11
   def dispatch; end
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
@@ -1817,18 +1915,12 @@ class Unparser::Emitter::ArrayPattern < ::Unparser::Emitter
 
   # source://unparser//lib/unparser/emitter/array_pattern.rb#13
   def dispatch; end
-
-  # source://unparser//lib/unparser/emitter/array_pattern.rb#20
-  def emit_member(node); end
 end
 
 # Base class for assignment emitters
 #
 # source://unparser//lib/unparser/emitter/assignment.rb#7
 class Unparser::Emitter::Assignment < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/assignment.rb#14
-  def emit_heredoc_reminders; end
-
   # source://unparser//lib/unparser/abstract_type.rb#114
   def emit_left(*_arg0); end
 
@@ -1837,11 +1929,14 @@ class Unparser::Emitter::Assignment < ::Unparser::Emitter
 
   private
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#22
+  # source://unparser//lib/unparser/emitter/assignment.rb#16
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#27
+  # source://unparser//lib/unparser/emitter/assignment.rb#21
   def emit_right; end
+
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def right_emitter(&block); end
 end
 
 # source://unparser//lib/unparser/emitter/assignment.rb#8
@@ -1849,14 +1944,14 @@ Unparser::Emitter::Assignment::BINARY_OPERATOR = T.let(T.unsafe(nil), Array)
 
 # Constant assignment emitter
 #
-# source://unparser//lib/unparser/emitter/assignment.rb#57
+# source://unparser//lib/unparser/emitter/assignment.rb#56
 class Unparser::Emitter::Assignment::Constant < ::Unparser::Emitter::Assignment
   private
 
   # source://unparser//lib/unparser/dsl.rb#18
   def base; end
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#65
+  # source://unparser//lib/unparser/emitter/assignment.rb#64
   def emit_left; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -1871,11 +1966,11 @@ end
 
 # Variable assignment emitter
 #
-# source://unparser//lib/unparser/emitter/assignment.rb#42
+# source://unparser//lib/unparser/emitter/assignment.rb#41
 class Unparser::Emitter::Assignment::Variable < ::Unparser::Emitter::Assignment
   private
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#50
+  # source://unparser//lib/unparser/emitter/assignment.rb#49
   def emit_left; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -1892,15 +1987,12 @@ end
 #
 # source://unparser//lib/unparser/emitter/begin.rb#7
 class Unparser::Emitter::Begin < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/begin.rb#11
-  def emit_heredoc_reminders; end
-
   private
 
   # source://unparser//lib/unparser/dsl.rb#18
   def body; end
 
-  # source://unparser//lib/unparser/emitter/begin.rb#19
+  # source://unparser//lib/unparser/emitter/begin.rb#13
   def dispatch; end
 
   # source://unparser//lib/unparser/dsl.rb#11
@@ -1924,12 +2016,9 @@ end
 #
 # source://unparser//lib/unparser/emitter/op_assign.rb#7
 class Unparser::Emitter::BinaryAssign < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/op_assign.rb#17
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/op_assign.rb#24
+  # source://unparser//lib/unparser/emitter/op_assign.rb#19
   def dispatch; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -1960,26 +2049,26 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/block.rb#14
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#75
+  # source://unparser//lib/unparser/emitter/block.rb#74
   def emit_block_arguments; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#67
+  # source://unparser//lib/unparser/emitter/block.rb#66
   def emit_lambda_arguments; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#61
+  # source://unparser//lib/unparser/emitter/block.rb#60
   def emit_send_target; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#49
+  # source://unparser//lib/unparser/emitter/block.rb#48
   def emit_target; end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/emitter/block.rb#24
+  # source://unparser//lib/unparser/emitter/block.rb#23
   def need_do?; end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/emitter/block.rb#71
+  # source://unparser//lib/unparser/emitter/block.rb#70
   def numblock?; end
 
   # source://unparser//lib/unparser/dsl.rb#11
@@ -1991,10 +2080,10 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def target_writer(&block); end
 
-  # source://unparser//lib/unparser/emitter/block.rb#36
+  # source://unparser//lib/unparser/emitter/block.rb#35
   def write_close; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#28
+  # source://unparser//lib/unparser/emitter/block.rb#27
   def write_open; end
 end
 
@@ -2176,13 +2265,13 @@ end
 #
 # source://unparser//lib/unparser/emitter/dstr.rb#6
 class Unparser::Emitter::DStr < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/dstr.rb#10
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/dstr.rb#16
+  # source://unparser//lib/unparser/emitter/dstr.rb#12
   def dispatch; end
+
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def dstr_writer(&block); end
 end
 
 # Dynamic symbol literal emitter
@@ -2357,15 +2446,12 @@ Unparser::Emitter::Float::NEG_INFINITY = T.let(T.unsafe(nil), Float)
 #
 # source://unparser//lib/unparser/emitter/flow_modifier.rb#6
 class Unparser::Emitter::FlowModifier < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/flow_modifier.rb#17
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/flow_modifier.rb#25
+  # source://unparser//lib/unparser/emitter/flow_modifier.rb#19
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/flow_modifier.rb#36
+  # source://unparser//lib/unparser/emitter/flow_modifier.rb#30
   def emit_arguments; end
 end
 
@@ -2420,19 +2506,13 @@ Unparser::Emitter::ForwardArg::MAP = T.let(T.unsafe(nil), Hash)
 #
 # source://unparser//lib/unparser/emitter/hash.rb#6
 class Unparser::Emitter::Hash < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/hash.rb#9
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/hash.rb#15
+  # source://unparser//lib/unparser/emitter/hash.rb#11
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/hash.rb#31
+  # source://unparser//lib/unparser/emitter/hash.rb#23
   def emit_hash_body; end
-
-  # source://unparser//lib/unparser/emitter/hash.rb#27
-  def emit_heredoc_reminder_member(node); end
 end
 
 # Emitter for hash patterns
@@ -2596,18 +2676,15 @@ end
 #
 # source://unparser//lib/unparser/emitter/index.rb#34
 class Unparser::Emitter::Index::Assign < ::Unparser::Emitter::Index
-  # source://unparser//lib/unparser/emitter/index.rb#47
+  # source://unparser//lib/unparser/emitter/index.rb#43
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/index.rb#43
-  def emit_heredoc_reminders; end
-
-  # source://unparser//lib/unparser/emitter/index.rb#54
+  # source://unparser//lib/unparser/emitter/index.rb#50
   def emit_mlhs; end
 
   private
 
-  # source://unparser//lib/unparser/emitter/index.rb#61
+  # source://unparser//lib/unparser/emitter/index.rb#57
   def emit_operation(indices); end
 end
 
@@ -2712,16 +2789,17 @@ end
 module Unparser::Emitter::LocalVariableRoot
   # Return local variable root
   #
-  # @api private
+  # mutant:disable
+  #
   # @return [Parser::AST::Node]
   #
-  # source://unparser//lib/unparser/emitter.rb#27
+  # source://unparser//lib/unparser/emitter.rb#26
   def local_variable_scope; end
 
   class << self
     # @private
     #
-    # source://unparser//lib/unparser/emitter.rb#31
+    # source://unparser//lib/unparser/emitter.rb#30
     def included(descendant); end
   end
 end
@@ -2967,17 +3045,14 @@ Unparser::Emitter::NthRef::PREFIX = T.let(T.unsafe(nil), String)
 
 # Emitter for op assign
 #
-# source://unparser//lib/unparser/emitter/op_assign.rb#33
+# source://unparser//lib/unparser/emitter/op_assign.rb#28
 class Unparser::Emitter::OpAssign < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/op_assign.rb#38
-  def emit_heredoc_reminders; end
-
   private
 
-  # source://unparser//lib/unparser/emitter/op_assign.rb#45
+  # source://unparser//lib/unparser/emitter/op_assign.rb#35
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/op_assign.rb#51
+  # source://unparser//lib/unparser/emitter/op_assign.rb#41
   def emit_operator; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -3108,78 +3183,66 @@ end
 
 # Emitter for complex literals
 #
-# source://unparser//lib/unparser/emitter/primitive.rb#50
+# source://unparser//lib/unparser/emitter/primitive.rb#37
 class Unparser::Emitter::Primitive::Complex < ::Unparser::Emitter::Primitive
   private
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#65
+  # source://unparser//lib/unparser/emitter/primitive.rb#52
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#70
+  # source://unparser//lib/unparser/emitter/primitive.rb#57
   def emit_imaginary; end
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#74
+  # source://unparser//lib/unparser/emitter/primitive.rb#61
   def imaginary_node; end
 end
 
-# source://unparser//lib/unparser/emitter/primitive.rb#56
+# source://unparser//lib/unparser/emitter/primitive.rb#43
 Unparser::Emitter::Primitive::Complex::MAP = T.let(T.unsafe(nil), Hash)
 
-# source://unparser//lib/unparser/emitter/primitive.rb#54
+# source://unparser//lib/unparser/emitter/primitive.rb#41
 Unparser::Emitter::Primitive::Complex::RATIONAL_FORMAT = T.let(T.unsafe(nil), String)
-
-# Emitter for primitives based on Object#inspect
-#
-# source://unparser//lib/unparser/emitter/primitive.rb#11
-class Unparser::Emitter::Primitive::Inspect < ::Unparser::Emitter::Primitive
-  private
-
-  # source://unparser//lib/unparser/emitter/primitive.rb#17
-  def dispatch; end
-end
 
 # Emiter for numeric literals
 #
-# source://unparser//lib/unparser/emitter/primitive.rb#106
+# source://unparser//lib/unparser/emitter/primitive.rb#93
 class Unparser::Emitter::Primitive::Numeric < ::Unparser::Emitter::Primitive
   private
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#112
+  # source://unparser//lib/unparser/emitter/primitive.rb#99
   def dispatch; end
 end
 
 # Emitter for rational literals
 #
-# source://unparser//lib/unparser/emitter/primitive.rb#82
+# source://unparser//lib/unparser/emitter/primitive.rb#69
 class Unparser::Emitter::Primitive::Rational < ::Unparser::Emitter::Primitive
   private
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#91
+  # source://unparser//lib/unparser/emitter/primitive.rb#78
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/primitive.rb#99
+  # source://unparser//lib/unparser/emitter/primitive.rb#86
   def write_rational(value); end
 end
 
-# source://unparser//lib/unparser/emitter/primitive.rb#86
+# source://unparser//lib/unparser/emitter/primitive.rb#73
 Unparser::Emitter::Primitive::Rational::RATIONAL_FORMAT = T.let(T.unsafe(nil), String)
 
-# Inspect
-#
-# source://unparser//lib/unparser/emitter/primitive.rb#23
+# source://unparser//lib/unparser/emitter/primitive.rb#10
 class Unparser::Emitter::Primitive::Symbol < ::Unparser::Emitter::Primitive
   private
 
   # mutant:disable
   #
-  # source://unparser//lib/unparser/emitter/primitive.rb#30
+  # source://unparser//lib/unparser/emitter/primitive.rb#17
   def dispatch; end
 
   # mutant:disable
   #
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/emitter/primitive.rb#39
+  # source://unparser//lib/unparser/emitter/primitive.rb#26
   def inspect_breaks_parsing?; end
 end
 
@@ -3240,17 +3303,11 @@ Unparser::Emitter::Range::TOKENS = T.let(T.unsafe(nil), Hash)
 class Unparser::Emitter::Regexp < ::Unparser::Emitter
   private
 
-  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
-  def body(&block); end
-
-  # source://unparser//lib/unparser/emitter/regexp.rb#13
+  # source://unparser//lib/unparser/emitter/regexp.rb#12
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/regexp.rb#24
-  def emit_body(node); end
-
-  # source://unparser//lib/unparser/emitter/regexp.rb#20
-  def emit_options; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def writer(&block); end
 end
 
 # Emitter for while and until nodes
@@ -3315,29 +3372,13 @@ class Unparser::Emitter::Restarg < ::Unparser::Emitter
   def remaining_children; end
 end
 
-# Root emitter a special case
-#
-# source://unparser//lib/unparser/emitter/root.rb#6
+# source://unparser//lib/unparser/emitter/root.rb#5
 class Unparser::Emitter::Root < ::Unparser::Emitter
-  include ::Unparser::Emitter::LocalVariableRoot
-
-  # source://unparser//lib/unparser/concord.rb#60
-  def buffer; end
-
-  # source://unparser//lib/unparser/concord.rb#60
-  def comments; end
-
-  # source://unparser//lib/unparser/emitter/root.rb#14
+  # source://unparser//lib/unparser/emitter/root.rb#10
   def dispatch; end
-
-  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
-  def local_variable_scope(&block); end
-
-  # source://unparser//lib/unparser/concord.rb#60
-  def node; end
 end
 
-# source://unparser//lib/unparser/emitter/root.rb#10
+# source://unparser//lib/unparser/emitter/root.rb#6
 Unparser::Emitter::Root::END_NL = T.let(T.unsafe(nil), Array)
 
 # Emitter for sclass nodes
@@ -3363,15 +3404,12 @@ end
 #
 # source://unparser//lib/unparser/emitter/send.rb#6
 class Unparser::Emitter::Send < ::Unparser::Emitter
-  # source://unparser//lib/unparser/emitter/send.rb#13
-  def emit_heredoc_reminders; end
-
   # source://unparser//lib/unparser/emitter/send.rb#9
   def emit_mlhs; end
 
   private
 
-  # source://unparser//lib/unparser/emitter/send.rb#19
+  # source://unparser//lib/unparser/emitter/send.rb#15
   def dispatch; end
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
@@ -3411,6 +3449,25 @@ class Unparser::Emitter::Splat < ::Unparser::Emitter
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def subject_emitter(&block); end
+end
+
+# Base class for primitive emitters
+#
+# source://unparser//lib/unparser/emitter/string.rb#6
+class Unparser::Emitter::String < ::Unparser::Emitter
+  private
+
+  # source://unparser//lib/unparser/emitter/string.rb#13
+  def dispatch; end
+
+  # source://unparser//lib/unparser/dsl.rb#11
+  def remaining_children; end
+
+  # source://unparser//lib/unparser/dsl.rb#18
+  def value; end
+
+  # source://unparser//lib/unparser/emitter/string.rb#21
+  def write_utf8_escaped; end
 end
 
 # Emitter for super nodes
@@ -3572,107 +3629,104 @@ end
 # source://unparser//lib/unparser/generation.rb#5
 module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#10
-  def emit_heredoc_reminders; end
-
-  # source://unparser//lib/unparser/generation.rb#12
   def symbol_name; end
 
-  # source://unparser//lib/unparser/generation.rb#14
+  # source://unparser//lib/unparser/generation.rb#12
   def write_to_buffer; end
 
   private
 
-  # source://unparser//lib/unparser/generation.rb#251
+  # source://unparser//lib/unparser/generation.rb#245
   def children; end
 
-  # source://unparser//lib/unparser/generation.rb#243
+  # source://unparser//lib/unparser/generation.rb#237
   def conditional_parentheses(flag, &block); end
 
-  # source://unparser//lib/unparser/generation.rb#21
+  # source://unparser//lib/unparser/generation.rb#19
   def delimited(nodes, delimiter = T.unsafe(nil), &block); end
 
-  # source://unparser//lib/unparser/generation.rb#123
+  # source://unparser//lib/unparser/generation.rb#121
   def emit_body(node, indent: T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#200
+  # source://unparser//lib/unparser/generation.rb#198
   def emit_body_ensure_rescue(node); end
 
-  # source://unparser//lib/unparser/generation.rb#149
+  # source://unparser//lib/unparser/generation.rb#147
   def emit_body_inner(node); end
 
-  # source://unparser//lib/unparser/generation.rb#162
+  # source://unparser//lib/unparser/generation.rb#160
   def emit_body_member(node); end
 
-  # source://unparser//lib/unparser/generation.rb#184
+  # source://unparser//lib/unparser/generation.rb#182
   def emit_body_rescue(node); end
 
-  # source://unparser//lib/unparser/generation.rb#77
+  # source://unparser//lib/unparser/generation.rb#75
   def emit_comments(comments); end
 
-  # source://unparser//lib/unparser/generation.rb#69
+  # source://unparser//lib/unparser/generation.rb#67
   def emit_comments_before(source_part = T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#170
+  # source://unparser//lib/unparser/generation.rb#168
   def emit_ensure(node); end
 
-  # source://unparser//lib/unparser/generation.rb#60
+  # source://unparser//lib/unparser/generation.rb#58
   def emit_eof_comments; end
 
-  # source://unparser//lib/unparser/generation.rb#54
+  # source://unparser//lib/unparser/generation.rb#52
   def emit_eol_comments; end
 
-  # source://unparser//lib/unparser/generation.rb#27
+  # source://unparser//lib/unparser/generation.rb#25
   def emit_join(nodes, emit_node, emit_delimiter); end
 
-  # source://unparser//lib/unparser/generation.rb#115
+  # source://unparser//lib/unparser/generation.rb#113
   def emit_optional_body(node, indent: T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#192
+  # source://unparser//lib/unparser/generation.rb#190
   def emit_optional_body_ensure_rescue(node); end
 
-  # source://unparser//lib/unparser/generation.rb#210
+  # source://unparser//lib/unparser/generation.rb#208
   def emit_rescue_postcontrol(node); end
 
-  # source://unparser//lib/unparser/generation.rb#216
+  # source://unparser//lib/unparser/generation.rb#213
   def emit_rescue_regular(node); end
 
-  # source://unparser//lib/unparser/generation.rb#224
+  # source://unparser//lib/unparser/generation.rb#217
   def emitter(node); end
 
-  # source://unparser//lib/unparser/generation.rb#239
+  # source://unparser//lib/unparser/generation.rb#233
   def first_child; end
 
-  # source://unparser//lib/unparser/generation.rb#106
+  # source://unparser//lib/unparser/generation.rb#104
   def indented; end
 
-  # source://unparser//lib/unparser/generation.rb#93
+  # source://unparser//lib/unparser/generation.rb#91
   def k_end; end
 
-  # source://unparser//lib/unparser/generation.rb#39
+  # source://unparser//lib/unparser/generation.rb#37
   def nl; end
 
-  # source://unparser//lib/unparser/generation.rb#100
+  # source://unparser//lib/unparser/generation.rb#98
   def parentheses(open = T.unsafe(nil), close = T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#228
+  # source://unparser//lib/unparser/generation.rb#225
   def visit(node); end
 
-  # source://unparser//lib/unparser/generation.rb#232
+  # source://unparser//lib/unparser/generation.rb#229
   def visit_deep(node); end
 
-  # source://unparser//lib/unparser/generation.rb#44
+  # source://unparser//lib/unparser/generation.rb#42
   def with_comments; end
 
-  # source://unparser//lib/unparser/generation.rb#139
+  # source://unparser//lib/unparser/generation.rb#137
   def with_indent(indent:); end
 
-  # source://unparser//lib/unparser/generation.rb#89
+  # source://unparser//lib/unparser/generation.rb#87
   def write(*strings); end
 
-  # source://unparser//lib/unparser/generation.rb#220
-  def writer_with(klass, node); end
+  # source://unparser//lib/unparser/generation.rb#221
+  def writer_with(klass, node:, **attributes); end
 
-  # source://unparser//lib/unparser/generation.rb#50
+  # source://unparser//lib/unparser/generation.rb#48
   def ws; end
 end
 
@@ -3701,13 +3755,13 @@ module Unparser::NodeDetails
 
   private
 
-  # source://unparser//lib/unparser/node_details.rb#17
+  # source://unparser//lib/unparser/node_details.rb#18
   def children; end
 
   class << self
-    # @private
+    # mutant:disable
     #
-    # source://unparser//lib/unparser/node_details.rb#7
+    # source://unparser//lib/unparser/node_details.rb#8
     def included(descendant); end
   end
 end
@@ -3917,6 +3971,11 @@ end
 # source://unparser//lib/unparser/emitter.rb#4
 class Unparser::UnknownNodeError < ::ArgumentError; end
 
+# Error raised when unparser encounders AST it cannot generate source for that would parse to the same AST.
+#
+# source://unparser//lib/unparser.rb#50
+class Unparser::UnsupportedNodeError < ::RuntimeError; end
+
 # Validation of unparser results
 #
 # source://unparser//lib/unparser/validation.rb#5
@@ -3928,22 +3987,29 @@ class Unparser::Validation
   extend ::Unparser::Adamantium::ModuleMethods
   extend ::Unparser::Adamantium::ClassMethods
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def generated_node; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def generated_source; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def identification; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def original_ast; end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#56
   def original_node; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def original_source; end
 
   # Return error report
+  #
+  # mutant:disable
   #
   # @api private
   # @return [String]
@@ -3953,88 +4019,151 @@ class Unparser::Validation
 
   # Test if source could be unparsed successfully
   #
+  # mutant:disable
   #
   # @api private
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/validation.rb#21
+  # source://unparser//lib/unparser/validation.rb#26
   def success?; end
 
   private
 
-  # source://unparser//lib/unparser/validation.rb#108
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#141
   def make_report(label, attribute_name); end
 
-  # source://unparser//lib/unparser/validation.rb#120
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#155
   def node_diff_report; end
 
-  # source://unparser//lib/unparser/validation.rb#112
-  def report_exception(exception); end
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#146
+  def report_exception(phase_exception); end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
 
-    # Create validator from node
+    # Create validator from ast
     #
-    # @param original_node [Parser::AST::Node]
+    # mutant:disable
+    #
+    # @param ast [Unparser::AST]
     # @return [Validator]
     #
-    # source://unparser//lib/unparser/validation.rb#81
-    def from_node(original_node); end
+    # source://unparser//lib/unparser/validation.rb#94
+    def from_ast(ast:); end
 
     # Create validator from file
+    #
+    # mutant:disable
     #
     # @param path [Pathname]
     # @return [Validator]
     #
-    # source://unparser//lib/unparser/validation.rb#102
+    # source://unparser//lib/unparser/validation.rb#118
     def from_path(path); end
 
     # Create validator from string
     #
+    # mutant:disable
+    #
     # @param original_source [String]
     # @return [Validator]
     #
-    # source://unparser//lib/unparser/validation.rb#55
+    # source://unparser//lib/unparser/validation.rb#66
     def from_string(original_source); end
 
     private
 
+    # mutant:disable
+    #
     # source://unparser//lib/unparser/validation.rb#135
-    def const_unit(_value); end
+    def const_unit(_); end
+
+    # mutant:disable
+    #
+    # source://unparser//lib/unparser/validation.rb#129
+    def parse_ast_either(source); end
+
+    # mutant:disable
+    #
+    # source://unparser//lib/unparser/validation.rb#123
+    def unparse_ast_either(ast); end
   end
 end
 
-# source://unparser//lib/unparser/validation.rb#138
+# source://unparser//lib/unparser/validation.rb#170
 class Unparser::Validation::Literal < ::Unparser::Validation
-  # source://unparser//lib/unparser/validation.rb#143
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#177
   def report; end
 
+  # mutant:disable
+  #
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/validation.rb#139
+  # source://unparser//lib/unparser/validation.rb#172
   def success?; end
 
   private
 
-  # source://unparser//lib/unparser/validation.rb#158
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#209
+  def encode(string); end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/validation.rb#193
   def source_diff_report; end
+end
+
+# source://unparser//lib/unparser/validation.rb#14
+class Unparser::Validation::PhaseException
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def exception; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def phase; end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
 end
 
 # source://unparser//lib/unparser/writer.rb#4
 module Unparser::Writer
   include ::Unparser::NodeHelpers
   include ::Unparser::Generation
-  include ::Unparser::Anima::InstanceMethods
-  include ::Unparser::Equalizer::Methods
 
-  mixes_in_class_methods ::Unparser::DSL
+  private
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/writer.rb#19
+  def emitter(node); end
+
+  # mutant:disable
+  #
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/writer.rb#30
+  def round_trips?(source:); end
 
   class << self
-    # @private
+    # mutant:disable
     #
-    # source://unparser//lib/unparser/writer.rb#7
+    # source://unparser//lib/unparser/writer.rb#8
     def included(descendant); end
   end
 end
@@ -4052,10 +4181,10 @@ class Unparser::Writer::Binary
   extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
   # source://unparser//lib/unparser/writer/binary.rb#54
@@ -4064,10 +4193,13 @@ class Unparser::Writer::Binary
   # source://unparser//lib/unparser/writer/binary.rb#46
   def emit_operator; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   # source://unparser//lib/unparser/writer/binary.rb#50
@@ -4103,7 +4235,7 @@ class Unparser::Writer::Binary
   def right_emitter(&block); end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
   end
 end
@@ -4139,127 +4271,304 @@ class Unparser::Writer::DynamicString
   extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#32
+  # The raise below is not reachable if unparser is correctly implemented
+  # but has to exist as I have to assume unparser still has bugs.
+  #
+  # But unless I had such a bug in my test corpus: I cannot enable mutant, and if I
+  # knew about such a bug: I'd fix it so would be back at the start.
+  #
+  # TLDR: Good case for a mutant disable.
+  #
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#28
   def dispatch; end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#25
-  def emit_heredoc_reminder; end
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   private
 
-  # @return [Boolean]
+  # @yield [[array]]
   #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#159
-  def breakpoint?(child, current); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#63
-  def classify(node); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#71
-  def classify_str(node); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#193
-  def emit_body(children); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#149
-  def emit_dstr; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#132
-  def emit_dynamic(child); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#145
-  def emit_dynamic_component(node); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#54
-  def emit_heredoc_body; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#59
-  def emit_heredoc_footer; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#50
-  def emit_heredoc_header; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#116
-  def emit_normal_heredoc_body; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#185
-  def emit_segment(children, index); end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#128
-  def escape_dynamic(string); end
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#66
+  def each_segments(array); end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#46
-  def heredoc?; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def heredoc?(&block); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#42
-  def heredoc_header; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def heredoc_body(&block); end
 
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#95
-  def heredoc_pattern?; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def heredoc_source(&block); end
 
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#105
-  def heredoc_pattern_2?; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def round_tripping_segmented_source(&block); end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#99
-  def heredoc_pattern_3?; end
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def round_trips_heredoc?(&block); end
 
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#111
-  def nl_last_child?; end
-
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#169
-  def segments; end
-
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#87
-  def str_empty?(node); end
-
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#83
-  def str_nl?(node); end
-
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#91
-  def str_ws?(node); end
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#78
+  def segmented_source(segments:); end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
   end
 end
 
-# source://unparser//lib/unparser/writer/dynamic_string.rb#21
+# source://unparser//lib/unparser/writer/dynamic_string.rb#8
 Unparser::Writer::DynamicString::FLAT_INTERPOLATION = T.let(T.unsafe(nil), Set)
 
-# source://unparser//lib/unparser/writer/dynamic_string.rb#8
-Unparser::Writer::DynamicString::PATTERNS_2 = T.let(T.unsafe(nil), Array)
+# source://unparser//lib/unparser/writer/dynamic_string.rb#13
+Unparser::Writer::DynamicString::HEREDOC_DELIMITER = T.let(T.unsafe(nil), String)
+
+# source://unparser//lib/unparser/writer/dynamic_string.rb#15
+Unparser::Writer::DynamicString::HEREDOC_FOOTER = T.let(T.unsafe(nil), String)
 
 # source://unparser//lib/unparser/writer/dynamic_string.rb#14
-Unparser::Writer::DynamicString::PATTERNS_3 = T.let(T.unsafe(nil), Array)
+Unparser::Writer::DynamicString::HEREDOC_HEADER = T.let(T.unsafe(nil), String)
+
+# Amount of dstr children at which heredoc emitting is
+# preferred, but not guaranteed.
+#
+# source://unparser//lib/unparser/writer/dynamic_string.rb#12
+Unparser::Writer::DynamicString::HEREDOC_THRESHOLD = T.let(T.unsafe(nil), Integer)
+
+# source://unparser//lib/unparser/writer/dynamic_string.rb#114
+class Unparser::Writer::DynamicString::Heredoc
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  include ::Unparser::NodeHelpers
+  include ::Unparser::Generation
+  include ::Unparser::Writer
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
+  extend ::Unparser::DSL
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def buffer; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#117
+  def emit; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def local_variable_scope; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  private
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#138
+  def emit_dynamic(child); end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#144
+  def emit_dynamic_component(node); end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#124
+  def emit_heredoc_body; end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#134
+  def escape_dynamic(string); end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
+end
+
+# Heredoc
+#
+# source://unparser//lib/unparser/writer/dynamic_string.rb#149
+class Unparser::Writer::DynamicString::Segmented
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  include ::Unparser::NodeHelpers
+  include ::Unparser::Generation
+  include ::Unparser::Writer
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
+  extend ::Unparser::DSL
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def buffer; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#154
+  def dispatch; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def local_variable_scope; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def segments; end
+
+  private
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#164
+  def emit_segment(children, index); end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#172
+  def emit_segment_body(children); end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#190
+  def visit_str(children, child, index); end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
+end
+
+# Writer for regexp literals
+#
+# source://unparser//lib/unparser/writer/regexp.rb#6
+class Unparser::Writer::Regexp
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  include ::Unparser::NodeHelpers
+  include ::Unparser::Generation
+  include ::Unparser::Writer
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
+  extend ::Unparser::DSL
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def buffer; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/writer/regexp.rb#16
+  def dispatch; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def local_variable_scope; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  private
+
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def body(&block); end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/writer/regexp.rb#23
+  def effective_writer; end
+
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/writer/regexp.rb#79
+  def render_with_delimiter(token_close:, token_open:); end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
+end
+
+# source://unparser//lib/unparser/writer/regexp.rb#9
+Unparser::Writer::Regexp::CANDIDATES = T.let(T.unsafe(nil), Array)
+
+# source://unparser//lib/unparser/writer/regexp.rb#35
+class Unparser::Writer::Regexp::Effective
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  include ::Unparser::NodeHelpers
+  include ::Unparser::Generation
+  include ::Unparser::Writer
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
+  extend ::Unparser::DSL
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def buffer; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/writer/regexp.rb#42
+  def dispatch; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def local_variable_scope; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def token_close; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def token_open; end
+
+  private
+
+  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
+  def body(&block); end
+
+  # source://unparser//lib/unparser/writer/regexp.rb#53
+  def emit_body(node); end
+
+  # source://unparser//lib/unparser/writer/regexp.rb#73
+  def emit_options; end
+
+  # source://unparser//lib/unparser/writer/regexp.rb#63
+  def write_regular(string); end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
+end
 
 # Writer for rescue bodies
 #
@@ -4270,24 +4579,31 @@ class Unparser::Writer::Resbody
   include ::Unparser::Writer
   include ::Unparser::Anima::InstanceMethods
   include ::Unparser::Equalizer::Methods
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#11
+  # source://unparser//lib/unparser/writer/resbody.rb#16
   def emit_postcontrol; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#16
+  # source://unparser//lib/unparser/writer/resbody.rb#21
   def emit_regular; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   private
@@ -4298,10 +4614,10 @@ class Unparser::Writer::Resbody
   # source://unparser//lib/unparser/dsl.rb#18
   def body; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#32
+  # source://unparser//lib/unparser/writer/resbody.rb#37
   def emit_assignment; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#25
+  # source://unparser//lib/unparser/writer/resbody.rb#30
   def emit_exception; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -4310,11 +4626,20 @@ class Unparser::Writer::Resbody
   # source://unparser//lib/unparser/dsl.rb#11
   def remaining_children; end
 
+  # source://unparser//lib/unparser/writer/resbody.rb#60
+  def write_index_assignment; end
+
+  # source://unparser//lib/unparser/writer/resbody.rb#52
+  def write_send_assignment; end
+
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
   end
 end
+
+# source://unparser//lib/unparser/writer/resbody.rb#9
+Unparser::Writer::Resbody::OPERATORS = T.let(T.unsafe(nil), Hash)
 
 # source://unparser//lib/unparser/writer/rescue.rb#5
 class Unparser::Writer::Rescue
@@ -4329,25 +4654,25 @@ class Unparser::Writer::Rescue
   extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
   # source://unparser//lib/unparser/writer/rescue.rb#23
-  def emit_heredoc_reminders; end
-
-  # source://unparser//lib/unparser/writer/rescue.rb#27
   def emit_postcontrol; end
 
   # source://unparser//lib/unparser/writer/rescue.rb#12
   def emit_regular; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   private
@@ -4355,10 +4680,10 @@ class Unparser::Writer::Rescue
   # source://unparser//lib/unparser/dsl.rb#18
   def body; end
 
-  # source://unparser//lib/unparser/writer/rescue.rb#34
+  # source://unparser//lib/unparser/writer/rescue.rb#30
   def else_node; end
 
-  # source://unparser//lib/unparser/writer/rescue.rb#38
+  # source://unparser//lib/unparser/writer/rescue.rb#34
   def emit_rescue_body(node); end
 
   # source://unparser//lib/unparser/dsl.rb#11
@@ -4371,7 +4696,7 @@ class Unparser::Writer::Rescue
   def rescue_body; end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
   end
 end
@@ -4392,17 +4717,14 @@ class Unparser::Writer::Send
   extend ::Unparser::Adamantium::ClassMethods
   extend ::Unparser::DSL
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def buffer; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
   # source://unparser//lib/unparser/writer/send.rb#21
   def dispatch; end
-
-  # source://unparser//lib/unparser/writer/send.rb#33
-  def emit_heredoc_reminders; end
 
   # source://unparser//lib/unparser/writer/send.rb#25
   def emit_mlhs; end
@@ -4410,20 +4732,23 @@ class Unparser::Writer::Send
   # source://unparser//lib/unparser/writer/send.rb#29
   def emit_selector; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
   def local_variable_scope; end
 
-  # source://unparser//lib/unparser/anima.rb#146
+  # source://unparser//lib/unparser/anima.rb#157
   def node; end
 
   private
 
-  # source://unparser//lib/unparser/writer/send.rb#73
+  # source://unparser//lib/unparser/writer/send.rb#68
   def arguments; end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/send.rb#85
+  # source://unparser//lib/unparser/writer/send.rb#76
   def avoid_clash?; end
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
@@ -4432,32 +4757,29 @@ class Unparser::Writer::Send
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def effective_writer(&block); end
 
-  # source://unparser//lib/unparser/writer/send.rb#45
+  # source://unparser//lib/unparser/writer/send.rb#40
   def effective_writer_class; end
 
-  # source://unparser//lib/unparser/writer/send.rb#65
+  # source://unparser//lib/unparser/writer/send.rb#60
   def emit_arguments; end
 
-  # source://unparser//lib/unparser/writer/send.rb#81
-  def emit_heredoc_reminder(argument); end
-
-  # source://unparser//lib/unparser/writer/send.rb#77
+  # source://unparser//lib/unparser/writer/send.rb#72
   def emit_normal_arguments; end
 
-  # source://unparser//lib/unparser/writer/send.rb#61
+  # source://unparser//lib/unparser/writer/send.rb#56
   def emit_operator; end
 
-  # source://unparser//lib/unparser/writer/send.rb#106
+  # source://unparser//lib/unparser/writer/send.rb#100
   def emit_send_regular(node); end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/send.rb#89
+  # source://unparser//lib/unparser/writer/send.rb#80
   def local_variable_clash?; end
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/send.rb#93
+  # source://unparser//lib/unparser/writer/send.rb#84
   def parses_as_constant?; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -4471,11 +4793,11 @@ class Unparser::Writer::Send
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/writer/send.rb#57
+  # source://unparser//lib/unparser/writer/send.rb#52
   def write_as_attribute_assignment?; end
 
   class << self
-    # source://unparser//lib/unparser/anima.rb#140
+    # source://unparser//lib/unparser/anima.rb#147
     def anima; end
   end
 end
