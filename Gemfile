@@ -10,7 +10,7 @@ group :development do
   gem "rubocop", require: false
   gem "rubocop-shopify", require: false
   gem "rubocop-sorbet", require: false
-  gem "ruby-lsp", "~> 0.23.12", require: false
+  gem "ruby-lsp", "~> 0.23.13", require: false
   gem "sorbet"
   gem "spoom", require: false
   gem "tapioca", require: false
