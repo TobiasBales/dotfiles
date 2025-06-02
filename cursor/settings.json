@@ -69,7 +69,7 @@
     }
   },
   "editor.fontSize": 14,
-  "git.openRepositoryInParentFolders": "never",
+  "git.openRepositoryInParentFolders": "always",
   "workbench.colorTheme": "Spinel",
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -80,4 +80,6 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "cursor.composer.shouldAllowCustomModes": true,
 }
