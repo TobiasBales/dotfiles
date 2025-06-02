@@ -1,1 +1,4 @@
 .git-stacked-prs
+.cursor/rules/personal
+/.vscode
+CLAUDE.local.md
