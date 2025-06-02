@@ -5,5 +5,4 @@ brew "cmake"
 brew "go"
 
 cask "fellow"
-cask "meetingbar"
 cask "topnotch"
