@@ -1,4 +1,3 @@
-
 export EDITOR=nvim
 export HOMEBREW_NO_GOOGLE_ANALYTICS=true
 
@@ -91,3 +90,26 @@ if command -v atuin &> /dev/null; then
 fi
 
 [ -f /opt/dev/dev.sh ] && source /opt/dev/dev.sh
+
+if command -v gt &> /dev/null; then
+  #compdef gt
+  ###-begin-gt-completions-###
+  #
+  # yargs command completion script
+  #
+  # Installation: gt completion >> ~/.zshrc
+  #    or gt completion >> ~/.zprofile on OSX.
+  #
+  _gt_yargs_completions()
+  {
+    local reply
+    local si=$IFS
+    IFS=$'
+' reply=($(COMP_CWORD="$((CURRENT-1))" COMP_LINE="$BUFFER" COMP_POINT="$CURSOR" gt --get-yargs-completions "${words[@]}"))
+    IFS=$si
+    _describe 'values' reply
+  }
+  compdef _gt_yargs_completions gt
+  ###-end-gt-completions-###
+fi
+
