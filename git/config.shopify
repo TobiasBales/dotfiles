@@ -1,5 +1,5 @@
 [user]
 	name = Tobias Bales
 	email = tobias.bales@shopify.com
-[credential]
-	helper = store --file /opt/dev/var/private/git_credential_store
+[maintenance]
+	repo = /Users/tobias/world/trees/root/src
