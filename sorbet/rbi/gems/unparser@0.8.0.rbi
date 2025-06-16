@@ -15,7 +15,7 @@ module Unparser
     # @param source [String]
     # @return [Parser::Source::Buffer]
     #
-    # source://unparser//lib/unparser.rb#218
+    # source://unparser//lib/unparser.rb#253
     def buffer(source, identification = T.unsafe(nil)); end
 
     # Parse string into AST
@@ -23,7 +23,7 @@ module Unparser
     # @param source [String]
     # @return [Parser::AST::Node, nil]
     #
-    # source://unparser//lib/unparser.rb#166
+    # source://unparser//lib/unparser.rb#200
     def parse(source); end
 
     # Parse source with ast details
@@ -33,7 +33,7 @@ module Unparser
     # @param source [String]
     # @return [AST]
     #
-    # source://unparser//lib/unparser.rb#188
+    # source://unparser//lib/unparser.rb#222
     def parse_ast(source, static_local_variables: T.unsafe(nil)); end
 
     # Parse string into either syntax error or AST
@@ -41,15 +41,17 @@ module Unparser
     # @param source [String]
     # @return [Either<Exception, (Parser::ASTNode, nil)>]
     #
-    # source://unparser//lib/unparser.rb#175
+    # source://unparser//lib/unparser.rb#209
     def parse_ast_either(source); end
 
     # Parser instance that produces AST unparser understands
     #
+    # mutant:disable
+    #
     # @api private
     # @return [Parser::Base]
     #
-    # source://unparser//lib/unparser.rb#205
+    # source://unparser//lib/unparser.rb#240
     def parser; end
 
     # Unparse an AST (and, optionally, comments) into a string
@@ -65,7 +67,7 @@ module Unparser
     #   if the node passed is invalid
     # @return [String]
     #
-    # source://unparser//lib/unparser.rb#69
+    # source://unparser//lib/unparser.rb#103
     def unparse(node, comments: T.unsafe(nil), explicit_encoding: T.unsafe(nil), static_local_variables: T.unsafe(nil)); end
 
     # Unparse an AST
@@ -78,7 +80,7 @@ module Unparser
     #   if the node passed is valid but unparser cannot unparse it
     # @return [String]
     #
-    # source://unparser//lib/unparser.rb#99
+    # source://unparser//lib/unparser.rb#133
     def unparse_ast(ast); end
 
     # Unparse AST either
@@ -86,7 +88,7 @@ module Unparser
     # @param ast [AST]
     # @return [Either<Exception,String>]
     #
-    # source://unparser//lib/unparser.rb#123
+    # source://unparser//lib/unparser.rb#157
     def unparse_ast_either(ast); end
 
     # Unparse with validation
@@ -95,7 +97,7 @@ module Unparser
     # @param comments [Array]
     # @return [Either<Validation,String>]
     #
-    # source://unparser//lib/unparser.rb#150
+    # source://unparser//lib/unparser.rb#184
     def unparse_validate(node, comments: T.unsafe(nil)); end
 
     # Unparse AST either
@@ -105,7 +107,7 @@ module Unparser
     # @param ast [AST]
     # @return [Either<Exception,String>]
     #
-    # source://unparser//lib/unparser.rb#134
+    # source://unparser//lib/unparser.rb#168
     def unparse_validate_ast_either(ast:); end
   end
 end
@@ -1037,19 +1039,19 @@ Unparser::Buffer::INDENT_SPACE = T.let(T.unsafe(nil), String)
 # source://unparser//lib/unparser/buffer.rb#8
 Unparser::Buffer::NL = T.let(T.unsafe(nil), String)
 
-# Unparser specific AST builder defaulting to modern AST format
-#
-# source://unparser//lib/unparser.rb#23
+# source://unparser//lib/unparser.rb#24
 class Unparser::Builder < ::Parser::Builders::Default
+  # mutant:disable
+  #
   # @return [Builder] a new instance of Builder
   #
-  # source://unparser//lib/unparser.rb#26
+  # source://unparser//lib/unparser.rb#28
   def initialize; end
 end
 
 # Unparser CLI implementation
 #
-# source://unparser//lib/unparser/cli.rb#5
+# source://unparser//lib/unparser/cli.rb#7
 class Unparser::CLI
   # Initialize object
   #
@@ -1059,7 +1061,7 @@ class Unparser::CLI
   # @param arguments [Array<String>]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/cli.rb#76
+  # source://unparser//lib/unparser/cli.rb#78
   def initialize(arguments); end
 
   # Add options
@@ -1070,7 +1072,7 @@ class Unparser::CLI
   # @param builder [OptionParser]
   # @return [undefined]
   #
-  # source://unparser//lib/unparser/cli.rb#106
+  # source://unparser//lib/unparser/cli.rb#108
   def add_options(builder); end
 
   # Return exit status
@@ -1080,31 +1082,31 @@ class Unparser::CLI
   # @api private
   # @return [Integer]
   #
-  # source://unparser//lib/unparser/cli.rb#140
+  # source://unparser//lib/unparser/cli.rb#142
   def exit_status; end
 
   private
 
   # mutant:disable
   #
-  # source://unparser//lib/unparser/cli.rb#175
+  # source://unparser//lib/unparser/cli.rb#177
   def effective_targets; end
 
   # mutant:disable
   #
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/cli.rb#168
+  # source://unparser//lib/unparser/cli.rb#170
   def ignore_original_syntax_error?(validation); end
 
   # mutant:disable
   #
-  # source://unparser//lib/unparser/cli.rb#152
+  # source://unparser//lib/unparser/cli.rb#154
   def process_target(target); end
 
   # mutant:disable
   #
-  # source://unparser//lib/unparser/cli.rb#191
+  # source://unparser//lib/unparser/cli.rb#193
   def targets(file_name); end
 
   class << self
@@ -1116,18 +1118,18 @@ class Unparser::CLI
     # @param arguments [Array<String>]
     # @return [Integer] the exit status
     #
-    # source://unparser//lib/unparser/cli.rb#64
+    # source://unparser//lib/unparser/cli.rb#66
     def run(*arguments); end
   end
 end
 
-# source://unparser//lib/unparser/cli.rb#8
+# source://unparser//lib/unparser/cli.rb#10
 Unparser::CLI::EXIT_FAILURE = T.let(T.unsafe(nil), Integer)
 
-# source://unparser//lib/unparser/cli.rb#7
+# source://unparser//lib/unparser/cli.rb#9
 Unparser::CLI::EXIT_SUCCESS = T.let(T.unsafe(nil), Integer)
 
-# source://unparser//lib/unparser/cli.rb#10
+# source://unparser//lib/unparser/cli.rb#12
 class Unparser::CLI::Target
   include ::Unparser::AbstractType
   extend ::Unparser::AbstractType::AbstractMethodDeclarations
@@ -1140,7 +1142,7 @@ end
 
 # Path target
 #
-# source://unparser//lib/unparser/cli.rb#14
+# source://unparser//lib/unparser/cli.rb#16
 class Unparser::CLI::Target::Path < ::Unparser::CLI::Target
   include ::Unparser::Equalizer::Methods
 
@@ -1148,20 +1150,20 @@ class Unparser::CLI::Target::Path < ::Unparser::CLI::Target
   #
   # @return [Validation]
   #
-  # source://unparser//lib/unparser/cli.rb#27
+  # source://unparser//lib/unparser/cli.rb#29
   def literal_validation; end
 
   # Validation for this target
   #
   # @return [Validation]
   #
-  # source://unparser//lib/unparser/cli.rb#20
+  # source://unparser//lib/unparser/cli.rb#22
   def validation; end
 end
 
 # String target
 #
-# source://unparser//lib/unparser/cli.rb#33
+# source://unparser//lib/unparser/cli.rb#35
 class Unparser::CLI::Target::String
   include ::Unparser::Equalizer::Methods
 
@@ -1169,14 +1171,14 @@ class Unparser::CLI::Target::String
   #
   # @return [Validation]
   #
-  # source://unparser//lib/unparser/cli.rb#46
+  # source://unparser//lib/unparser/cli.rb#48
   def literal_validation; end
 
   # Validation for this target
   #
   # @return [Validation]
   #
-  # source://unparser//lib/unparser/cli.rb#39
+  # source://unparser//lib/unparser/cli.rb#41
   def validation; end
 end
 
@@ -1620,10 +1622,10 @@ Unparser::Diff::DELETION = T.let(T.unsafe(nil), String)
 # source://unparser//lib/unparser/diff.rb#10
 Unparser::Diff::NEWLINE = T.let(T.unsafe(nil), String)
 
-# source://unparser//lib/unparser.rb#34
+# source://unparser//lib/unparser.rb#68
 Unparser::EMPTY_ARRAY = T.let(T.unsafe(nil), Array)
 
-# source://unparser//lib/unparser.rb#33
+# source://unparser//lib/unparser.rb#67
 Unparser::EMPTY_STRING = T.let(T.unsafe(nil), String)
 
 # RequireBLock
@@ -1863,12 +1865,12 @@ class Unparser::Emitter::Args < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/args.rb#15
   def emit_def_arguments; end
 
-  # source://unparser//lib/unparser/emitter/args.rb#19
+  # source://unparser//lib/unparser/emitter/args.rb#23
   def emit_lambda_arguments; end
 
   private
 
-  # source://unparser//lib/unparser/emitter/args.rb#26
+  # source://unparser//lib/unparser/emitter/args.rb#30
   def emit_shadowargs; end
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
@@ -1932,6 +1934,9 @@ class Unparser::Emitter::Assignment < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/assignment.rb#16
   def dispatch; end
 
+  # source://unparser//lib/unparser/emitter/assignment.rb#35
+  def emit_array; end
+
   # source://unparser//lib/unparser/emitter/assignment.rb#21
   def emit_right; end
 
@@ -1944,14 +1949,14 @@ Unparser::Emitter::Assignment::BINARY_OPERATOR = T.let(T.unsafe(nil), Array)
 
 # Constant assignment emitter
 #
-# source://unparser//lib/unparser/emitter/assignment.rb#56
+# source://unparser//lib/unparser/emitter/assignment.rb#66
 class Unparser::Emitter::Assignment::Constant < ::Unparser::Emitter::Assignment
   private
 
   # source://unparser//lib/unparser/dsl.rb#18
   def base; end
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#64
+  # source://unparser//lib/unparser/emitter/assignment.rb#74
   def emit_left; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -1966,11 +1971,11 @@ end
 
 # Variable assignment emitter
 #
-# source://unparser//lib/unparser/emitter/assignment.rb#41
+# source://unparser//lib/unparser/emitter/assignment.rb#51
 class Unparser::Emitter::Assignment::Variable < ::Unparser::Emitter::Assignment
   private
 
-  # source://unparser//lib/unparser/emitter/assignment.rb#49
+  # source://unparser//lib/unparser/emitter/assignment.rb#59
   def emit_left; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -2049,7 +2054,10 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/block.rb#14
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#74
+  # NOTE: mutant fails on Ruby < 3.4
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/emitter/block.rb#82
   def emit_block_arguments; end
 
   # source://unparser//lib/unparser/emitter/block.rb#66
@@ -2060,6 +2068,14 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
 
   # source://unparser//lib/unparser/emitter/block.rb#48
   def emit_target; end
+
+  # NOTE: mutant fails on Ruby < 3.4
+  # mutant:disable
+  #
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/emitter/block.rb#76
+  def itblock?; end
 
   # @return [Boolean]
   #
@@ -2382,6 +2398,16 @@ class Unparser::Emitter::Defined < ::Unparser::Emitter
   def subject; end
 end
 
+# Emitter for ensure nodes
+#
+# source://unparser//lib/unparser/emitter/ensure.rb#6
+class Unparser::Emitter::Ensure < ::Unparser::Emitter
+  private
+
+  # source://unparser//lib/unparser/emitter/ensure.rb#11
+  def dispatch; end
+end
+
 # Emitter for in pattern nodes
 #
 # source://unparser//lib/unparser/emitter/find_pattern.rb#6
@@ -2646,6 +2672,9 @@ class Unparser::Emitter::InPattern < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/in_pattern.rb#14
   def dispatch; end
 
+  # source://unparser//lib/unparser/emitter/in_pattern.rb#35
+  def dispatch_target(target); end
+
   # source://unparser//lib/unparser/dsl.rb#18
   def else_branch; end
 
@@ -2827,15 +2856,18 @@ end
 #
 # source://unparser//lib/unparser/emitter/mlhs.rb#6
 class Unparser::Emitter::MLHS < ::Unparser::Emitter
+  # source://unparser//lib/unparser/emitter/mlhs.rb#13
+  def dispatch_def; end
+
   private
 
-  # source://unparser//lib/unparser/emitter/mlhs.rb#15
+  # source://unparser//lib/unparser/emitter/mlhs.rb#21
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/mlhs.rb#31
+  # source://unparser//lib/unparser/emitter/mlhs.rb#37
   def emit_many; end
 
-  # source://unparser//lib/unparser/emitter/mlhs.rb#23
+  # source://unparser//lib/unparser/emitter/mlhs.rb#29
   def emit_one_child_mlhs; end
 end
 
@@ -3289,6 +3321,12 @@ class Unparser::Emitter::Range < ::Unparser::Emitter
 
   # source://unparser//lib/unparser/dsl.rb#11
   def remaining_children; end
+
+  # source://unparser//lib/unparser/emitter/range.rb#33
+  def visit_begin_node(node); end
+
+  # source://unparser//lib/unparser/emitter/range.rb#43
+  def visit_end_node(node); end
 end
 
 # source://unparser//lib/unparser/emitter/range.rb#12
@@ -3531,19 +3569,22 @@ class Unparser::Emitter::XStr < ::Unparser::Emitter
   # source://unparser//lib/unparser/emitter/xstr.rb#12
   def dispatch; end
 
-  # source://unparser//lib/unparser/emitter/xstr.rb#65
+  # source://unparser//lib/unparser/emitter/xstr.rb#67
   def emit_begin(component); end
+
+  # source://unparser//lib/unparser/emitter/xstr.rb#73
+  def emit_gvar(component); end
 
   # source://unparser//lib/unparser/emitter/xstr.rb#24
   def emit_heredoc; end
 
-  # source://unparser//lib/unparser/emitter/xstr.rb#51
+  # source://unparser//lib/unparser/emitter/xstr.rb#53
   def emit_string(value); end
 
   # source://unparser//lib/unparser/emitter/xstr.rb#39
   def emit_xstr; end
 
-  # source://unparser//lib/unparser/emitter/xstr.rb#55
+  # source://unparser//lib/unparser/emitter/xstr.rb#57
   def escape_xstr(input); end
 
   # @return [Boolean]
@@ -3636,10 +3677,10 @@ module Unparser::Generation
 
   private
 
-  # source://unparser//lib/unparser/generation.rb#245
+  # source://unparser//lib/unparser/generation.rb#251
   def children; end
 
-  # source://unparser//lib/unparser/generation.rb#237
+  # source://unparser//lib/unparser/generation.rb#243
   def conditional_parentheses(flag, &block); end
 
   # source://unparser//lib/unparser/generation.rb#19
@@ -3648,16 +3689,16 @@ module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#121
   def emit_body(node, indent: T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#198
+  # source://unparser//lib/unparser/generation.rb#204
   def emit_body_ensure_rescue(node); end
 
   # source://unparser//lib/unparser/generation.rb#147
   def emit_body_inner(node); end
 
-  # source://unparser//lib/unparser/generation.rb#160
+  # source://unparser//lib/unparser/generation.rb#166
   def emit_body_member(node); end
 
-  # source://unparser//lib/unparser/generation.rb#182
+  # source://unparser//lib/unparser/generation.rb#188
   def emit_body_rescue(node); end
 
   # source://unparser//lib/unparser/generation.rb#75
@@ -3666,7 +3707,7 @@ module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#67
   def emit_comments_before(source_part = T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#168
+  # source://unparser//lib/unparser/generation.rb#174
   def emit_ensure(node); end
 
   # source://unparser//lib/unparser/generation.rb#58
@@ -3681,19 +3722,19 @@ module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#113
   def emit_optional_body(node, indent: T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#190
+  # source://unparser//lib/unparser/generation.rb#196
   def emit_optional_body_ensure_rescue(node); end
 
-  # source://unparser//lib/unparser/generation.rb#208
+  # source://unparser//lib/unparser/generation.rb#214
   def emit_rescue_postcontrol(node); end
 
-  # source://unparser//lib/unparser/generation.rb#213
+  # source://unparser//lib/unparser/generation.rb#219
   def emit_rescue_regular(node); end
 
-  # source://unparser//lib/unparser/generation.rb#217
+  # source://unparser//lib/unparser/generation.rb#223
   def emitter(node); end
 
-  # source://unparser//lib/unparser/generation.rb#233
+  # source://unparser//lib/unparser/generation.rb#239
   def first_child; end
 
   # source://unparser//lib/unparser/generation.rb#104
@@ -3708,10 +3749,15 @@ module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#98
   def parentheses(open = T.unsafe(nil), close = T.unsafe(nil)); end
 
-  # source://unparser//lib/unparser/generation.rb#225
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/generation.rb#162
+  def requires_explicit_statement_terminator?(node, nodes_group); end
+
+  # source://unparser//lib/unparser/generation.rb#231
   def visit(node); end
 
-  # source://unparser//lib/unparser/generation.rb#229
+  # source://unparser//lib/unparser/generation.rb#235
   def visit_deep(node); end
 
   # source://unparser//lib/unparser/generation.rb#42
@@ -3723,7 +3769,7 @@ module Unparser::Generation
   # source://unparser//lib/unparser/generation.rb#87
   def write(*strings); end
 
-  # source://unparser//lib/unparser/generation.rb#221
+  # source://unparser//lib/unparser/generation.rb#227
   def writer_with(klass, node:, **attributes); end
 
   # source://unparser//lib/unparser/generation.rb#48
@@ -3735,16 +3781,16 @@ Unparser::Generation::EXTRA_NL = T.let(T.unsafe(nil), Array)
 
 # Error raised when unparser encounters an invalid AST
 #
-# source://unparser//lib/unparser.rb#39
+# source://unparser//lib/unparser.rb#73
 class Unparser::InvalidNodeError < ::RuntimeError
   # @return [InvalidNodeError] a new instance of InvalidNodeError
   #
-  # source://unparser//lib/unparser.rb#42
+  # source://unparser//lib/unparser.rb#76
   def initialize(message, node); end
 
   # Returns the value of attribute node.
   #
-  # source://unparser//lib/unparser.rb#40
+  # source://unparser//lib/unparser.rb#74
   def node; end
 end
 
@@ -3852,6 +3898,16 @@ module Unparser::NodeHelpers
   # source://unparser//lib/unparser/node_helpers.rb#30
   def n?(type, node); end
 
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/node_helpers.rb#34
+  def n_flipflop?(node); end
+
+  # @return [Boolean]
+  #
+  # source://unparser//lib/unparser/node_helpers.rb#38
+  def n_range?(node); end
+
   # Helper for building nodes
   #
   # @api private
@@ -3862,97 +3918,127 @@ module Unparser::NodeHelpers
   # source://unparser//lib/unparser/node_helpers.rb#14
   def s(type, *children); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#72
-  def unwrap_single_begin(node); end
-
   private
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_and?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_arg?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_args?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_array?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_array_pattern?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_begin?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_block?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_cbase?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_const?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_dstr?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_eflipflop?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_empty_else?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_ensure?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_erange?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_gvar?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_hash?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_hash_pattern?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_if?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_iflipflop?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_in_pattern?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_int?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_irange?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_kwarg?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_kwargs?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_kwsplat?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_lambda?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_lvar?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_match_rest?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_mlhs?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_or?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_pair?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_rescue?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_send?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_shadowarg?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_splat?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_str?(node); end
 
-  # source://unparser//lib/unparser/node_helpers.rb#66
+  # source://unparser//lib/unparser/node_helpers.rb#83
   def n_sym?(node); end
+
+  # source://unparser//lib/unparser/node_helpers.rb#83
+  def n_xstr?(node); end
+end
+
+# source://unparser//lib/unparser.rb#50
+class Unparser::PARSER_CLASS < ::Parser::Ruby33
+  # source://unparser//lib/unparser.rb#51
+  def declare_local_variable(local_variable); end
 end
 
 # source://unparser//lib/unparser/either.rb#4
@@ -3973,8 +4059,28 @@ class Unparser::UnknownNodeError < ::ArgumentError; end
 
 # Error raised when unparser encounders AST it cannot generate source for that would parse to the same AST.
 #
-# source://unparser//lib/unparser.rb#50
+# source://unparser//lib/unparser.rb#84
 class Unparser::UnsupportedNodeError < ::RuntimeError; end
+
+# Original code before vendoring and reduction from: https://github.com/mbj/mutant/blob/main/lib/mutant/util.rb
+#
+# source://unparser//lib/unparser/util.rb#5
+module Unparser::Util
+  class << self
+    # Return only element in array if it contains exactly one member
+    #
+    # @param array [Array]
+    # @return [Object] first entry
+    #
+    # source://unparser//lib/unparser/util.rb#14
+    def one(array); end
+  end
+end
+
+# Error raised by `Util.one` if size is not exactly one
+#
+# source://unparser//lib/unparser/util.rb#7
+class Unparser::Util::SizeError < ::IndexError; end
 
 # Validation of unparser results
 #
@@ -4168,6 +4274,51 @@ module Unparser::Writer
   end
 end
 
+# source://unparser//lib/unparser/writer/array.rb#5
+class Unparser::Writer::Array
+  include ::Unparser::Adamantium
+  include ::Unparser::Adamantium::InstanceMethods
+  include ::Unparser::NodeHelpers
+  include ::Unparser::Generation
+  include ::Unparser::Writer
+  include ::Unparser::Anima::InstanceMethods
+  include ::Unparser::Equalizer::Methods
+  extend ::Unparser::Adamantium::ModuleMethods
+  extend ::Unparser::Adamantium::ClassMethods
+  extend ::Unparser::DSL
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def buffer; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def comments; end
+
+  # source://unparser//lib/unparser/writer/array.rb#16
+  def emit_compact; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def explicit_encoding; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def local_variable_scope; end
+
+  # source://unparser//lib/unparser/anima.rb#157
+  def node; end
+
+  private
+
+  # source://unparser//lib/unparser/writer/array.rb#36
+  def array_elements_generic_type; end
+
+  class << self
+    # source://unparser//lib/unparser/anima.rb#147
+    def anima; end
+  end
+end
+
+# source://unparser//lib/unparser/writer/array.rb#8
+Unparser::Writer::Array::MAP = T.let(T.unsafe(nil), Hash)
+
 # source://unparser//lib/unparser/writer/binary.rb#5
 class Unparser::Writer::Binary
   include ::Unparser::Adamantium
@@ -4207,13 +4358,13 @@ class Unparser::Writer::Binary
 
   private
 
-  # source://unparser//lib/unparser/writer/binary.rb#62
+  # source://unparser//lib/unparser/writer/binary.rb#66
   def effective_symbol; end
 
-  # source://unparser//lib/unparser/writer/binary.rb#74
+  # source://unparser//lib/unparser/writer/binary.rb#78
   def emit_with(map); end
 
-  # source://unparser//lib/unparser/writer/binary.rb#80
+  # source://unparser//lib/unparser/writer/binary.rb#84
   def keyword_symbol; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -4222,7 +4373,7 @@ class Unparser::Writer::Binary
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def left_emitter(&block); end
 
-  # source://unparser//lib/unparser/writer/binary.rb#84
+  # source://unparser//lib/unparser/writer/binary.rb#88
   def operator_symbol; end
 
   # source://unparser//lib/unparser/dsl.rb#11
@@ -4501,7 +4652,7 @@ class Unparser::Writer::Regexp
 
   # mutant:disable
   #
-  # source://unparser//lib/unparser/writer/regexp.rb#79
+  # source://unparser//lib/unparser/writer/regexp.rb#82
   def render_with_delimiter(token_close:, token_open:); end
 
   class << self
@@ -4558,10 +4709,10 @@ class Unparser::Writer::Regexp::Effective
   # source://unparser//lib/unparser/writer/regexp.rb#53
   def emit_body(node); end
 
-  # source://unparser//lib/unparser/writer/regexp.rb#73
+  # source://unparser//lib/unparser/writer/regexp.rb#76
   def emit_options; end
 
-  # source://unparser//lib/unparser/writer/regexp.rb#63
+  # source://unparser//lib/unparser/writer/regexp.rb#66
   def write_regular(string); end
 
   class << self
@@ -4594,7 +4745,7 @@ class Unparser::Writer::Resbody
   # source://unparser//lib/unparser/writer/resbody.rb#16
   def emit_postcontrol; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#21
+  # source://unparser//lib/unparser/writer/resbody.rb#26
   def emit_regular; end
 
   # source://unparser//lib/unparser/anima.rb#157
@@ -4614,10 +4765,10 @@ class Unparser::Writer::Resbody
   # source://unparser//lib/unparser/dsl.rb#18
   def body; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#37
+  # source://unparser//lib/unparser/writer/resbody.rb#42
   def emit_assignment; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#30
+  # source://unparser//lib/unparser/writer/resbody.rb#35
   def emit_exception; end
 
   # source://unparser//lib/unparser/dsl.rb#18
@@ -4626,10 +4777,10 @@ class Unparser::Writer::Resbody
   # source://unparser//lib/unparser/dsl.rb#11
   def remaining_children; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#60
+  # source://unparser//lib/unparser/writer/resbody.rb#65
   def write_index_assignment; end
 
-  # source://unparser//lib/unparser/writer/resbody.rb#52
+  # source://unparser//lib/unparser/writer/resbody.rb#57
   def write_send_assignment; end
 
   class << self
