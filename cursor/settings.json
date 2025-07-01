@@ -51,12 +51,6 @@
   ],
   "workbench.startupEditor": "none",
   "editor.stickyScroll.enabled": true,
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "editor.inlineSuggest.enabled": true,
   "editor.semanticTokenColorCustomizations": {
     "[Default Dark+]": {
@@ -71,15 +65,13 @@
   "editor.fontSize": 14,
   "git.openRepositoryInParentFolders": "always",
   "workbench.colorTheme": "Spinel",
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "cursor.composer.shouldChimeAfterChatFinishes": true,
   "cursor.composer.shouldAllowCustomModes": true,
+  "cursor.composer.shouldChimeAfterChatFinishes": true,
+  "workbench.editor.customLabels.patterns": {
+    "**/components/access_and_auth/customer_authentication_provider/**/*": "Core IdP ${filename}.${extname}",
+    "**/components/access_and_auth/customer_iam/**/*": "Customer IAM ${filename}.${extname}",
+    "**/components/checkouts/**/*": "Checkout ${filename}.${extname}",
+    "**/components/customers/customer_account/**/*": "Customer Accounts ${filename}.${extname}",
+    "**/components/customers/**/*": "Customers"
+  }
 }
