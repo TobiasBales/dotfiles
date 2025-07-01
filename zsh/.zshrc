@@ -73,6 +73,10 @@ if [ -f ~/.additional.zsh ]; then
   source ~/.additional.zsh
 fi
 
+if [ -f ~/.wt.zsh ]; then
+  source ~/.wt.zsh
+fi
+
 eval "$(starship init zsh)"
 
 
