@@ -80,5 +80,3 @@ function sfr() {
 function admin() {
     goto_sparse_dir "areas/clients/admin-web"
 }
-
-$0 "$*"
