@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+if ARGV.length != 2
+  puts "Usage: notification \"Title\" \"Body text\""
+  exit 1
+end
+
+title = ARGV[0]
+body = ARGV[1]
+
+# Display notification using osascript
+system("osascript", "-e", "display notification \"#{body}\" with title \"#{title}\"")
+
+# Play sound
+system("afplay", "/System/Library/Sounds/Hero.aiff")
