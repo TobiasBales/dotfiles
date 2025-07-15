@@ -73,5 +73,11 @@
     "**/components/checkouts/**/*": "Checkout ${filename}.${extname}",
     "**/components/customers/customer_account/**/*": "Customer Accounts ${filename}.${extname}",
     "**/components/customers/**/*": "Customers"
-  }
+  },
+  "vim.statusBarColors.insert": [
+    "#FF0000",
+    "#00FF00"
+  ],
+  "vim.startInInsertMode": true,
+  "git.autofetch": true
 }
