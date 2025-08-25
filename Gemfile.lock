@@ -23,8 +23,8 @@ GEM
       sorbet-runtime (>= 0.5.9204)
     rbs (3.9.2)
       logger
-    regexp_parser (2.11.1)
-    rubocop (1.79.2)
+    regexp_parser (2.11.2)
+    rubocop (1.80.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -69,7 +69,7 @@ GEM
       thor (>= 1.2.0)
       yard-sorbet
     thor (1.4.0)
-    unicode-display_width (3.1.4)
+    unicode-display_width (3.1.5)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
     unparser (0.8.0)
