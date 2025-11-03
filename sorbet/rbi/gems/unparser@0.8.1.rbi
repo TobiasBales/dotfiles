@@ -2057,10 +2057,13 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
   # NOTE: mutant fails on Ruby < 3.4
   # mutant:disable
   #
-  # source://unparser//lib/unparser/emitter/block.rb#82
+  # source://unparser//lib/unparser/emitter/block.rb#86
   def emit_block_arguments; end
 
-  # source://unparser//lib/unparser/emitter/block.rb#66
+  # NOTE: mutant fails on Ruby < 3.4
+  # mutant:disable
+  #
+  # source://unparser//lib/unparser/emitter/block.rb#68
   def emit_lambda_arguments; end
 
   # source://unparser//lib/unparser/emitter/block.rb#60
@@ -2074,7 +2077,7 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
   #
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/emitter/block.rb#76
+  # source://unparser//lib/unparser/emitter/block.rb#80
   def itblock?; end
 
   # @return [Boolean]
@@ -2084,7 +2087,7 @@ class Unparser::Emitter::Block < ::Unparser::Emitter
 
   # @return [Boolean]
   #
-  # source://unparser//lib/unparser/emitter/block.rb#70
+  # source://unparser//lib/unparser/emitter/block.rb#74
   def numblock?; end
 
   # source://unparser//lib/unparser/dsl.rb#11
@@ -4454,13 +4457,8 @@ class Unparser::Writer::DynamicString
 
   # @yield [[array]]
   #
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#66
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#65
   def each_segments(array); end
-
-  # @return [Boolean]
-  #
-  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
-  def heredoc?(&block); end
 
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def heredoc_body(&block); end
@@ -4468,16 +4466,19 @@ class Unparser::Writer::DynamicString
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def heredoc_source(&block); end
 
-  # source://unparser//lib/unparser/adamantium/method_builder.rb#87
-  def round_tripping_segmented_source(&block); end
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#56
+  def limited_search_segmented_source; end
 
   # @return [Boolean]
   #
   # source://unparser//lib/unparser/adamantium/method_builder.rb#87
   def round_trips_heredoc?(&block); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#78
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#77
   def segmented_source(segments:); end
+
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#46
+  def write_heredoc; end
 
   class << self
     # source://unparser//lib/unparser/anima.rb#147
@@ -4503,7 +4504,7 @@ Unparser::Writer::DynamicString::HEREDOC_HEADER = T.let(T.unsafe(nil), String)
 # source://unparser//lib/unparser/writer/dynamic_string.rb#12
 Unparser::Writer::DynamicString::HEREDOC_THRESHOLD = T.let(T.unsafe(nil), Integer)
 
-# source://unparser//lib/unparser/writer/dynamic_string.rb#114
+# source://unparser//lib/unparser/writer/dynamic_string.rb#113
 class Unparser::Writer::DynamicString::Heredoc
   include ::Unparser::Adamantium
   include ::Unparser::Adamantium::InstanceMethods
@@ -4522,7 +4523,7 @@ class Unparser::Writer::DynamicString::Heredoc
   # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#117
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#116
   def emit; end
 
   # source://unparser//lib/unparser/anima.rb#157
@@ -4536,16 +4537,16 @@ class Unparser::Writer::DynamicString::Heredoc
 
   private
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#138
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#137
   def emit_dynamic(child); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#144
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#143
   def emit_dynamic_component(node); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#124
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#123
   def emit_heredoc_body; end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#134
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#133
   def escape_dynamic(string); end
 
   class << self
@@ -4556,7 +4557,7 @@ end
 
 # Heredoc
 #
-# source://unparser//lib/unparser/writer/dynamic_string.rb#149
+# source://unparser//lib/unparser/writer/dynamic_string.rb#148
 class Unparser::Writer::DynamicString::Segmented
   include ::Unparser::Adamantium
   include ::Unparser::Adamantium::InstanceMethods
@@ -4575,7 +4576,7 @@ class Unparser::Writer::DynamicString::Segmented
   # source://unparser//lib/unparser/anima.rb#157
   def comments; end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#154
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#153
   def dispatch; end
 
   # source://unparser//lib/unparser/anima.rb#157
@@ -4592,13 +4593,13 @@ class Unparser::Writer::DynamicString::Segmented
 
   private
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#164
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#163
   def emit_segment(children, index); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#172
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#171
   def emit_segment_body(children); end
 
-  # source://unparser//lib/unparser/writer/dynamic_string.rb#190
+  # source://unparser//lib/unparser/writer/dynamic_string.rb#189
   def visit_str(children, child, index); end
 
   class << self
